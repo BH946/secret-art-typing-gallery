@@ -1,0 +1,81 @@
+/*
+ * 색상, 스타일 전역변수 정의
+ */
+:root {
+  --line: #393A40;
+  --main-1: #0C0C0C;
+  --main-2: #323338;
+  --text-2: #8E8F9B;
+}
+
+ 
+/*
+ * Base structure
+ */
+body {
+  background-color: var(--main-1);
+  /* height: 100%;
+  margin: 0; */
+}
+
+/*
+ * Header
+ */
+nav {
+  border-left-width: 0px;
+  border-right-width: 0px;
+  border-top-width: 0px;
+  border-bottom-width: 1px;
+  border-style: solid;
+  border-color: var(--line);
+}
+.nav-item {
+  position: relative;
+  text-align: center;
+  font-size: 1vw;
+  width: 15vw;
+  padding: 20px;
+  padding-bottom: 30px;
+
+  border-left-width: 0px;
+  border-right-width: 1px;
+  border-top-width: 0px;
+  border-bottom-width: 0px;
+  border-style: solid;
+  border-color: var(--line);
+}
+#nav-item-first {border-left-width: 1px;}
+.nav-link {
+  color: white; font-weight: 700;
+}
+.nav-item-inner {
+  position:absolute; 
+  bottom:0;
+  left:0;
+  font-size: 0.5em;
+  color:white; font-weight: 400; letter-spacing: -0.14px; opacity: 0.6;
+  padding: 8px;
+}
+
+/*
+* Main
+*/
+.custom-mains {
+  border-bottom-width: 1px; border-top-width:1px; border-left-width: 0px; border-right-width: 0px; border-color: var(--line); border-style: solid;
+}
+
+/*
+* Footer
+*/
+.custom-footer {
+  color:var(--line);
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+  border-style: solid;
+  border-top-width: 1px;
+  border-left-width: 0px;
+  border-right-width: 0px;
+  border-bottom-width: 0px;
+  border-color: var(--line);
+}
