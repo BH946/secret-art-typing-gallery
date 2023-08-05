@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <body>
+    <!-- 사이트에 앨범(작품) 틀 -->
+    <div class="custom-container-default pb-0 d-flex" th:fragment="album">
+      <div class="p-2 d-flex" style="flex:1; background-color: var(--main-2); border-width: 1px; border-color: white; border-style: solid;">
+        <div class="" style="flex:1; background-color: white;">
+          TEST
+        </div>
+      </div>
+      <div class="d-flex" style="flex:0.08; align-self: center; justify-content: end;">
+        <img class="img-fluid" src="../static/circle.svg" 
+              th:attr="src=@{/circle.svg},title=#{logo},alt=#{logo}" style="width: 70%;"/>
+      </div>
+    </div>
+  </body>
+</html>

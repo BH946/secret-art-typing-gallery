@@ -58,11 +58,16 @@ nav {
 }
 
 /*
-* Main
-*/
-.custom-mains {
-  border-bottom-width: 1px; border-top-width:1px; border-left-width: 0px; border-right-width: 0px; border-color: var(--line); border-style: solid;
+ * Main
+ */
+.custom-container-default {
+  padding-top: 5vh;
+  padding-bottom: 5vh;
+  padding-left: 15vw;
+  padding-right: 15vw;
+  min-height: 45vh;
 }
+
 
 /*
 * Footer
