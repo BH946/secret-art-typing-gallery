@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <body>
+    <!-- header -->
+    <nav class="navbar navbar-expand-md navbar-dark p-0" th:fragment="header">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+          <img class="img-fluid" src="../static/secret.svg" 
+            th:attr="src=@{/secret.svg},title=#{logo},alt=#{logo}" />
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav justify-content-center" style="flex:1">
+            <li class="nav-item" id="nav-item-first">
+              <a class="nav-link" aria-current="page" href="#">로비</a>
+              <span class="nav-item-inner">1F</span>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">전시실</a>
+              <span class="nav-item-inner">B1 ~ ??F</span>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">작품 제작실</a>
+              <span class="nav-item-inner">??F</span>
+            </li>
+          </ul>
+          <a class="nav-link" href="#">
+            <img class="img-fluid" src="../static/speaker.svg" 
+            th:attr="src=@{/speaker.svg},title=#{logo},alt=#{logo}"/>
+          </a>
+        </div>
+      </div>
+    </nav>
+  </body>
+</html>

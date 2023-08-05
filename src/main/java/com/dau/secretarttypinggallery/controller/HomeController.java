@@ -15,4 +15,9 @@ public class HomeController {
         return "home"; // home.html 반환
     }
 
+    // test
+    @GetMapping("test") // URL 매핑(GET)
+    public String test() {
+        return "test"; // test.html 반환
+    }
 }
