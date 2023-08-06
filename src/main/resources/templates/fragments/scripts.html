@@ -1,7 +1,22 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
   <body>
-    <script th:fragment="scripts"
+    <script th:fragment="scripts1"
     src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+
+    <script th:fragment="scripts2">
+      // nav 클릭때마다 배경색 변경 커스텀
+      function change_nav(e) {
+        var nav = document.querySelectorAll("#custom-nav-item");
+        nav.forEach(function (nav, i) {
+          if (e.currentTarget == nav) {
+            nav.classList.add("visited");
+          } else {
+            nav.classList.remove("visited");
+          }
+        });
+        console.log(e.currentTarget);
+      }
+    </script>
   </body>
 </html>

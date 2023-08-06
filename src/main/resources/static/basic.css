@@ -1,6 +1,12 @@
 /*
- * 색상, 스타일 전역변수 정의
+ * 글꼴, 색상, 스타일 전역변수 정의
  */
+@font-face {
+  font-family: 'SUITE-Regular';
+  src: url('../static/SUITE-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+}
 :root {
   --line: #393A40;
   --main-1: #0C0C0C;
@@ -8,12 +14,14 @@
   --text-2: #8E8F9B;
 }
 
- 
+
 /*
  * Base structure
  */
 body {
   background-color: var(--main-1);
+  /* SUITE 못 찾으면 sans-serif 사용 */
+  font-family: 'SUITE-Regular', sans-serif; 
   /* height: 100%;
   margin: 0; */
 }
@@ -44,10 +52,22 @@ nav {
   border-style: solid;
   border-color: var(--line);
 }
-#nav-item-first {border-left-width: 1px;}
+
+/* 여기서 header는 navbar-nav 의 높이를 기준으로 정해진다고 볼 수 있음 */
+.navbar-nav {
+  height: 15vh;
+}
+#nav-item-first {border-left-width: 1px; }
 .nav-link {
   color: white; font-weight: 700;
 }
+
+#custom-nav-item:hover,
+#custom-nav-item:active,
+#custom-nav-item.visited {
+  background-color: var(--main-2);
+}
+
 .nav-item-inner {
   position:absolute; 
   bottom:0;
