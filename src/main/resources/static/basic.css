@@ -103,4 +103,6 @@ nav {
   border-right-width: 0px;
   border-bottom-width: 0px;
   border-color: var(--line);
+  margin-left: 15vw;
+  margin-right: 15vw;
 }
