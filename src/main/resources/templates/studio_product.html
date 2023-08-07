@@ -80,10 +80,10 @@
           TEST
         </div>
       </div>
-      <div class="d-flex" style="flex:0.08; align-self: center; justify-content: end;">
+      <!-- <div class="d-flex" style="flex:0.08; align-self: center; justify-content: end;">
         <img class="img-fluid" src="../static/circle.svg" 
               th:attr="src=@{/circle.svg},title=#{logo},alt=#{logo}" style="width: 70%;"/>
-      </div>
+      </div> -->
     </div>
 
     <div class="custom-container-default d-flex" style="min-height: 18vh;">
@@ -103,7 +103,7 @@
           </div>
         </div>
       </div>
-      <div class="" style="flex:0.08;">
+      <!-- <div class="" style="flex:0.08;"> -->
       </div>
     </div>
     
@@ -155,7 +155,7 @@
                   </div>
                   <div class="container d-flex flex-column p-0 ps-3">
                     <span class="pb-2" style="font-size: 1.2vw; font-weight: 500;color: white;">비밀번호</span>
-                    <input type="number" class="no-spin" id="pw" pattern="\d+" required placeholder="숫자로 입력해주세요." style="color: var(--text-2); letter-spacing: -0.16px; font-weight: 400; font-size: 1vw; background-color: var(--main-2); stroke-width: 1px; stroke: var(--line); border-width: 0px; padding: 1vw; padding-top: 0.5vw; padding-bottom: 0.5vw;">
+                    <input type="password" class="no-spin" id="pw" pattern="\d+" required onkeypress='return checkNumber(event)' placeholder="숫자로 입력해주세요." style="color: var(--text-2); letter-spacing: -0.16px; font-weight: 400; font-size: 1vw; background-color: var(--main-2); stroke-width: 1px; stroke: var(--line); border-width: 0px; padding: 1vw; padding-top: 0.5vw; padding-bottom: 0.5vw;">
                     <span class="pt-2" style="color: var(--text-2); font-weight: 400; font-size: 0.8vw;">*정보 수정&작품 파기 시 사용됩니다.</span>
                   </div>
                 </div>
@@ -196,6 +196,16 @@
           }
         });
         console.log(e.currentTarget);
+      }
+      // 비밀번호 정규식 등록 
+      function checkNumber(event) {
+        var pw = event.key
+        if (/^\d+$/.test(pw)) {
+            return true;
+          } else {
+            return false;
+          }
+        return false;
       }
     </script>
   </body>
