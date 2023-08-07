@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="262" height="2" viewBox="0 0 262 2" fill="none">
+  <defs>
+    <linearGradient id="gradient" x1="100%" y1="0%" x2="50%" y2="0%"> <!-- x1과 x2 값을 반대로 변경 -->
+      <stop offset="0%" stop-color="#000"/>
+      <stop offset="100%" stop-color="rgba(0, 0, 0, 0.00)"/>
+    </linearGradient>
+  </defs>
+  <path d="M262 1.39551L0.264189 1.39548" stroke="white"/>
+  <path d="M262 1.39551L0.264189 1.39548" stroke="url(#gradient)"/> <!-- 두 번째 path에 그라디언트 적용 -->
+</svg>

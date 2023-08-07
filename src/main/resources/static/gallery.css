@@ -1,0 +1,22 @@
+.gallery-item-first{
+  display: flex;
+  flex-direction: row;
+  padding-top: 20px;
+  padding-bottom: 30px;
+  height: 25vh;
+}
+.gallery-item-many{
+  display: flex;
+  flex-direction: row;
+  padding-top: 20px;
+  padding-bottom: 30px;
+  height: 25vh;
+
+  /* first와 차이점은 아래 border부분뿐 */
+  border-color: var(--line);
+  border-style: solid;
+  border-left-width: 0px;
+  border-right-width: 0px;
+  border-bottom-width: 0px;
+  border-top-width: 1px;
+}
