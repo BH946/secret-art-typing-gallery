@@ -10,7 +10,7 @@
 <div class="custom-container-default d-flex flex-column" style="min-height: 80vh;"
 th:fragment="gallery-item">
 <div th:each="item : ${items}">
-  <div th:class="${item.id==1}? 'gallery-item-first' : 'gallery-item-many'">
+  <div th:class="${item.id==items[0].id}? 'gallery-item-first' : 'gallery-item-many'">
     <div class="d-flex flex-column pe-4" style="flex:0.15;">
       <span style="font-weight: 500; color: white; font-size: 1.2vw;" th:text="'No.'+${item.id}">No.15</span>
       <span class="pt-2" style="font-weight: 400; color: var(--text-2); font-size: 1vw; letter-spacing: -0.16px; 
@@ -24,7 +24,7 @@ th:fragment="gallery-item">
       <a class="btn btn-light" type="button"
       style="border-radius: 0px;background-color: var(--main-1); font-size: 1vw; width: 200px;
       align-self: end; width: 12vw;"
-      href="#" th:href="@{gallery/productDetail/{id}(id=${item.id})}">
+      href="#" th:href="@{/gallery/itemDetail/{id}(id=${item.id})}">
         <span class="fw-bold" style="color: white; font-size: 1em; white-space: nowrap;" th:text="${item.id}+'전시실 입장'">15전시실 입장 test용</span>
       </a>
     </div>

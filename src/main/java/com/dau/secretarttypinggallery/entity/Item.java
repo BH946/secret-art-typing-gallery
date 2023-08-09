@@ -38,7 +38,7 @@ public class Item {
         item.password = password;
         item.title = (title.equals(""))?"무제":title;;
         item.content = content;
-        DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("yy.MM.dd.HH.mm");
+        DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("yy.MM.dd.HH:mm");
         DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("yy년 MM월 dd일 HH시 mm분");
         item.date1 = LocalDateTime.now().format(formatter1);
         item.date2 = LocalDateTime.now().format(formatter2);
@@ -52,7 +52,7 @@ public class Item {
         this.title = dto.getTitle();
         this.content = dto.getContent();
         // 최신 업데이트 시간
-        DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("yy.MM.dd.HH.mm");
+        DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("yy.MM.dd.HH:mm");
         DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("yy년 MM월 dd일 HH시 mm분");
         this.date1 = LocalDateTime.now().format(formatter1);
         this.date2 = LocalDateTime.now().format(formatter2);

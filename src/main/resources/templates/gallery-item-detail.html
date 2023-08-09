@@ -69,20 +69,21 @@
 
     <!-- main 개발 -->
     <div class="custom-container-default d-flex" style="text-align: start; min-height: 10vh; padding-bottom: 0vh;">
-      <h4 style="flex:0.8; color: white; font-weight: 700;" th:text="${product}">최근에 있었던 대외비</h4>
+      <h4 style="flex:0.8; color: white; font-weight: 700;" th:text="${item.title}">최근에 있었던 대외비</h4>
       <div class="container d-flex" style="flex:0.2; justify-content: end;">
         <button class="btn btn-light" type="button"
-        data-bs-toggle="modal" data-bs-target="#productModal"
+        data-bs-toggle="modal" data-bs-target="#updateModal"
         style="flex:1; border-radius: 0px; font-size: 1vw; border-width: 1px; background-color: var(--main-1);">
           <span class="" style="color: white; font-size: 0.8em; font-weight: 500; letter-spacing: -0.16px;">수정</span>
         </button>
         <button class="btn btn-light ms-2" type="button"
-        data-bs-toggle="modal" data-bs-target="#productModal"
+        data-bs-toggle="modal" data-bs-target="#deleteModal"
         style="flex:1; border-radius: 0px; font-size: 1vw; border-width: 1px; background-color: var(--main-1);">
           <span class="" style="color: #FD6363; font-size: 0.8em; font-weight: 500; letter-spacing: -0.16px;">삭제</span>
         </button>
       </div>
     </div>
+
 
     <div th:replace = "fragments/album :: album"
     class="custom-container-default pb-0 d-flex" >
@@ -104,14 +105,16 @@
         style="align-self: flex-start;"/>
         <div class="d-flex flex-column" style="flex:1;">
           <span class="pb-2" style="font-weight: 700; color: var(--text-2); font-size: 1vw;">작품위치</span>
-          <span style="letter-spacing: -0.22px; font-weight: 400; color: white; font-size: 1.2vw;">15전시실</span>
+          <span style="letter-spacing: -0.22px; font-weight: 400; color: white; font-size: 1.2vw;"
+          th:text="${item.id} + '전시실'">15전시실</span>
         </div>
         <img class="img-fluid pe-4" src="../static/stroke.svg" 
         th:attr="src=@{/stroke.svg},title=#{logo},alt=#{logo}"
         style="align-self: flex-start;"/>
         <div class="d-flex flex-column " style="flex:2;">
           <span class="pb-2" style="font-weight: 700; color: var(--text-2); font-size: 1vw;">제작일자</span>
-          <span style="letter-spacing: -0.22px; font-weight: 400; color: white; font-size: 1.2vw;">23년 05월 22일 16시 23분</span>
+          <span style="letter-spacing: -0.22px; font-weight: 400; color: white; font-size: 1.2vw;"
+          th:text="${item.date2}">23년 05월 22일 16시 23분</span>
         </div>
       </div>
       <div class="d-flex pt-2">
@@ -120,14 +123,16 @@
         style="align-self: flex-start;"/>
         <div class="d-flex flex-column" style="flex:1;">
           <span class="pb-2" style="font-weight: 700; color: var(--text-2); font-size: 1vw;">작가명</span>
-          <span style="letter-spacing: -0.22px; font-weight: 400; color: white; font-size: 1.2vw;">김익명</span>
+          <span style="letter-spacing: -0.22px; font-weight: 400; color: white; font-size: 1.2vw;"
+          th:text="${item.nickName}">김익명</span>
         </div>
         <img class="img-fluid pe-4" src="../static/stroke.svg" 
         th:attr="src=@{/stroke.svg},title=#{logo},alt=#{logo}"
         style="align-self: flex-start;"/>
         <div class="d-flex flex-column" style="flex:2;">
           <span class="pb-2" style="font-weight: 700; color: var(--text-2); font-size: 1vw;">작품설명</span>
-          <span style="letter-spacing: -0.22px; font-weight: 400; color: white; font-size: 1.2vw;">최근에 이름 들으면 알 만한 회사랑 어떤 프로젝트 협업할 뻔했는데, 중간에 갑자기 뭐가 바껴서 결국 나랑 하기로 한 건 무산되었다. 너무 아까운 일이었는데 대외비라 어디에 이름 까고 말도 못해서 답답했음. 근데 최근에 보니까 그 프로젝트 초대박났더라고 하......^^^^;;; 또 생각해도 개빡치네*발ㅠㅠ</span>
+          <span style="letter-spacing: -0.22px; font-weight: 400; color: white; font-size: 1.2vw;"
+          th:text="${item.content}">최근에 이름 들으면 알 만한 회사랑 어떤 프로젝트 협업할 뻔했는데, 중간에 갑자기 뭐가 바껴서 결국 나랑 하기로 한 건 무산되었다. 너무 아까운 일이었는데 대외비라 어디에 이름 까고 말도 못해서 답답했음. 근데 최근에 보니까 그 프로젝트 초대박났더라고 하......^^^^;;; 또 생각해도 개빡치네*발ㅠㅠ</span>
         </div>
       </div>
     </div>
@@ -161,6 +166,7 @@
       </button>
     </div>
 
+
     <div class="custom-container-default d-flex" style="min-height: 10vw;">
       <div class="" style="flex:0.75"></div>
       <a class="btn btn-light m-0 p-3" type="button"
@@ -183,8 +189,9 @@
 
 
 
-    <!-- Modal -->
-    <div class="modal modal-lg" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="ture">
+    <!-- updateModal -->
+    <div class="modal modal-lg" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="ture"
+    th:replace="fragments/modal :: updateModal">
       <div class="modal-dialog modal-dialog-centered" >
         <div class="modal-content p-2" style="background-color: var(--main-1); border-width: 1px; border-color: white; border-style: solid; border-radius: 0px;">
 
@@ -201,6 +208,7 @@
               <span class="pb-4" style="color: var(--text-2); font-weight: 400; font-size: 1.2vw; letter-spacing: -0.16px;">작품을 등록할 때 입력하신 비밀번호를 다시 한 번 입력해주세요.</span>
               <input type="password" class="no-spin" id="pw" pattern="\d+" required onkeypress='return checkNumber(event)' placeholder="비밀번호 입력" style="color: var(--text-2); letter-spacing: -0.16px; font-weight: 400; font-size: 1vw; background-color: var(--main-2); stroke-width: 1px; stroke: var(--line); border-width: 0px; padding: 1vw; padding-top: 0.5vw; padding-bottom: 0.5vw;">
             </div>
+          </div>
 
           <div class="modal-footer pt-4" style="border-width: 0px;">
             <div class="container d-flex flex-row p-0 m-0" >
@@ -218,6 +226,51 @@
         </div>
       </div>
     </div>
+
+
+
+    
+    <!-- deleteModal -->
+    <div class="modal modal-lg" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="ture"
+    th:replace="fragments/modal :: deleteModal">
+      <div class="modal-dialog modal-dialog-centered" >
+        <div class="modal-content p-2" style="background-color: var(--main-1); border-width: 1px; border-color: white; border-style: solid; border-radius: 0px;">
+          <form th:attr="action=@{/gallery/delete/{itemId}(itemId=${item.id})}" method="post">
+            <div class="modal-header pb-0" style="border-width: 0px;">
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="width: 3vw; height: 3vw; font-size: 0px;">
+                <img class="img-fluid" src="../static/close.svg" 
+                  th:attr="src=@{/close.svg},title=#{logo},alt=#{logo}"/>
+              </button>
+            </div>
+            <div class="modal-body" style="padding-left: 5vw; padding-right: 5vw;">
+              
+              <div class="container d-flex flex-column pb-4">
+                <span class="pb-2" style="font-size: 2vw; font-weight: 500;color: white;">비밀번호 입력</span>
+                <span class="pb-4" style="color: var(--text-2); font-weight: 400; font-size: 1.2vw; letter-spacing: -0.16px;">작품을 등록할 때 입력하신 비밀번호를 다시 한 번 입력해주세요.</span>
+                <input type="password" class="no-spin" id="password" name="password" pattern="\d+" required onkeypress='return checkNumber(event)' placeholder="비밀번호 입력" style="color: var(--text-2); letter-spacing: -0.16px; font-weight: 400; font-size: 1vw; background-color: var(--main-2); stroke-width: 1px; stroke: var(--line); border-width: 0px; padding: 1vw; padding-top: 0.5vw; padding-bottom: 0.5vw;">
+              </div>
+            </div>
+
+            <div class="modal-footer pt-4" style="border-width: 0px;">
+              <div class="container d-flex flex-row p-0 m-0" >
+                <button class="btn btn-light m-0 p-0 pb-3 pt-3" type="button" data-bs-dismiss="modal" aria-label="Close" 
+                style="flex:1; background-color: var(--main-1); border-color: var(--line); border-radius: 1px; font-size: 1vw;">
+                  <span class="fw-bold" style="color: white; font-size: 1.5em;">취소</span>
+                </button>
+                <button class="btn btn-light m-0 p-0 pb-3 pt-3" type="submit"
+                style="flex:1; border-radius: 0px; font-size: 1vw;">
+                  <span class="fw-bold" style="color: var(--main-1); font-size: 1.5em;">확인</span>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+
+
+
 
 
     <script th:replace="fragments/scripts :: scripts1"

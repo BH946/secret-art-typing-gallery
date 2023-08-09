@@ -21,10 +21,10 @@ import java.util.List;
 @Slf4j
 public class ItemService {
     private final ItemRepository itemRepository;
-    private final CacheManager cacheManager;
 
     /**
      * save, findOne, findAll, update, remove
+     * findAllWithPage 추가 + findPageId
      */
 
     @Transactional // 쓰기모드 -> DB 저장위함
@@ -32,19 +32,19 @@ public class ItemService {
 
     public Item findOne(Long itemId) { return itemRepository.findOne(itemId); }
 
-    @Cacheable(value = "codeCache") // 캐시 없으면 기록 및 조회
-    public List<Item> findAll() {
-        log.info("codeCache Cacheable start");
-        List<Item> items = itemRepository.findAll();
-        log.info("codeCache Cacheable end");
-        return items;
+    // page 단위로(key) 캐시 기록 -> 참고 : value 로 꼭 캐시 영역을 지정해줘야 함
+    @Cacheable(value = "posts", key = "#pageId") // [캐시 없으면 저장] 조회
+    public List<Item> findAllWithPage(int pageId) {
+        return itemRepository.findAllWithPage(pageId);
     }
-    @CachePut(value = "codeCache") // 덮어씌우기
-    public List<Item> findAllNoCache() {
-        log.info("codeCache CachePut start");
-        List<Item> items = itemRepository.findAll();
-        log.info("codeCache CachePut end");
-        return items;
+    // page 단위로(key) 캐시 기록 -> 참고 : value 로 꼭 캐시 영역을 지정해줘야 함
+    @CachePut(value = "posts", key = "#pageId") // [캐시에 데이터 있어도] 저장
+    public List<Item> updateCachePage(int pageId) {
+        // pageId 로 간단히 캐시 업데이트용 함수
+        return itemRepository.findAllWithPage(pageId); // 반환값을 캐시에 기록하기 때문에 만든 함수
+    }
+    public int findPageId(Long itemId) { // 현제 페이징 찾는 함수
+        return itemRepository.findPageId(itemId);
     }
 
 
@@ -55,5 +55,7 @@ public class ItemService {
         item.updateItem(updateItemDto);
         return item;
     }
+
+    @Transactional // 쓰기모드 -> DB 삭제위함
     public void remove(Item item) { itemRepository.remove(item); }
 }

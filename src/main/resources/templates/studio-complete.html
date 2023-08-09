@@ -120,8 +120,9 @@
 
 
 
-    <!-- Modal -->
-    <div class="modal modal-lg" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="ture">
+    <!-- productModal -->
+    <div class="modal modal-lg" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="ture"
+    th:replace="fragments/modal :: productModal">
       <div class="modal-dialog modal-dialog-centered" >
         <div class="modal-content p-2" style="background-color: var(--main-1); border-width: 1px; border-color: white; border-style: solid; border-radius: 0px;">
 
@@ -167,6 +168,7 @@
                 <textarea type="text" class="no-scroll" id="content" placeholder="미입력 시 공란으로 출품됩니다." style="color: var(--text-2); letter-spacing: -0.16px; font-weight: 400; font-size: 1vw; background-color: var(--main-2); border-width: 0px; padding: 1vw; padding-top: 0.5vw; padding-bottom: 1vw;"></textarea>
               </div>
             </div>
+          </div>
 
           <div class="modal-footer pt-4" style="border-width: 0px;">
             <button class="btn btn-light m-0 p-3" type="submit"
