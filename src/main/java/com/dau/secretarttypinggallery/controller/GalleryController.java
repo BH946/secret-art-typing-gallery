@@ -24,14 +24,20 @@ public class GalleryController {
     private final ItemService itemService;
 
     // default
-    // 나중에 페이징 적당히 정해주면 됨. 현재는 테스트니까 그냥 데이터 전부 다가져오겠음.
+    // 나중에 페이징 적당히 지정해주면 됨. 현재는 테스트니까 그냥 데이터 전부 다가져오겠음.
     @GetMapping() // URL 매핑(GET)
     public String gallery(Model model) {
         List<Item> items = itemService.findAll();
         model.addAttribute("items", items);
         return "gallery"; // gallery.html 반환
     }
-
+    // 삭제, 수정, 추가에서 findAllNoCache 이걸 쓸건데 지금은 그냥 테스트용으로..
+    @GetMapping("/test")
+    public String test(Model model) {
+        List<Item> items = itemService.findAllNoCache();
+        model.addAttribute("items", items);
+        return "redirect:/gallery";
+    }
 
 
     // id별 작품상세 화면
