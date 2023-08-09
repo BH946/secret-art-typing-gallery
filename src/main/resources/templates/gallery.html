@@ -1,6 +1,6 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
-  <head th:replace="fragments/head :: head('스튜디오')">
+  <head th:replace="fragments/head :: head('갤러리')">
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,12 +11,12 @@
     <!-- 커스텀 CSS -->
     <link rel="stylesheet" type="text/css" media="all" 
           href="../static/basic.css" th:href="@{/basic.css}"/>
-    <link rel="stylesheet" type="text/css" media="all" 
-          href="../static/gallery.css" th:href="@{/basic.css}"/>
 
-    <title>스튜디오</title>
+    <title>갤러리</title>
   </head>
   <body>
+    <link rel="stylesheet" type="text/css" media="all" 
+          href="../static/gallery.css" th:href="@{/gallery.css}"/>
     <style>
       /* 스크롤을 숨기는 스타일 */
       .no-scroll::-webkit-scrollbar {
@@ -92,7 +92,8 @@
       </div>
     </div>
 
-    <div class="custom-container-default d-flex flex-column" style="min-height: 80vh;">
+    <div class="custom-container-default d-flex flex-column" style="min-height: 80vh;"
+    th:replace="fragments/gallery-item :: gallery-item">
 
       <div class="gallery-item-first">
         <div class="d-flex flex-column pe-4" style="flex:0.15;">
@@ -107,8 +108,9 @@
           <div class="d-flex" style="flex:1;">
           <button class="btn btn-light" type="button"
           style="border-radius: 0px;background-color: var(--main-1); font-size: 1vw; width: 200px;
-          align-self: end; width: 12vw;">
-            <span class="fw-bold" style="color: white; font-size: 1em; white-space: nowrap;">15전시실 입장</span>
+          align-self: end; width: 12vw;"
+          href="#" th:attr="href=@{gallery/productDetail/${itemId}}">
+            <span class="fw-bold" style="color: white; font-size: 1em; white-space: nowrap;">15전시실 입장 test용</span>
           </button>
         </div>
         </div>

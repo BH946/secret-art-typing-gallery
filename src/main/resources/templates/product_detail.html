@@ -1,6 +1,6 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
-  <head th:replace="fragments/head :: head('스튜디오')">
+  <head th:replace="fragments/head :: head('작품상세')">
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -12,7 +12,7 @@
     <link rel="stylesheet" type="text/css" media="all" 
           href="../static/basic.css" th:href="@{/basic.css}"/>
 
-    <title>스튜디오</title>
+    <title>작품상세</title>
   </head>
   <body>
     <style>
@@ -46,7 +46,7 @@
               </a>
             </li>
             <li class="nav-item d-flex p-0">
-              <a class="nav-link flex-column d-flex" id="custom-nav-item" style="flex:1; justify-content: center;" aria-current="page" href="#" onclick="change_nav(event)">전시실
+              <a class="nav-link flex-column d-flex" id="custom-nav-item" style="flex:1; justify-content: center;" aria-current="page" href="gallery.html" onclick="change_nav(event)">전시실
                 <span class="nav-item-inner">B1 ~ ??F</span>
               </a>
             </li>
@@ -69,7 +69,7 @@
 
     <!-- main 개발 -->
     <div class="custom-container-default d-flex" style="text-align: start; min-height: 10vh; padding-bottom: 0vh;">
-      <h4 style="flex:0.8; color: white; font-weight: 700;">최근에 있었던 대외비</h4>
+      <h4 style="flex:0.8; color: white; font-weight: 700;" th:text="${product}">최근에 있었던 대외비</h4>
       <div class="container d-flex" style="flex:0.2; justify-content: end;">
         <button class="btn btn-light" type="button"
         data-bs-toggle="modal" data-bs-target="#productModal"

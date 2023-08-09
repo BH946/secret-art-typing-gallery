@@ -1,3 +1,30 @@
 spring:
   thymeleaf:
     cache: false
+    prefix: file:src/main/resources/templates/
+
+  datasource:
+    url: jdbc:h2:tcp://localhost/~/secret-art-typing-gallery/secret
+    username: sa
+    password:
+      driver-class-name: org.h2.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: create # table ?? ??
+#      ddl-auto: none # db ??? ??
+    properties:
+      hibernate:
+        #        show_sql: true
+        format_sql: true
+
+server:
+  port: 8080
+#  address: 223.39.212.163
+  servlet:
+    session:
+      timeout: 30m # session timeout 30min
+
+logging.level:
+  org.hibernate.SQL: debug
+  org.hibernate.type: trace
