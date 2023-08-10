@@ -49,13 +49,14 @@ public class ItemService {
 
 
     @Transactional // 쓰기모드 -> DB 저장위함
-    public Item update(Long id, UpdateItemDto updateItemDto) {
+    public Item update(Item item, UpdateItemDto updateItemDto) {
         // dirty checking
-        Item item = findOne(id);
         item.updateItem(updateItemDto);
         return item;
     }
 
     @Transactional // 쓰기모드 -> DB 삭제위함
     public void remove(Item item) { itemRepository.remove(item); }
+
+    public Long findTotalCount() { return itemRepository.findTotalCount(); }
 }

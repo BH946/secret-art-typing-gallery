@@ -29,6 +29,8 @@ public class GalleryController {
     /**
      * 페이지 별로 조회 URL 매핑(GET)
      * 1page : 10data 로 구현하겠음
+     * 따로 findTotalCount 로 model 에 총 개수도 포함해서 넘기겠음
+     * => 캐싱은 따로 안했는데 나중에 필요해보이면 하던지 하겠음.
      */
     @GetMapping() // default
     public String gallery() {
@@ -41,6 +43,7 @@ public class GalleryController {
                 .map(o -> new ItemDto(o))
                 .collect(Collectors.toList());
         model.addAttribute("items", itemDtos); // gallery.html 에 넘길 데이터
+        model.addAttribute("totalCount", itemService.findTotalCount());
         return "gallery"; // gallery.html 반환
     }
 

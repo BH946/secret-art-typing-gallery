@@ -1,10 +1,17 @@
 package com.dau.secretarttypinggallery.entity.dto;
 
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
 @Getter
-@RequiredArgsConstructor // 생성자 주입
 public class UpdateItemDto {
-    private final String nickName, password, title, content;
+    private String nickName;
+    private String password;
+    private String title;
+    private String content;
+    public UpdateItemDto (String nickName, String password, String title, String content) {
+        this.nickName = nickName;
+        this.password = password;
+        this.title = title;
+        this.content = content;
+    }
 }

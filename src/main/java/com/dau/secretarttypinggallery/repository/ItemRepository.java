@@ -18,6 +18,7 @@ public class ItemRepository {
     /**
      * save, findOne, findAll, update(entity 에서 해결), remove
      * findAllWithPage 추가 + findPageId
+     * 총 게시물 수 구하는 함수도 추가
      */
     public void save(Item item) {
         // null 인 경우 db에 없다는 의미(db에 insert 할 때 id 생성하기 때문)
@@ -52,6 +53,10 @@ public class ItemRepository {
         return pageId;
     }
 
-
     public void remove(Item item) { em.remove(item); }
+
+    public Long findTotalCount() {
+        return em.createQuery("select count(i) from Item i", Long.class)
+                .getSingleResult();
+    }
 }

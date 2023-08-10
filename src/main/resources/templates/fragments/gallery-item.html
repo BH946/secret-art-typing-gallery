@@ -9,6 +9,7 @@
 
 <div class="custom-container-default d-flex flex-column" style="min-height: 80vh;"
 th:fragment="gallery-item">
+
 <div th:each="item : ${items}">
   <div th:class="${item.id==items[0].id}? 'gallery-item-first' : 'gallery-item-many'">
     <div class="d-flex flex-column pe-4" style="flex:0.15;">
