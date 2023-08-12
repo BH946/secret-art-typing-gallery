@@ -78,7 +78,10 @@
 
     <div class="custom-container-default d-flex flex-column" style="min-height: 10vh; padding-bottom: 0vh;">
       <div class="container" style="text-align: center;">
-        <span style="font-weight: 500; color: white; font-size: 1.4vw;">B?F</span>
+        <span style="font-weight: 500; color: white; font-size: 1.4vw;"
+        th:text="${(pageId!=null) 
+        ? 'B'+(pageId)+'F' 
+        : 'B?F'}">B?F</span>
       </div>
       <div class="container d-flex justify-content-center" style="width: 100%;">
         <div class="d-flex justify-content-center " style="flex:0.5;">

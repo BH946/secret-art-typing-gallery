@@ -2,13 +2,34 @@
 <html xmlns:th="http://www.thymeleaf.org">
   <body>
     <!-- 사이트에 앨범(작품) 틀 -->
-    <div class="custom-container-default pb-0 d-flex" th:fragment="album">
-      <div class="p-2 d-flex" style="flex:1; background-color: var(--main-2); border-width: 1px; border-color: white; border-style: solid;">
-        <div class="" style="flex:1; background-color: white;">
-          TEST
+    <!-- 비율 2.4:1 정도로 너비높이 고정(vw기준) -->
+    <div class="custom-container-default d-flex" th:fragment="album" style="min-height:0vh; height: 40vw; width:100vw; padding-top: 7vw; padding-bottom: 5vw;
+    ">
+      <style>        
+        @font-face {
+          font-family: 'arttyping-Regular';
+          /* src: url('../static/arttyping-Regular.woff') format('woff'); */
+          src: url('/arttyping-Regular.woff') format('woff');
+        }
+
+        #output {
+          font-family: 'arttyping-Regular', sans-serif; 
+          font-size: 20vw; /*최소:5vw, 최대:38vw*/
+          color: black;
+          overflow: hidden;
+          /* 텍스트 줄바꿈 방지 */
+          white-space: nowrap; 
+          
+        }
+      </style>
+
+      <div class="p-2 d-flex" style="flex:0.92; background-color: var(--main-2); border-width: 1px; border-color: white; border-style: solid;
+      max-width: 92%;">
+        <div class="d-flex" id="output" style="padding:0px; flex:1; background-color: white; justify-content: center; align-items: center;" >
+          
         </div>
       </div>
-      <div class="d-flex" style="flex:0.08; align-self: center; justify-content: end;">
+      <div class="d-flex" style="flex:0.08; align-self: center; justify-content: end; max-width: 8%;">
         <img class="img-fluid" src="../static/circle.svg" 
               th:attr="src=@{/circle.svg},title=#{logo},alt=#{logo}" style="width: 70%;"/>
       </div>

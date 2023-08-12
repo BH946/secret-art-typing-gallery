@@ -15,6 +15,10 @@
     <title>스튜디오</title>
   </head>
   <body>
+    <!-- 커스텀 CSS -->
+    <link rel="stylesheet" type="text/css" media="all" 
+          href="../static/studio.css" th:href="@{/studio.css}"/>
+
     <style>
       /* 슬라이더 트랙 색상 수정 */
       .form-range::-webkit-slider-runnable-track {
@@ -37,6 +41,7 @@
         width: 0px;
       }
     </style>
+
 
     <!-- header -->
     <nav th:replace="fragments/header :: header"
@@ -91,13 +96,13 @@
       </div>
     </div>
 
-    <div class="custom-container-default d-flex">
+    <div class="custom-container-default d-flex pt-0">
       <div style="flex:1;">
         <div class="row m-0">
           <div class="col-6 d-flex flex-column ps-0">
             <div class="d-flex flex-column" style="flex:1;">
               <span style="flex:1; color:white; font-weight: 400; letter-spacing: -0.16px; font-size:1vw;" >작품 제작하기</span>
-              <textarea class="no-scroll pb-5" style="flex:1; border-color: var(--line); border-style: solid; padding:1vw; background-color: var(--main-2); color:var(--text-2); letter-spacing: -0.16px; font-size:1vw;" placeholder="이곳에 털어놓고 싶은 비밀을 적어보세요."></textarea>
+              <textarea class="no-scroll pb-5" id="textInput" style="flex:1; border-color: var(--line); border-style: solid; padding:1vw; background-color: var(--main-2); color:var(--text-2); letter-spacing: -0.16px; font-size:1vw;" placeholder="이곳에 털어놓고 싶은 비밀을 적어보세요."></textarea>
             </div>
             <div class="mt-3" style="flex:1;">
               <ul class="p-0 ps-4" style="font-size:1vw; letter-spacing: -0.16px; color:var(--text-2);">
@@ -122,15 +127,15 @@
             <div class="d-flex" style="flex:0.8;">
               <div class="d-flex flex-column pb-4 pe-4" style="flex:1;">
                 <span style="flex:1; color:white; font-weight: 400; letter-spacing: -0.16px; font-size:1vw;" >크기</span>
-                <input type="range" class="form-range" id="customRange1" min="0" max="80" step="1"/>
+                <input type="range" class="form-range" id="fontSizeRange" min="5" max="38" step="1"/>
               </div>
               <div class="d-flex flex-column pb-4 pe-4" style="flex:1;">
                 <span style="flex:1; color:white; font-weight: 400; letter-spacing: -0.16px; font-size:1vw;" >자간</span>
-                <input type="range" class="form-range" id="customRange1" min="0" max="80" step="1"/>
+                <input type="range" class="form-range" id="letterSpacingRange" min="0" max="10" value="0"/>
               </div>
               <div class="d-flex flex-column pb-4 pe-0" style="flex:1;">
                 <span style="flex:1; color:white; font-weight: 400; letter-spacing: -0.16px; font-size:1vw;" >행간</span>
-                <input type="range" class="form-range" id="customRange1" min="0" max="80" step="1"/>
+                <input type="range" class="form-range" id="lineHeightRange" min="1" max="2" value="1.5" step="0.1"/>
               </div>
             </div>
             <!-- 두번째 컨테이너 -->
@@ -197,6 +202,39 @@
         });
         console.log(e.currentTarget);
       }
+    </script>
+
+
+
+    <script>
+      // 크기, 자간, 행간 스크롤바(Range) 연동 + Textare&output 연동
+      const fontSizeRange = document.getElementById('fontSizeRange');
+      const letterSpacingRange = document.getElementById('letterSpacingRange');
+      const lineHeightRange  = document.getElementById('lineHeightRange');
+      const textToResize = document.getElementById('output');
+
+      // input 이벤트 발생시 font 변경
+      fontSizeRange.addEventListener('input', function() {
+        const fontSize = fontSizeRange.value + 'vw';
+        textToResize.style.fontSize = fontSize;
+      });
+      letterSpacingRange.addEventListener('input', function() {
+        const letterSpacing = letterSpacingRange.value + 'px';
+        textToResize.style.letterSpacing = letterSpacing;
+      });
+      lineHeightRange.addEventListener('input', function() {
+        const lineHeight = lineHeightRange.value;
+        textToResize.style.lineHeight = lineHeight;
+      });
+
+      // Textare&output 연동
+      const textInput = document.getElementById('textInput');
+      textInput.addEventListener('input', function() {
+        const inputValue = textInput.value;
+        const formattedValue = inputValue.replace(/\n/g, "<br>");
+        textToResize.innerHTML = formattedValue;
+      });
+
     </script>
   </body>
 </html>
