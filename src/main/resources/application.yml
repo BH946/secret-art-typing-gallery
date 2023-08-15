@@ -1,7 +1,7 @@
 spring:
   thymeleaf:
     cache: false
-    prefix: file:src/main/resources/templates/
+#    prefix: file:src/main/resources/templates/
 
   datasource:
     url: jdbc:h2:tcp://localhost/~/secret-art-typing-gallery/secret

@@ -8,10 +8,12 @@ public class UpdateItemDto {
     private String password;
     private String title;
     private String content;
-    public UpdateItemDto (String nickName, String password, String title, String content) {
+    private String imgSrc;
+    public UpdateItemDto (String nickName, String password, String title, String content, String imgSrc) {
         this.nickName = nickName;
         this.password = password;
         this.title = title;
         this.content = content;
+        this.imgSrc = imgSrc;
     }
 }

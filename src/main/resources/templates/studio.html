@@ -15,9 +15,7 @@
     <title>스튜디오</title>
   </head>
   <body>
-    <!-- 커스텀 CSS -->
-    <link rel="stylesheet" type="text/css" media="all" 
-          href="../static/studio.css" th:href="@{/studio.css}"/>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 
     <style>
       /* 슬라이더 트랙 색상 수정 */
@@ -142,15 +140,13 @@
             <div class="d-flex" style="flex:1.5;">
               <div class="d-flex flex-column pb-1 pe-4" style="flex:1;">
                 <span style="flex:0.5; color:white; font-weight: 400; letter-spacing: -0.16px; font-size:1vw;" >작품 색상</span>
-                <div class="mt-1" style="flex:2; border-style: solid; border-color: white; border-width: 1px;">
-                  색상선택
-                </div>
+                <input type="color" id="itemColor" class="mt-1" 
+                value="#000000" style="flex:2; border-style: solid; border-color: white; border-width: 1px; width: 100%;"/>
               </div>
               <div class="d-flex flex-column pb-1 pe-0" style="flex:1;">
                 <span style="flex:0.5; color:white; font-weight: 400; letter-spacing: -0.16px; font-size:1vw;" >배경 색상</span>
-                <div class="mt-1" style="flex:2; border-style: solid; border-color: white; border-width: 1px;">
-                  색상선택
-                </div>
+                <input type="color" id="bgColor" class="mt-1" 
+                value="#FFFFFF" style="flex:2; border-style: solid; border-color: white; border-width: 1px; width: 100%; "/>
               </div>
             </div>
             <!-- 세번째 컨테이너 -->
@@ -159,14 +155,16 @@
             </div>
             <!-- 네번째 컨테이너 -->
             <div class="d-flex" style="flex:1;">
-              <div class="container p-0 pt-2 pb-2 pe-0">
-                <button class="btn btn-light" type="button"
+              <form class="container p-0 pt-2 pb-2 pe-0" name="myForm" id="myForm"
+              th:attr="action=@{/studio}" method="post">
+                <button id="nextBtn" class="btn btn-light" type="button"
                 style="width: 100%; height: 100%; position: relative; border-radius: 0px;">
                   <span class="fs-6 fw-bold" style="color: var(--main-1);">다음</span>
                   <img class="img-fluid pe-3" src="../static/arrow.svg" 
                   th:attr="src=@{/arrow.svg},title=#{logo},alt=#{logo}" style="top:50; right:0; position: absolute; height: 50%;"/>
                 </button>
-              </div>
+                <input type="hidden" name="imgSrc" id="imgSrc">
+              </form>
             </div>
           </div>
         </div>
@@ -174,7 +172,6 @@
       <div class="" style="flex:0.08;">
       </div>
     </div>
-    
     
 
 
@@ -205,9 +202,10 @@
     </script>
 
 
-
+    <!-- Jquery CDN 로드 : 항상 최신 버전 사용 -->  
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script> 
     <script>
-      // 크기, 자간, 행간 스크롤바(Range) 연동 + Textare&output 연동
+      // 크기, 자간, 행간 스크롤바(Range) 연동 + Textare&output 연동 + 색상변경 연동 + 이미지 저장
       const fontSizeRange = document.getElementById('fontSizeRange');
       const letterSpacingRange = document.getElementById('letterSpacingRange');
       const lineHeightRange  = document.getElementById('lineHeightRange');
@@ -215,7 +213,7 @@
 
       // input 이벤트 발생시 font 변경
       fontSizeRange.addEventListener('input', function() {
-        const fontSize = fontSizeRange.value + 'vw';
+        const fontSize = fontSizeRange.value + 'em';
         textToResize.style.fontSize = fontSize;
       });
       letterSpacingRange.addEventListener('input', function() {
@@ -235,6 +233,39 @@
         textToResize.innerHTML = formattedValue;
       });
 
+      // 색상변경 연동
+      const bgColor = document.getElementById('bgColor');
+      const itemColor = document.getElementById('itemColor');
+      bgColor.addEventListener('input', () => {
+        const selectedColor = bgColor.value;
+        textToResize.style.backgroundColor = selectedColor;
+      });
+      itemColor.addEventListener('input', () => {
+        const selectedColor = itemColor.value;
+        textToResize.style.color = selectedColor;
+      });
+
+      // 이미지 저장
+      $("#nextBtn").on("click", function() {
+        const targetWidth = 1164;
+        const targetHeight = 492;
+
+        // Clone and add the content from the original div
+        const clonedDiv = textToResize.cloneNode(true);
+        clonedDiv.style.width = targetWidth + "px";
+        clonedDiv.style.height = targetHeight + "px";
+        clonedDiv.style.overflow = "hidden"; 
+        document.body.appendChild(clonedDiv);
+
+        html2canvas(clonedDiv).then(function(canvas) {
+          // Remove the virtual div from the body
+          document.body.removeChild(clonedDiv);
+
+          var img = canvas.toDataURL("image/jpeg");
+          document.getElementById("imgSrc").value=img;
+          document.getElementById("myForm").submit();
+        });
+      });
     </script>
   </body>
 </html>

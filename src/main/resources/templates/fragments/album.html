@@ -14,7 +14,7 @@
 
         #output {
           font-family: 'arttyping-Regular', sans-serif; 
-          font-size: 20vw; /*최소:5vw, 최대:38vw*/
+          font-size: 20em; /*최소:5em, 최대:38em*/
           color: black;
           overflow: hidden;
           /* 텍스트 줄바꿈 방지 */
@@ -24,9 +24,11 @@
       </style>
 
       <div class="p-2 d-flex" style="flex:0.92; background-color: var(--main-2); border-width: 1px; border-color: white; border-style: solid;
-      max-width: 92%;">
+      max-width: 92%; font-size: 1vw;">
         <div class="d-flex" id="output" style="padding:0px; flex:1; background-color: white; justify-content: center; align-items: center;" >
-          
+          <img class="img-fluid" id="outputImg" style="width: 100%;" src="" 
+          th:src="${(imgSrc!=null) ? (imgSrc) : (item!=null) ? '/image/'+(item.imgSrc) : ''}"
+          />
         </div>
       </div>
       <div class="d-flex" style="flex:0.08; align-self: center; justify-content: end; max-width: 8%;">

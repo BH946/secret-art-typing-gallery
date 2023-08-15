@@ -11,6 +11,7 @@ public class StudioItemDto {
     private String password;
     private String title;
     private String content;
+    private String imgSrc;
 
     //==생성 편의 메서드==//
     public StudioItemDto(Item item) {
@@ -19,5 +20,6 @@ public class StudioItemDto {
         this.title = item.getTitle();
         this.password = item.getPassword();
         this.nickName = item.getNickName();
+        this.imgSrc = item.getImgSrc();
     }
 }
