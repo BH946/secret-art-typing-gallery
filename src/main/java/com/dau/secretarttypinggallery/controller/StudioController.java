@@ -63,15 +63,17 @@ public class StudioController {
             imgSrc = imgSrc.replaceAll("data:image/jpeg;base64,", "");
             byte[] file = Base64.decodeBase64(imgSrc); // 인코드된 Base64를 디코드
             System.out.println("try 안으로 들어옴");
-            System.out.println(file);
+//            System.out.println(file);
             String fileName = UUID.randomUUID().toString();
-            String filePath = "C:/images-spring/"+fileName+".jpeg";
+//            String filePath = "C:/images-spring/"+fileName+".jpeg";
+            String filePath = "/var/www/images-spring/"+fileName+".jpeg";
             fo = new FileOutputStream(filePath);
             imgSrc = fileName+".jpeg"; // 이름을 기록
             fo.write(file);
+            System.out.println("image 생성 성공");
             fo.close();
         }catch(Exception e){
-            System.out.println("catch로 들어옴");
+            System.out.println("catch로 들어옴 - 이미지 생성 실패");
             e.printStackTrace();
         }
 
