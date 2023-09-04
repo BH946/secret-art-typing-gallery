@@ -1,10 +1,10 @@
 spring:
-  # 배포때는 thymeleaf 관련 주석
+#  # 배포때는 thymeleaf 관련 주석
 #  thymeleaf:
 #    cache: false
 #    prefix: file:src/main/resources/templates/
-
-  # H2 DB
+#
+#  # H2 DB
 #  datasource:
 #    url: jdbc:h2:tcp://localhost/~/secret-art-typing-gallery/secret
 #    username: sa
