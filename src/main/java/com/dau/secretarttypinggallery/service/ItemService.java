@@ -47,14 +47,6 @@ public class ItemService {
         return itemRepository.findPageId(itemId);
     }
 
-
-//    @Transactional // 쓰기모드 -> DB 저장위함
-//    public Item update(Item item, UpdateItemDto updateItemDto) {
-//        // dirty checking
-//        item.updateItem(updateItemDto);
-//        return item;
-//    }
-
     @Transactional // 쓰기모드 -> DB 저장위함
     public void update(Long itemId, UpdateItemDto updateItemDto) {
         // dirty checking
