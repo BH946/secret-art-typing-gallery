@@ -1,5 +1,6 @@
+# default 프로필 -> 개발모드로 사용
 spring:
-  # 배포때는 thymeleaf 관련 주석
+  # thymeleaf 캐시 사용 X로 실시간 reload
   thymeleaf:
     cache: false
     prefix: file:src/main/resources/templates/
@@ -11,17 +12,9 @@ spring:
     password:
       driver-class-name: org.h2.Driver
 
-#  # MYSQL DB
-#  datasource:
-#    url: jdbc:mysql://localhost:3306/secret?useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul
-#    username: secretUser
-#    password: 1234
-#    driver-class-name: com.mysql.cj.jdbc.Driver
-
   jpa:
     hibernate:
-      ddl-auto: create # table ?? ??
-#      ddl-auto: none # db ??? ??
+      ddl-auto: create # DB 초기화 사용
     properties:
       hibernate:
 #        show_sql: true
@@ -37,3 +30,26 @@ server:
 logging.level:
   org.hibernate.SQL: debug
   org.hibernate.type: trace
+
+---
+# prod 프로필 -> 배포모드로 사용
+spring:
+  config:
+    activate:
+      on-profile: prod
+    # MYSQL DB
+  datasource:
+    url: jdbc:mysql://localhost:3306/secret?useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul
+    username: secretUser
+    password: 1234
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: none # DB 초기화 사용 X
+
+server:
+  port: 8080
+  servlet:
+    session:
+      timeout: 30m # session timeout 30min
