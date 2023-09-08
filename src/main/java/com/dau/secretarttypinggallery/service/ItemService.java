@@ -28,7 +28,7 @@ public class ItemService {
      */
 
     @Transactional // 쓰기모드 -> DB 저장위함
-    public void save(Item item) { itemRepository.save(item); }
+    public Long save(Item item) { itemRepository.save(item); return item.getId(); }
 
     public Item findOne(Long itemId) { return itemRepository.findOne(itemId); }
 
@@ -48,11 +48,18 @@ public class ItemService {
     }
 
 
+//    @Transactional // 쓰기모드 -> DB 저장위함
+//    public Item update(Item item, UpdateItemDto updateItemDto) {
+//        // dirty checking
+//        item.updateItem(updateItemDto);
+//        return item;
+//    }
+
     @Transactional // 쓰기모드 -> DB 저장위함
-    public Item update(Item item, UpdateItemDto updateItemDto) {
+    public void update(Long itemId, UpdateItemDto updateItemDto) {
         // dirty checking
-        item.updateItem(updateItemDto);
-        return item;
+        Item item = itemRepository.findOne(itemId); // 영속성
+        item.updateItem(updateItemDto); // 준영속(updateItemDto) -> 영속성
     }
 
     @Transactional // 쓰기모드 -> DB 삭제위함

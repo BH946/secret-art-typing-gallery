@@ -106,7 +106,7 @@ public class StudioController {
         Item item = itemService.findOne(itemId); // 없으면 null
         if(item != null) {
             int pageId = itemService.findPageId(itemId);
-            itemService.update(item, form);
+            itemService.update(item.getId(), form);
             itemService.updateCachePage(pageId);
         }
         return "redirect:/gallery"; // gallery() 함수로 이동

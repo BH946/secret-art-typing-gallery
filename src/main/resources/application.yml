@@ -1,22 +1,22 @@
 spring:
-#  # 배포때는 thymeleaf 관련 주석
-#  thymeleaf:
-#    cache: false
-#    prefix: file:src/main/resources/templates/
-#
-#  # H2 DB
-#  datasource:
-#    url: jdbc:h2:tcp://localhost/~/secret-art-typing-gallery/secret
-#    username: sa
-#    password:
-#      driver-class-name: org.h2.Driver
+  # 배포때는 thymeleaf 관련 주석
+  thymeleaf:
+    cache: false
+    prefix: file:src/main/resources/templates/
 
-  # MYSQL DB
+  # H2 DB
   datasource:
-    url: jdbc:mysql://localhost:3306/secret?useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul
-    username: secretUser
-    password: 1234
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:h2:tcp://localhost/~/secret-art-typing-gallery/secret
+    username: sa
+    password:
+      driver-class-name: org.h2.Driver
+
+#  # MYSQL DB
+#  datasource:
+#    url: jdbc:mysql://localhost:3306/secret?useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul
+#    username: secretUser
+#    password: 1234
+#    driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
     hibernate:
@@ -24,7 +24,7 @@ spring:
 #      ddl-auto: none # db ??? ??
     properties:
       hibernate:
-        #        show_sql: true
+#        show_sql: true
         format_sql: true
 
 server:

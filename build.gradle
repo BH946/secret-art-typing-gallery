@@ -32,6 +32,11 @@ dependencies {
 	implementation group: 'com.mysql', name: 'mysql-connector-j', version: '8.0.33' // MYSQL
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	//JUnit4 추가(junit5로 자동실행 되기 때문)
+	testImplementation("org.junit.vintage:junit-vintage-engine") {
+		exclude group: "org.hamcrest", module: "hamcrest-core"
+	}
 }
 
 tasks.named('test') {
