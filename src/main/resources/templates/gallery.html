@@ -8,7 +8,7 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 
-    <!-- 커스텀 CSS -->
+    <!-- 커스텀(기본) CSS -->
     <link rel="stylesheet" type="text/css" media="all" 
           href="../static/basic.css" th:href="@{/basic.css}"/>
 
@@ -16,59 +16,15 @@
   </head>
   <body>
 
-    <link rel="stylesheet" type="text/css" media="all" 
+    <!-- 커스텀 CSS -->
+    <link rel="stylesheet" type="text/css" media="all"
           href="../static/gallery.css" th:href="@{/gallery.css}"/>
     <style>
-      /* 스크롤을 숨기는 스타일 */
-      .no-scroll::-webkit-scrollbar {
-        width: 0px;
-      }
-      /* 스핀 버튼 숨기기 */
-      input[type="number"]::-webkit-inner-spin-button,
-      input[type="number"]::-webkit-outer-spin-button {
-        -webkit-appearance: none;
-      }
     </style>
 
-    <!-- header -->
-    <nav th:replace="fragments/header :: header"
-    class="navbar navbar-expand-md navbar-dark p-0">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#">
-          <img class="img-fluid" src="../static/secret.svg" 
-            th:attr="src=@{/secret.svg},title=#{logo},alt=#{logo}" />
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav justify-content-center" style="flex:1">
-            <li class="nav-item d-flex p-0" id="nav-item-first">
-              <a class="nav-link flex-column d-flex" id="custom-nav-item" style="flex:1; justify-content: center;" aria-current="page" href="#" onclick="change_nav(event)">로비
-                <span class="nav-item-inner">1F</span>
-              </a>
-            </li>
-            <li class="nav-item d-flex p-0">
-              <a class="nav-link flex-column d-flex" id="custom-nav-item" style="flex:1; justify-content: center;" aria-current="page" href="#" onclick="change_nav(event)">전시실
-                <span class="nav-item-inner">B1 ~ ??F</span>
-              </a>
-            </li>
-            <li class="nav-item d-flex p-0">
-              <a class="nav-link flex-column d-flex" id="custom-nav-item" style="flex:1; justify-content: center;" aria-current="page" href="#" onclick="change_nav(event)">작품 제작실
-                <span class="nav-item-inner">??F</span>
-              </a>
-            </li>
-          </ul>
-          <a class="nav-link" href="#">
-            <img class="img-fluid" src="../static/speaker.svg" 
-            th:attr="src=@{/speaker.svg},title=#{logo},alt=#{logo}"/>
-          </a>
-        </div>
-      </div>
+    <nav th:replace="fragments/header :: header">
+
     </nav>
-
-  
-
 
     <!-- main 개발 -->
     <div class="container-fluid p-0">
@@ -97,7 +53,7 @@
     </div>
 
     <div class="custom-container-default d-flex flex-column" style="min-height: 80vh;"
-    th:replace="fragments/gallery-item :: gallery-item">
+    th:replace="fragments/item :: item">
 
       <div class="gallery-item-first">
         <div class="d-flex flex-column pe-4" style="flex:0.15;">
@@ -163,9 +119,6 @@
       </ul>
     </nav>
 
-
-
-
     <!-- footer -->
     <footer th:replace="fragments/footer :: footer"
     class="custom-footer">
@@ -207,7 +160,7 @@
 
 <!-- 페이징 -->
 <!-- Jquery CDN 로드 : 항상 최신 버전 사용 -->  
-<script src="https://code.jquery.com/jquery-latest.min.js"></script> 
+<script src="https://code.jquery.com/jquery-latest.min.js"></script>
 
 <script th:inline="javascript">
 var pageCount = /*[[${(totalCount/10)+1}]]*/ null; // 총 페이지 크기 -> 통신으로 받음
@@ -279,6 +232,9 @@ else if(pageCount >= 2){ //생성해야할 페이지가 2페이지 이상인 경
 
 
 </script>
+
+<!--    NavBar 투명도조절-->
+    <script th:replace="fragments/scripts :: scripts3"></script>
 
   </body>
 </html>

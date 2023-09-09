@@ -2,24 +2,28 @@
 <html xmlns:th="http://www.thymeleaf.org">
   <body>
     <!-- header -->
-    <nav class="navbar navbar-expand-md navbar-dark p-0" th:fragment="header">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#">
-          <img class="img-fluid" src="../static/secret.svg" 
-            th:attr="src=@{/secret.svg},title=#{logo},alt=#{logo}" />
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav justify-content-center" style="flex:1">
+    <nav class="navbar navbar-expand-md navbar-dark p-0 fixed-top" id="navTop" th:fragment="header"
+    style="height: 140px; background-color: var(--main-1); opacity:1">
+      <div class="container-fluid" style="height:100%;
+      padding-left:40px; padding-right:40px; padding-top:0px; padding-bottom: 0px;">
+        <div class="nav-left" style="flex:1;">
+          <a class="navbar-brand" href="#" th:href="@{/}"
+          style="height: 100%;">
+            <img class="img-fluid" src="../static/secret.svg"
+              th:attr="src=@{/secret.svg},title=#{logo},alt=#{logo}" 
+              style="width: 100%;"/>
+          </a>
+        </div>
+        <div class="collapse navbar-collapse" id="navbarNav"
+             style="height:100%; flex:6;">
+          <ul class="navbar-nav justify-content-center" style="flex:1; height:100%;">
             <li class="nav-item d-flex p-0" id="nav-item-first">
-              <a class="nav-link flex-column d-flex" id="custom-nav-item" style="flex:1; justify-content: center;" aria-current="page" href="#" onclick="change_nav(event)">로비
+              <a class="nav-link flex-column d-flex" id="custom-nav-item1" style="flex:1; justify-content: center;" aria-current="page" href="#" onclick="change_nav(event)">로비
                 <span class="nav-item-inner">1F</span>
               </a>
             </li>
             <li class="nav-item d-flex p-0">
-              <a class="nav-link flex-column d-flex" id="custom-nav-item" style="flex:1; justify-content: center;" aria-current="page" href="gallery.html" th:attr="href=@{/gallery}" onclick="change_nav(event)">전시실
+              <a class="nav-link flex-column d-flex" id="custom-nav-item2" style="flex:1; justify-content: center;" aria-current="page" href="gallery.html" th:attr="href=@{/gallery}" onclick="change_nav(event)">전시실
                 <span class="nav-item-inner"
                 th:text="${(totalCount!=null) 
                   ? 'B1 ~ B'+(totalCount/10+1)+'F' 
@@ -27,17 +31,21 @@
               </a>
             </li>
             <li class="nav-item d-flex p-0">
-              <a class="nav-link flex-column d-flex" id="custom-nav-item" style="flex:1; justify-content: center;" aria-current="page" href="studio_product.html" th:attr="href=@{/studio}" onclick="change_nav(event)">작품 제작실
+              <a class="nav-link flex-column d-flex" id="custom-nav-item3" style="flex:1; justify-content: center;" aria-current="page" href="studio_product.html" th:attr="href=@{/studio}" onclick="change_nav(event)">작품 제작실
                 <span class="nav-item-inner">??F</span>
               </a>
             </li>
           </ul>
-          <a class="nav-link" href="#">
-            <img class="img-fluid" src="../static/speaker.svg" 
-            th:attr="src=@{/speaker.svg},title=#{logo},alt=#{logo}"/>
+        </div>
+        <div class="nav-right" style="flex:1;">
+          <a class="nav-link" href="#" style="text-align: end;">
+            <img class="img-fluid" src="../static/speaker.svg"
+                 th:attr="src=@{/speaker.svg},title=#{logo},alt=#{logo}"
+                 style="width: 30%;"/>
           </a>
         </div>
       </div>
     </nav>
+
   </body>
 </html>

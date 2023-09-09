@@ -2,13 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
 
-<!-- <tr th:each="member : ${members}">
-  <td th:text="${member.id}"></td>
-  <td th:text="${member.name}"></td>
-</tr> -->
-
 <div class="custom-container-default d-flex flex-column" style="min-height: 80vh;"
-th:fragment="gallery-item">
+th:fragment="item">
 
 <div th:each="item : ${items}">
   <div th:class="${item.id==items[0].id}? 'gallery-item-first' : 'gallery-item-many'">
