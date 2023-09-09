@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * gallery-item-detail.html, gallery.html 를 담당
+ * gallery-item.html, gallery.html 를 담당
  */
 
 @Controller
@@ -92,7 +92,7 @@ public class GalleryController {
         Item item = itemService.findOne(itemId);
         ItemDetailDto itemDetailDto = new ItemDetailDto(item);
         model.addAttribute("item", itemDetailDto);
-        return "gallery-item-detail"; // gallery-item-detail.html
+        return "gallery-item"; // gallery-item.html
     }
 
 }
