@@ -95,12 +95,12 @@ nav {
 * Footer
 */
 .custom-footer {
-  color:var(--line);
+  color:var(--text-2);
   display: flex;
   justify-content: center; 
   align-items: center; 
   border-style: solid;
-  border-top-width: 1px;
+  border-top-width: 0px;
   border-left-width: 0px;
   border-right-width: 0px;
   border-bottom-width: 0px;
