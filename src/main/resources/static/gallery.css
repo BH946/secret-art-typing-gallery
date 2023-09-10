@@ -3,14 +3,14 @@
   flex-direction: row;
   padding-top: 20px;
   padding-bottom: 30px;
-  height: 25vh;
+  /*height: 25vh;*/
 }
 .gallery-item-many{
   display: flex;
   flex-direction: row;
   padding-top: 20px;
   padding-bottom: 30px;
-  height: 25vh;
+  /*height: 25vh;*/
 
   /* first와 차이점은 아래 border부분뿐 */
   border-color: var(--line);
@@ -19,4 +19,21 @@
   border-right-width: 0px;
   border-bottom-width: 0px;
   border-top-width: 1px;
+}
+
+.page-link{
+background-color: var(--main-1);
+border-width:0px;
+font-size:16px;
+font-weight: 500;
+text-align: center;
+color:white;
+}
+.page-link.active{
+background-color: white;
+color:var(--main-1);
+}
+.page-link:hover{
+background-color: var(--main-2);
+color:white;
 }

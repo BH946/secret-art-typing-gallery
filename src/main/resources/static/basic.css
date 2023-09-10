@@ -24,8 +24,6 @@ body {
   /* SUITE 못 찾으면 sans-serif 사용 */
   font-family: 'SUITE-Regular', sans-serif;
   margin-top: 140px;
-  /* height: 100%;
-  margin: 0; */
 }
 
 /*
@@ -35,7 +33,7 @@ nav {
   border-left-width: 0px;
   border-right-width: 0px;
   border-top-width: 0px;
-  border-bottom-width: 1px;
+  border-bottom-width: 0px;
   border-style: solid;
   border-color: var(--line);
 }
@@ -89,6 +87,16 @@ nav {
   padding-right: 15vw;
   min-height: 45vh;
 }
+/* 모달에 스타일링 */
+/* 스크롤을 숨기는 스타일 */
+.no-scroll::-webkit-scrollbar {
+width: 0px;
+}
+/* 스핀 버튼 숨기기 */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+-webkit-appearance: none;
+}
 
 
 /*
@@ -100,11 +108,11 @@ nav {
   justify-content: center; 
   align-items: center; 
   border-style: solid;
-  border-top-width: 0px;
+  border-top-width: 1px;
   border-left-width: 0px;
   border-right-width: 0px;
   border-bottom-width: 0px;
   border-color: var(--line);
-  margin-left: 15vw;
+  margin-left: 15vw; /* custom-container-default 의 padding 과 너비 맞출것 */
   margin-right: 15vw;
 }

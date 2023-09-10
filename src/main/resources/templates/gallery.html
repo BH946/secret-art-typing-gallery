@@ -20,104 +20,108 @@
     <link rel="stylesheet" type="text/css" media="all"
           href="../static/gallery.css" th:href="@{/gallery.css}"/>
     <style>
+
     </style>
 
+    <!-- header -->
     <nav th:replace="fragments/header :: header">
-
     </nav>
 
+
     <!-- main 개발 -->
+    <!-- 메인 그림 -->
     <div class="container-fluid p-0">
       <img class="img-fluid" src="../static/6.png" 
         th:attr="src=@{/6.png},title=#{logo},alt=#{logo}" />
     </div>
 
-    <div class="custom-container-default d-flex flex-column" style="min-height: 10vh; padding-bottom: 0vh;">
-      <div class="container" style="text-align: center;">
-        <span style="font-weight: 500; color: white; font-size: 1.4vw;"
-        th:text="${(pageId!=null) 
-        ? 'B'+(pageId)+'F' 
-        : 'B?F'}">B?F</span>
-      </div>
-      <div class="container d-flex justify-content-center" style="width: 100%;">
-        <div class="d-flex justify-content-center " style="flex:0.5;">
-          <img class="img-fluid" src="../static/6-1.svg" 
-          th:attr="src=@{/6-1.svg},title=#{logo},alt=#{logo}" 
-          style="max-width: 50%;"/>
-          <span class="px-3" style="font-size: 2vw; font-weight: 700; color: white; white-space: nowrap;">전시실</span>
-          <img class="img-fluid" src="../static/6-2.svg" 
-          th:attr="src=@{/6-2.svg},title=#{logo},alt=#{logo}" 
-          style="max-width: 50%;"/>
+    <!-- 본문  -->
+    <div class="custom-container-default">
+      <!-- 제목(층수) -->
+      <div class="d-flex flex-column" style="min-height: 0vh; padding-bottom: 5vh;">
+        <div class="container" style="text-align: center;">
+          <span style="font-weight: 500; color: white; font-size: 1.4vw;"
+          th:text="${(pageId!=null)
+          ? 'B'+(pageId)+'F'
+          : 'B?F'}">B?F</span>
+        </div>
+        <div class="container d-flex justify-content-center" style="width: 100%;">
+          <div class="d-flex justify-content-center " style="flex:0.5;">
+            <img class="img-fluid" src="../static/6-1.svg"
+            th:attr="src=@{/6-1.svg},title=#{logo},alt=#{logo}"
+            style="max-width: 50%;"/>
+            <span class="px-3" style="font-size: 2vw; font-weight: 700; color: white; white-space: nowrap;">전시실</span>
+            <img class="img-fluid" src="../static/6-2.svg"
+            th:attr="src=@{/6-2.svg},title=#{logo},alt=#{logo}"
+            style="max-width: 50%;"/>
+          </div>
         </div>
       </div>
+
+      <!-- 작품 나열 -->
+      <div class="d-flex flex-column" style="min-height: 80vh;"
+      th:replace="fragments/item :: item">
+        <div class="gallery-item-first">
+          <div class="d-flex flex-column pe-4" style="flex:0.15;">
+            <span style="font-weight: 500; color: white; font-size: 1.2vw; ">No.15</span>
+            <span class="pt-2" style="font-weight: 400; color: var(--text-2); font-size: 1vw; letter-spacing: -0.16px;
+            ">23.05.22.16:00</span>
+          </div>
+          <div class="d-flex flex-column" style="flex:0.45;">
+            <span style="font-weight: 500; color: white; font-size: 1.2vw; ">최근에 있엇던 대외비</span>
+            <span class="pt-2" style="font-weight: 400; color: var(--text-2); font-size: 1vw; letter-spacing: -0.16px;
+            ">방문자가작성한닉네임</span>
+            <div class="d-flex" style="flex:1;">
+            <button class="btn btn-light" type="button"
+            style="border-radius: 0px;background-color: var(--main-1); font-size: 1vw; width: 200px;
+            align-self: end; width: 12vw;"
+            href="#" th:attr="href=@{gallery/productDetail/${itemId}}">
+              <span class="fw-bold" style="color: white; font-size: 1em; white-space: nowrap;">15전시실 입장 test용</span>
+            </button>
+          </div>
+          </div>
+          <div class="d-flex flex-column" style="flex:0.4;">
+            <img class="img-fluid" src="../static/6.png"
+            th:attr="src=@{/6.png},title=#{logo},alt=#{logo}"
+            style="flex:1; border-radius: 50% 50% 0 0;"/>
+          </div>
+        </div>
+
+        <div class="gallery-item-many">
+          <div class="d-flex flex-column pe-4" style="flex:0.15;">
+            <span style="font-weight: 500; color: white; font-size: 1.2vw; ">No.14</span>
+            <span class="pt-2" style="font-weight: 400; color: var(--text-2); font-size: 1vw; letter-spacing: -0.16px;
+            ">23.05.21.16:00</span>
+          </div>
+          <div class="d-flex flex-column" style="flex:0.45;">
+            <span style="font-weight: 500; color: white; font-size: 1.2vw; ">무제</span>
+            <span class="pt-2" style="font-weight: 400; color: var(--text-2); font-size: 1vw; letter-spacing: -0.16px;
+            ">익명</span>
+            <div class="d-flex" style="flex:1;">
+            <button class="btn btn-light" type="button"
+            style="border-radius: 0px;background-color: var(--main-1); font-size: 1vw; width: 200px;
+            align-self: end; width: 12vw;">
+              <span class="fw-bold" style="color: white; font-size: 1em; white-space: nowrap;">14전시실 입장</span>
+            </button>
+          </div>
+          </div>
+          <div class="d-flex flex-column" style="flex:0.4;">
+            <img class="img-fluid" src="../static/6.png"
+            th:attr="src=@{/6.png},title=#{logo},alt=#{logo}"
+            style="flex:1; border-radius: 50% 50% 0 0;"/>
+          </div>
+        </div>
+      </div>
+
+      <!-- pagination -->
+      <br><br><br><br>
+      <nav aria-label="Page navigation">
+        <ul id="dyn_ul" class="pagination" style="justify-content: center;">
+        </ul>
+      </nav>
+
     </div>
 
-    <div class="custom-container-default d-flex flex-column" style="min-height: 80vh;"
-    th:replace="fragments/item :: item">
-
-      <div class="gallery-item-first">
-        <div class="d-flex flex-column pe-4" style="flex:0.15;">
-          <span style="font-weight: 500; color: white; font-size: 1.2vw; ">No.15</span>
-          <span class="pt-2" style="font-weight: 400; color: var(--text-2); font-size: 1vw; letter-spacing: -0.16px; 
-          ">23.05.22.16:00</span>
-        </div>
-        <div class="d-flex flex-column" style="flex:0.45;">
-          <span style="font-weight: 500; color: white; font-size: 1.2vw; ">최근에 있엇던 대외비</span>
-          <span class="pt-2" style="font-weight: 400; color: var(--text-2); font-size: 1vw; letter-spacing: -0.16px; 
-          ">방문자가작성한닉네임</span>
-          <div class="d-flex" style="flex:1;">
-          <button class="btn btn-light" type="button"
-          style="border-radius: 0px;background-color: var(--main-1); font-size: 1vw; width: 200px;
-          align-self: end; width: 12vw;"
-          href="#" th:attr="href=@{gallery/productDetail/${itemId}}">
-            <span class="fw-bold" style="color: white; font-size: 1em; white-space: nowrap;">15전시실 입장 test용</span>
-          </button>
-        </div>
-        </div>
-        <div class="d-flex flex-column" style="flex:0.4;">
-          <img class="img-fluid" src="../static/6.png" 
-          th:attr="src=@{/6.png},title=#{logo},alt=#{logo}" 
-          style="flex:1; border-radius: 50% 50% 0 0;"/>
-        </div>
-      </div>
-
-
-      <div class="gallery-item-many">
-        <div class="d-flex flex-column pe-4" style="flex:0.15;">
-          <span style="font-weight: 500; color: white; font-size: 1.2vw; ">No.14</span>
-          <span class="pt-2" style="font-weight: 400; color: var(--text-2); font-size: 1vw; letter-spacing: -0.16px; 
-          ">23.05.21.16:00</span>
-        </div>
-        <div class="d-flex flex-column" style="flex:0.45;">
-          <span style="font-weight: 500; color: white; font-size: 1.2vw; ">무제</span>
-          <span class="pt-2" style="font-weight: 400; color: var(--text-2); font-size: 1vw; letter-spacing: -0.16px; 
-          ">익명</span>
-          <div class="d-flex" style="flex:1;">
-          <button class="btn btn-light" type="button"
-          style="border-radius: 0px;background-color: var(--main-1); font-size: 1vw; width: 200px;
-          align-self: end; width: 12vw;">
-            <span class="fw-bold" style="color: white; font-size: 1em; white-space: nowrap;">14전시실 입장</span>
-          </button>
-        </div>
-        </div>
-        <div class="d-flex flex-column" style="flex:0.4;">
-          <img class="img-fluid" src="../static/6.png" 
-          th:attr="src=@{/6.png},title=#{logo},alt=#{logo}" 
-          style="flex:1; border-radius: 50% 50% 0 0;"/>
-        </div>
-      </div>
-
-    </div>    
-
-
-
-
-    <!-- pagination -->
-    <nav aria-label="Page navigation">
-      <ul id="dyn_ul" class="pagination" style="justify-content: center;">
-
-      </ul>
-    </nav>
 
     <!-- footer -->
     <footer th:replace="fragments/footer :: footer"
@@ -131,110 +135,97 @@
     <script th:replace="fragments/scripts :: scripts1"
     src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous">
     </script>
+    <!-- Jquery CDN 로드 : 항상 최신 버전 사용 -->
+    <script th:replace="fragments/scripts :: scripts4" src="https://code.jquery.com/jquery-latest.min.js"></script>
 
     <script th:replace="fragments/scripts :: scripts2">
       // nav 클릭때마다 배경색 변경 커스텀
-      function change_nav(e) {
-        var nav = document.querySelectorAll("#custom-nav-item");
-        nav.forEach(function (nav, i) {
-          if (e.currentTarget == nav) {
-            nav.classList.add("visited");
-          } else {
-            nav.classList.remove("visited");
-          }
-        });
-        console.log(e.currentTarget);
-      }
-      // 비밀번호 정규식 등록 
-      function checkNumber(event) {
-        var pw = event.key
-        if (/^\d+$/.test(pw)) {
-            return true;
-          } else {
-            return false;
-          }
-        return false;
-      }
+      // 스크롤시 NavBar 불투명도 변경
     </script>
 
-
-<!-- 페이징 -->
-<!-- Jquery CDN 로드 : 항상 최신 버전 사용 -->  
-<script src="https://code.jquery.com/jquery-latest.min.js"></script>
-
-<script th:inline="javascript">
-var pageCount = /*[[${(totalCount/10)+1}]]*/ null; // 총 페이지 크기 -> 통신으로 받음
-var pageMax = 3; // 보여줄 페이지 수
-var activePage = /*[[${pageId}]]*/ null; // 현재 페이지 -> 통신으로 받음(active)
-var startIndex = 1; // 보여줄 시작 페이지(계산 여기서 하겠음)
-if(activePage>pageMax) startIndex = activePage-(pageMax-1);
-
-// [동적 ul 페이징 처리 실시]
-if(pageCount == 1){ //생성해야할 페이지가 1페이지인 경우
-  var insertUl = "<li class='page-item'>"; // 변수 선언
-  insertUl += insertUl + "<a class='page-link active' href='/gallery/1' onclick = 'newPage(1);'>";
-  insertUl += "1</a></li>";
-  $("#dyn_ul").append(insertUl); //jquery append 사용해 동적으로 추가 실시
-}
-else if(pageCount >= 2){ //생성해야할 페이지가 2페이지 이상인 경우
-  // 이전 페이지 추가 실시 
-  var insertSTR = "<li class='page-item'>"; // 변수 선언
-  if(activePage===1) insertSTR = insertSTR + "<a class='page-link disabled' href='/gallery/"+(activePage)+"' onclick = 'newPage("+"-1"+");'>";
-  else insertSTR = insertSTR + "<a class='page-link' href='/gallery/"+(activePage-1)+"' onclick = 'newPage("+"-1"+");'>";
-  insertSTR = insertSTR + "Previous";
-  insertSTR = insertSTR + "</a></li>";
-  $("#dyn_ul").append(insertSTR); //jquery append 사용해 동적으로 추가 실시      		
-  
-  // ... 페이지 추가 (앞에 페이지 더 있을경우 맨앞 페이지로 이동)
-  if((activePage > pageMax)) {
-    var insertMID = "<li class='page-item'>"; // 변수 선언
-    insertMID = insertMID + "<a class='page-link' href='/gallery/"+(1)+"' onclick = 'newPage("+"0"+");'>";
-    insertMID = insertMID + "...";
-    insertMID = insertMID + "</a></li>";
-    $("#dyn_ul").append(insertMID); //jquery append 사용해 동적으로 추가 실시
-  }
+    <!-- 페이징 -->
+    <script th:inline="javascript">
+      var pageCount = /*[[${(totalCount/10)+1}]]*/ null; // 총 페이지 크기 -> 통신으로 받음
+      var pageMax = 10; // 보여줄 페이지 수
+      var activePage = /*[[${pageId}]]*/ null; // 현재 페이지 -> 통신으로 받음(active)
+      // 보여줄 시작 페이지(계산 여기서 하겠음)
+      // 현재페이지/보여줄페이지수 몫 * 보여줄페이지수
+      // ex) 23 / 10 * 10 -> 2*10 -> 20
+      var startIndex = parseInt((activePage-1)/pageMax)*pageMax + 1;
+      var endIndex = startIndex + pageMax -1;
+      if(endIndex > pageCount)
+        endIndex = startIndex + (pageCount%startIndex);
+      
+      // 동적 스타일링
+      var arrowLeft = "<img class='img-fluid' src='/arrow-left.svg'/>"
+      var arrowRight = "<img class='img-fluid' src='/arrow-right.svg'/>"
 
 
-  // 특정 1, 2, 3 .. 페이지 추가 실시
-  var count = 1;
-  for(var i=startIndex; i<=pageCount; i++){
-    if(count > pageMax){ //최대로 생성될 페이지 개수가 된 경우 
-      page = i - pageMax; //생성된 페이지 초기값 저장 (초기 i값 4 탈출 인경우 >> 1값 저장)
-      break; //for 반복문 탈출
-    }
-    var insertUl = "<li class='page-item'>"; // 변수 선언
-    if(i===activePage) insertUl = insertUl + "<a class='page-link active' href='/gallery/"+i+"' onclick = 'newPage("+i+");'>";
-    else insertUl = insertUl + "<a class='page-link' href='/gallery/"+i+"' onclick = 'newPage("+i+");'>";
-    insertUl = insertUl + String(i);
-    insertUl = insertUl + "</a></li>";
-    $("#dyn_ul").append(insertUl); //jquery append 사용해 동적으로 추가 실시  
-    count ++;
-  }
 
-  // ... 페이지 추가 (뒤에 페이지 더 있을경우 끝 페이지로 이동)
-  if((activePage < pageCount) && (activePage >= pageMax)) {
-    var insertMID = "<li class='page-item'>"; // 변수 선언
-    insertMID = insertMID + "<a class='page-link' href='/gallery/"+(pageCount)+"' onclick = 'newPage("+"0"+");'>";
-    insertMID = insertMID + "...";
-    insertMID = insertMID + "</a></li>";
-    $("#dyn_ul").append(insertMID); //jquery append 사용해 동적으로 추가 실시
-  }
+      // [동적 ul 페이징 처리 실시]
+      if(pageCount == 1){ //생성해야할 페이지가 1페이지인 경우
+        var insertUl = "<li class='page-item'>"; // 변수 선언
+        insertUl += insertUl + "<a class='page-link active' href='/gallery/1' onclick = 'newPage(1);'>";
+        insertUl += "1</a></li>";
+        $("#dyn_ul").append(insertUl); //jquery append 사용해 동적으로 추가 실시
+      }
+      else if(pageCount >= 2){ //생성해야할 페이지가 2페이지 이상인 경우
+        // (Previous)이전 페이지 추가 실시
+        var insertSTR = "<li class='page-item'>"; // 변수 선언
+        if(activePage===1) insertSTR = insertSTR + "<a class='page-link disabled' style='background-color: var(--main-1); opacity:0.3;' href='/gallery/"+(activePage)+"' onclick = 'newPage("+"-1"+");'>";
+        else insertSTR = insertSTR + "<a class='page-link' href='/gallery/"+(activePage-1)+"' onclick = 'newPage("+"-1"+");'>";
+        // insertSTR = insertSTR + "Previous";
+        insertSTR = insertSTR + arrowLeft;
+        insertSTR = insertSTR + "</a></li>";
+        $("#dyn_ul").append(insertSTR); //jquery append 사용해 동적으로 추가 실시
 
-
-  // 다음 페이지 추가 실시
-  var insertEND = "<li class='page-item'>"; // 변수 선언
-  if(activePage === pageCount)   insertEND = insertEND + "<a class='page-link disabled' href='/gallery/"+(activePage)+"' onclick = 'newPage("+"0"+");'>";
-  else insertEND = insertEND + "<a class='page-link' href='/gallery/"+(activePage+1)+"' onclick = 'newPage("+"0"+");'>";
-  insertEND = insertEND + "Next";
-  insertEND = insertEND + "</a></li>";
-  $("#dyn_ul").append(insertEND); //jquery append 사용해 동적으로 추가 실시
-}
+        // ... 페이지 추가 (앞에 페이지 더 있을경우 맨앞 페이지로 이동)
+        if((activePage > pageMax)) {
+          var insertMID = "<li class='page-item'>"; // 변수 선언
+          insertMID = insertMID + "<a class='page-link' href='/gallery/"+(1)+"' onclick = 'newPage("+"0"+");'>";
+          insertMID = insertMID + "...";
+          insertMID = insertMID + "</a></li>";
+          $("#dyn_ul").append(insertMID); //jquery append 사용해 동적으로 추가 실시
+        }
 
 
-</script>
+        // 1, 2, 3 .. 페이지 추가 실시
+        var count = 1;
+        for(var i=startIndex; i<=pageCount; i++){
+          if(count > pageMax){ //최대로 생성될 페이지 개수가 된 경우
+            page = i - pageMax; //생성된 페이지 초기값 저장 (초기 i값 4 탈출 인경우 >> 1값 저장)
+            break; //for 반복문 탈출
+          }
+          var insertUl = "<li class='page-item'>"; // 변수 선언
+          if(i===activePage) insertUl = insertUl + "<a class='page-link active' href='/gallery/"+i+"' onclick = 'newPage("+i+");'>";
+          else insertUl = insertUl + "<a class='page-link' href='/gallery/"+i+"' onclick = 'newPage("+i+");'>";
+          insertUl = insertUl + String(i);
+          insertUl = insertUl + "</a></li>";
+          $("#dyn_ul").append(insertUl); //jquery append 사용해 동적으로 추가 실시
+          count ++;
+        }
 
-<!--    NavBar 투명도조절-->
-    <script th:replace="fragments/scripts :: scripts3"></script>
+        // ... 페이지 추가 (뒤에 페이지 더 있을경우 끝 페이지로 이동)
+        if((activePage < pageCount) && (activePage >= pageMax) && (endIndex < pageCount)) {
+          var insertMID = "<li class='page-item'>"; // 변수 선언
+          insertMID = insertMID + "<a class='page-link' href='/gallery/"+(pageCount)+"' onclick = 'newPage("+"0"+");'>";
+          insertMID = insertMID + "...";
+          insertMID = insertMID + "</a></li>";
+          $("#dyn_ul").append(insertMID); //jquery append 사용해 동적으로 추가 실시
+        }
+
+        // (Next)다음 페이지 추가 실시
+        var insertEND = "<li class='page-item'>"; // 변수 선언
+        if(activePage === pageCount)  insertEND = insertEND + "<a class='page-link disabled' style='background-color: var(--main-1); opacity:0.3;' href='/gallery/"+(activePage)+"' onclick = 'newPage("+"0"+");'>";
+        else insertEND = insertEND + "<a class='page-link' href='/gallery/"+(activePage+1)+"' onclick = 'newPage("+"0"+");'>";
+        // insertEND = insertEND + "Next";
+        insertEND = insertEND + arrowRight;
+        insertEND = insertEND + "</a></li>";
+        $("#dyn_ul").append(insertEND); //jquery append 사용해 동적으로 추가 실시
+      }
+
+
+    </script>
 
   </body>
 </html>

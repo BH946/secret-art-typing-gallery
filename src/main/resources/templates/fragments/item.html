@@ -2,36 +2,38 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
 
-<div class="custom-container-default d-flex flex-column" style="min-height: 80vh;"
+<div class="d-flex flex-column" style="min-height: 80vh; padding-top:3vh;"
 th:fragment="item">
 
-<div th:each="item : ${items}">
-  <div th:class="${item.id==items[0].id}? 'gallery-item-first' : 'gallery-item-many'">
-    <div class="d-flex flex-column pe-4" style="flex:0.15;">
-      <span style="font-weight: 500; color: white; font-size: 1.2vw;" th:text="'No.'+${item.id}">No.15</span>
-      <span class="pt-2" style="font-weight: 400; color: var(--text-2); font-size: 1vw; letter-spacing: -0.16px; 
-      " th:text="${item.date1}">23.05.22.16:00</span>
+  <!-- 렌더링시 제거 block -->
+  <th:block th:each="item : ${items}">
+    <div th:class="${item.id==items[0].id}? 'gallery-item-first' : 'gallery-item-many'"
+    style="flex:1; padding-top: 30px;">
+      <div class="d-flex flex-column pe-4" style="flex:0.15;">
+        <span class="" style="font-weight: 500; color: white; font-size: 1.2vw;" th:text="'No.'+${item.id}">No.15</span>
+        <span class="pt-2" style="font-weight: 400; color: var(--text-2); font-size: 1vw; letter-spacing: -0.16px;
+        " th:text="${item.date1}">23.05.22.16:00</span>
+      </div>
+      <div class="d-flex flex-column pe-4" style="flex:0.42;">
+        <span class="text-truncate" style="font-weight: 500; color: white; font-size: 1.2vw; width:25vw;" th:text="${item.title}">최근에 있엇던 대외비</span>
+        <span class="text-truncate pt-2" style="font-weight: 400; color: var(--text-2); font-size: 1vw; letter-spacing: -0.16px; width:25vw;
+        " th:text="${item.nickName} ">방문자가작성한닉네임</span>
+
+        <a class="btn btn-light mt-4" type="button"
+        style="border-radius: 0px; background-color: var(--main-1); font-size: 1vw; width: 200px;
+        align-self: flex-start; width: 12vw;"
+        href="#" th:href="@{/gallery/itemDetail/{id}(id=${item.id})}">
+          <span class="fw-bold" style="color: white; font-size: 1em; white-space: nowrap;" th:text="${item.id}+'전시실 입장'">15전시실 입장 test용</span>
+        </a>
+      </div>
+      <div class="d-flex flex-column" style="flex:0.43;">
+        <img class="img-fluid" src="../static/6.png"
+        th:attr="src=@{/6.png},title=#{logo},alt=#{logo}"
+        style="height:144px; border-radius: 100px 100px 0 0;"/>
+      </div>
     </div>
-    <div class="d-flex flex-column" style="flex:0.45;">
-      <span style="font-weight: 500; color: white; font-size: 1.2vw;" th:text="${item.title}">최근에 있엇던 대외비</span>
-      <span class="pt-2" style="font-weight: 400; color: var(--text-2); font-size: 1vw; letter-spacing: -0.16px; 
-      " th:text="${item.nickName}">방문자가작성한닉네임</span>
-      <div class="d-flex" style="flex:1;">
-      <a class="btn btn-light" type="button"
-      style="border-radius: 0px;background-color: var(--main-1); font-size: 1vw; width: 200px;
-      align-self: end; width: 12vw;"
-      href="#" th:href="@{/gallery/itemDetail/{id}(id=${item.id})}">
-        <span class="fw-bold" style="color: white; font-size: 1em; white-space: nowrap;" th:text="${item.id}+'전시실 입장'">15전시실 입장 test용</span>
-      </a>
-    </div>
-    </div>
-    <div class="d-flex flex-column" style="flex:0.4;">
-      <img class="img-fluid" src="../static/6.png" 
-      th:attr="src=@{/6.png},title=#{logo},alt=#{logo}" 
-      style="flex:1; border-radius: 50% 50% 0 0;"/>
-    </div>
-  </div>
-</div>
+  </th:block>
+
 </div>
 
 

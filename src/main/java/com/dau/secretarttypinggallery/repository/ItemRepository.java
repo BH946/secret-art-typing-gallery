@@ -39,7 +39,7 @@ public class ItemRepository {
     public List<Item> findAllWithPage(int pageId) {
         return em.createQuery("select i from Item i", Item.class)
                 .setFirstResult((pageId-1)*10)
-                .setMaxResults(((pageId-1)*10)+10)
+                .setMaxResults(10) // 개수임!!
                 .getResultList();
     }
 

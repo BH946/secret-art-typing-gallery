@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
   <body>
+    <!-- 부트스트랩 -->
     <script th:fragment="scripts1"
     src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 
@@ -17,7 +18,18 @@
         });
         console.log(e.currentTarget);
       }
-      // 비밀번호 정규식 등록 
+      // 스크롤시 NavBar 불투명도 변경
+      $(window).scroll(function() {
+        if ($(this).scrollTop() > 10) { /* 스크롤 위치 조건 설정 */
+          $('#navTop').css('opacity', '0.7'); /* 스크롤될 때 배경 불투명하게 변경 */
+        } else {
+          $('#navTop').css('opacity', '1'); /* 스크롤 위치가 조건에 맞지 않을 때 배경 투명하게 유지 */
+        }
+      });
+    </script>
+
+    <script th:fragment="scripts3">
+      // 비밀번호 정규식 등록
       function checkNumber(event) {
         var pw = event.key
         if (/^\d+$/.test(pw)) {
@@ -29,15 +41,8 @@
       }
     </script>
 
-    <script th:fragment="scripts3">
-      // 스크롤시 NavBar 불투명도 변경
-      $(window).scroll(function() {
-        if ($(this).scrollTop() > 10) { /* 스크롤 위치 조건 설정 */
-          $('#navTop').css('opacity', '0.7'); /* 스크롤될 때 배경 불투명하게 변경 */
-        } else {
-          $('#navTop').css('opacity', '1'); /* 스크롤 위치가 조건에 맞지 않을 때 배경 투명하게 유지 */
-        }
-      });
-    </script>
+    <!-- Jquery CDN 로드 : 항상 최신 버전 사용 -->
+    <script th:fragment="scripts4" src="https://code.jquery.com/jquery-latest.min.js"></script>
+
   </body>
 </html>

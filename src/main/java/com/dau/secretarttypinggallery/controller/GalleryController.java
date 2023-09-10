@@ -38,11 +38,13 @@ public class GalleryController {
     }
     @GetMapping("/{pageId}")
     public String galleryPage(@PathVariable int pageId, Model model) {
+        log.info("pageId : {}", pageId);
         List<Item> items = itemService.findAllWithPage(pageId);
-        List<ItemDto> itemDtos = items.stream()
+        log.info("items : {}", items.size());
+        List<ItemDto> itemsDto = items.stream()
                 .map(o -> new ItemDto(o))
                 .collect(Collectors.toList());
-        model.addAttribute("items", itemDtos); // gallery.html 에 넘길 데이터
+        model.addAttribute("items", itemsDto); // gallery.html 에 넘길 데이터
         model.addAttribute("totalCount", itemService.findTotalCount());
         return "gallery"; // gallery.html 반환
     }

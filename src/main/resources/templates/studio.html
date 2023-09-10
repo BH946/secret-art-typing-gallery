@@ -78,7 +78,7 @@
       </div>
     </nav>
 
-  
+    <hr style="color:white;"/>
 
     <!-- main 개발 -->
     <div th:replace = "fragments/album :: album"
@@ -186,24 +186,14 @@
     src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous">
     </script>
 
+    <!-- Jquery CDN 로드 : 항상 최신 버전 사용 -->
+    <script th:replace="fragments/scripts :: scripts4" src="https://code.jquery.com/jquery-latest.min.js"></script>
+
     <script th:replace="fragments/scripts :: scripts2">
       // nav 클릭때마다 배경색 변경 커스텀
-      function change_nav(e) {
-        var nav = document.querySelectorAll("#custom-nav-item");
-        nav.forEach(function (nav, i) {
-          if (e.currentTarget == nav) {
-            nav.classList.add("visited");
-          } else {
-            nav.classList.remove("visited");
-          }
-        });
-        console.log(e.currentTarget);
-      }
+      // 스크롤시 NavBar 불투명도 변경
     </script>
 
-
-    <!-- Jquery CDN 로드 : 항상 최신 버전 사용 -->  
-    <script src="https://code.jquery.com/jquery-latest.min.js"></script> 
     <script>
       // 크기, 자간, 행간 스크롤바(Range) 연동 + Textare&output 연동 + 색상변경 연동 + 이미지 저장
       const fontSizeRange = document.getElementById('fontSizeRange');
