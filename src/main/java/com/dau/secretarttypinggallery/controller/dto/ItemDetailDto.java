@@ -12,6 +12,7 @@ public class ItemDetailDto {
     private String content;
     private String date2;
     private String imgSrc;
+    private String password;
 
     //==생성 편의 메서드==//
     public ItemDetailDto(Item item) {
@@ -21,5 +22,6 @@ public class ItemDetailDto {
         this.date2 = item.getDate2();
         this.nickName = item.getNickName();
         this.imgSrc = item.getImgSrc();
+        this.password = item.getPassword();
     }
 }

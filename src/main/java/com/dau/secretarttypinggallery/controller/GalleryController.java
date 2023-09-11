@@ -54,27 +54,28 @@ public class GalleryController {
     /**
      * 작품 삭제 -> updateCachePage 도 꼭 같이 사용
      */
-    @PostMapping("/delete/{itemId}")
-    public String deleteGalleryItem(@PathVariable Long itemId, PWForm form) { // Model을 적용한것처럼 자동으로 속성:값 매칭해서 파라미터 가져온다.
+    @PostMapping("{pageId}/delete/{itemId}")
+    public String deleteGalleryItem(@PathVariable Long pageId, @PathVariable Long itemId, PWForm form) { // Model을 적용한것처럼 자동으로 속성:값 매칭해서 파라미터 가져온다.
         Item item = itemService.findOne(itemId); // 이미 없으면 null
         if (item != null) {
             log.info("item 널 아님");
             if(item.getPassword().equals(form.getPassword())){
                 log.info("비번통과");
-                int pageId = itemService.findPageId(itemId);
+//                int newPageId = itemService.findPageId(itemId);
                 itemService.remove(item);
-                itemService.updateCachePage(pageId);
+                itemService.updateCachePage(pageId.intValue());
+                return "redirect:/gallery"; // gallery() 함수로 이동
             }
             else log.info("비번실패");
         }
-        return "redirect:/gallery"; // gallery() 함수로 이동
+        return "redirect:/gallery/"+pageId+"/itemDetail/"+itemId; // 기존 화면 다시 로딩
     }
 
     /**
      * 작품 수정 -> updateCachePage 도 꼭 같이 사용
      */
-    @PostMapping("/update/{itemId}")
-    public String updateGalleryItem(@PathVariable Long itemId, PWForm form) {
+    @PostMapping("{pageId}/update/{itemId}")
+    public String updateGalleryItem(@PathVariable Long pageId, @PathVariable Long itemId, PWForm form) {
         Item item = itemService.findOne(itemId); // 이미 없으면 null
         if(item != null) {
             if(item.getPassword().equals(form.getPassword())) {
@@ -83,7 +84,7 @@ public class GalleryController {
             }
             else log.info("비번실패");
         }
-        return "redirect:/gallery/itemDetail/"+itemId; // 기존 화면 다시 로딩
+        return "redirect:/gallery/"+pageId+"/itemDetail/"+itemId; // 기존 화면 다시 로딩
     }
 
 
@@ -98,6 +99,7 @@ public class GalleryController {
         Item findItem = null;
         List<Item> items = itemService.findThree(itemId);
         Collections.sort(items, new ObjectSort()); // 오름차순 정렬
+
         for(Item item : items) {
             if(item.getId()==itemId) {
                 findItem = item;
@@ -105,14 +107,18 @@ public class GalleryController {
 //                log.info("findThree() : {}", item.getTitle());
             }
         }
+        List<ItemDto> itemsDto = items.stream()
+                .map(o -> new ItemDto(o))
+                .collect(Collectors.toList());
 
         ItemDetailDto itemDetailDto = new ItemDetailDto(findItem);
         model.addAttribute("item", itemDetailDto);
-        model.addAttribute("items", items);
+        model.addAttribute("items", itemsDto);
         model.addAttribute("len", items.size()); // 길이도 함께
 
         return "gallery-item"; // gallery-item.html
     }
+
 
     /**
      * sql 은 순서 보장을 하지 않아서 따로 sort 했음

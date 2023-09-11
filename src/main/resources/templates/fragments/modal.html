@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
   <body>
     
-    <!-- productModal -->
+    <!-- productModal - 반드시 id가 ??Modal 형식 -->
     <div class="modal modal-lg" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="ture"
     th:fragment="productModal">
       <div class="modal-dialog modal-dialog-centered" >
@@ -86,87 +86,47 @@
 
 
 
-    <!-- updateModal -->
-    <div class="modal modal-lg" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="ture"
-    th:fragment="updateModal">
-    <div class="modal-dialog modal-dialog-centered" >
-      <div class="modal-content p-2" style="background-color: var(--main-1); border-width: 1px; border-color: white; border-style: solid; border-radius: 0px;">
-        <form th:attr="action=@{/gallery/update/{itemId}(itemId=${item?.id})}" method="post">
-          <div class="modal-header pb-0" style="border-width: 0px;">
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="width: 3vw; height: 3vw; font-size: 0px;">
-              <img class="img-fluid" src="../static/close.svg" 
-                th:attr="src=@{/close.svg},title=#{logo},alt=#{logo}"/>
-            </button>
-          </div>
-          <div class="modal-body" style="padding-left: 5vw; padding-right: 5vw;">
-            
-            <div class="container d-flex flex-column pb-4">
-              <span class="pb-2" style="font-size: 2vw; font-weight: 500;color: white;">비밀번호 입력</span>
-              <span class="pb-4" style="color: var(--text-2); font-weight: 400; font-size: 1.2vw; letter-spacing: -0.16px;">작품을 등록할 때 입력하신 비밀번호를 다시 한 번 입력해주세요.</span>
-              <input type="password" class="no-spin" id="password" name="password" pattern="\d+" required onkeypress='return checkNumber(event)' placeholder="비밀번호 입력" style="color: var(--text-2); letter-spacing: -0.16px; font-weight: 400; font-size: 1vw; background-color: var(--main-2); stroke-width: 1px; stroke: var(--line); border-width: 0px; padding: 1vw; padding-top: 0.5vw; padding-bottom: 0.5vw;">
-            </div>
-          </div>
 
-          <div class="modal-footer pt-4" style="border-width: 0px;">
-            <div class="container d-flex flex-row p-0 m-0" >
-              <button class="btn btn-light m-0 p-0 pb-3 pt-3" type="button" data-bs-dismiss="modal" aria-label="Close" 
-              style="flex:1; background-color: var(--main-1); border-color: var(--line); border-radius: 1px; font-size: 1vw;">
-                <span class="fw-bold" style="color: white; font-size: 1.5em;">취소</span>
-              </button>
-              <button class="btn btn-light m-0 p-0 pb-3 pt-3" type="submit"
-              style="flex:1; border-radius: 0px; font-size: 1vw;">
-                <span class="fw-bold" style="color: var(--main-1); font-size: 1.5em;">확인</span>
+    <!-- updateNDeleteModal - 반드시 id가 ??Modal 형식 -->
+    <div th:fragment="updateNDeleteModal(operate)">
+    <div class="modal modal-lg" th:id="|${operate}Modal|" tabindex="-1" aria-hidden="ture">
+      <div class="modal-dialog modal-dialog-centered" >
+        <div class="modal-content" style="background-color: var(--main-1); border-width: 1px; border-color: white; border-style: solid; border-radius: 0px; padding-left: 40px; padding-right: 40px; padding-top: 20px; padding-bottom: 56px;">
+          <form th:action="@{|/gallery/${pageId}/${operate}/${item?.id}|}" th:object="${item}" method="post">
+            <div class="modal-header pb-0" style="border-width: 0px;">
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="width: 3vw; height: 3vw; font-size: 0px;">
+                <img class="img-fluid" src="../static/close.svg"
+                  th:attr="src=@{/close.svg},title=#{logo},alt=#{logo}"/>
               </button>
             </div>
-          </div>
-        </form>
+
+            <div class="modal-body" style="">
+              <div class="container d-flex flex-column pb-4 ps-0 pe-0">
+                <label for="password" class="pb-2" style="font-size: 2vw; font-weight: 500;color: white;">비밀번호 입력</label>
+                <span class="pb-4" style="color: var(--text-2); font-weight: 400; font-size: 1.2vw; letter-spacing: -0.16px;">작품을 등록할 때 입력하신 비밀번호를 다시 한 번 입력해주세요.</span>
+                <input type="password" class="no-spin" th:field="*{password}" id="password" name="password" pattern="\d+" required onkeypress='return checkNumber(event)' placeholder="비밀번호 입력" style="color: var(--text-2); letter-spacing: -0.16px; font-weight: 400; font-size: 1vw; background-color: var(--main-2); stroke-width: 1px; stroke: var(--line); border-width: 0px; padding: 1vw; padding-top: 0.5vw; padding-bottom: 0.5vw;">
+              </div>
+            </div>
+
+            <div class="modal-footer" style="border-width: 0px; padding-left: 16px; padding-right:16px;">
+              <div class="container d-flex flex-row p-0 m-0" >
+                <button class="btn btn-light m-0 p-0 pb-3 pt-3" type="button" data-bs-dismiss="modal" aria-label="Close"
+                style="flex:1; background-color: var(--main-1); border-color: var(--line); border-radius: 1px; font-size: 1vw;">
+                  <span class="fw-bold" style="color: white; font-size: 1.5em;">취소</span>
+                </button>
+                <button class="btn btn-light m-0 p-0 pb-3 pt-3" type="submit"
+                style="flex:1; border-radius: 0px; font-size: 1vw;">
+                  <span class="fw-bold" style="color: var(--main-1); font-size: 1.5em;">확인</span>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
     </div>
 
 
-
-
-    <!-- deleteModal -->
-    <div class="modal modal-lg" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="ture"
-    th:fragment="deleteModal">
-    <div class="modal-dialog modal-dialog-centered" >
-      <div class="modal-content p-2" style="background-color: var(--main-1); border-width: 1px; border-color: white; border-style: solid; border-radius: 0px;">
-        <form th:attr="action=@{/gallery/delete/{itemId}(itemId=${item.id})}" method="post">
-          <div class="modal-header pb-0" style="border-width: 0px;">
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="width: 3vw; height: 3vw; font-size: 0px;">
-              <img class="img-fluid" src="../static/close.svg" 
-                th:attr="src=@{/close.svg},title=#{logo},alt=#{logo}"/>
-            </button>
-          </div>
-          <div class="modal-body" style="padding-left: 5vw; padding-right: 5vw;">
-            
-            <div class="container d-flex flex-column pb-4">
-              <span class="pb-2" style="font-size: 2vw; font-weight: 500;color: white;">비밀번호 입력</span>
-              <span class="pb-4" style="color: var(--text-2); font-weight: 400; font-size: 1.2vw; letter-spacing: -0.16px;">작품을 등록할 때 입력하신 비밀번호를 다시 한 번 입력해주세요.</span>
-              <input type="password" class="no-spin" id="password" name="password" pattern="\d+" required onkeypress='return checkNumber(event)' placeholder="비밀번호 입력" style="color: var(--text-2); letter-spacing: -0.16px; font-weight: 400; font-size: 1vw; background-color: var(--main-2); stroke-width: 1px; stroke: var(--line); border-width: 0px; padding: 1vw; padding-top: 0.5vw; padding-bottom: 0.5vw;">
-            </div>
-          </div>
-
-          <div class="modal-footer pt-4" style="border-width: 0px;">
-            <div class="container d-flex flex-row p-0 m-0" >
-              <button class="btn btn-light m-0 p-0 pb-3 pt-3" type="button" data-bs-dismiss="modal" aria-label="Close" 
-              style="flex:1; background-color: var(--main-1); border-color: var(--line); border-radius: 1px; font-size: 1vw;">
-                <span class="fw-bold" style="color: white; font-size: 1.5em;">취소</span>
-              </button>
-              <button class="btn btn-light m-0 p-0 pb-3 pt-3" type="submit"
-              style="flex:1; border-radius: 0px; font-size: 1vw;">
-                <span class="fw-bold" style="color: var(--main-1); font-size: 1.5em;">확인</span>
-              </button>
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
-    </div>
-
-    
-    
 
 
   </body>
