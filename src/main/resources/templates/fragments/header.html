@@ -24,10 +24,7 @@
             </li>
             <li class="nav-item d-flex p-0">
               <a class="nav-link flex-column d-flex" id="custom-nav-item2" style="flex:1; justify-content: center;" aria-current="page" href="gallery.html" th:attr="href=@{/gallery}" onclick="change_nav(event)">전시실
-                <span class="nav-item-inner"
-                th:text="${(totalCount!=null) 
-                  ? 'B1 ~ B'+(totalCount/10+1)+'F' 
-                  : 'B1 ~ ??F'}">B1 ~ ??F</span>
+                <span class="nav-item-inner" th:text="|B1 ~ B${(totalCount!=null) ? (totalCount/10+1) : '??'}F|"></span>
               </a>
             </li>
             <li class="nav-item d-flex p-0">

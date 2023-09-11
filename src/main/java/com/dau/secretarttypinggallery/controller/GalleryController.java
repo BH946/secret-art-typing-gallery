@@ -12,6 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -88,13 +90,38 @@ public class GalleryController {
 
     /**
      * 작품상세 화면 조회
+     * find 함수를 새로 만들어서 사용하겠음(이전, 이후값도 가져오는..) -> 어차피 쿼리보내서 데이터 가져오니깐 한번만 쿼리보내자!
+     * Model 에 pageId 자동으로 담김
      */
-    @GetMapping("/itemDetail/{itemId}")
-    public String galleryItemDetail(@PathVariable Long itemId, Model model) {
-        Item item = itemService.findOne(itemId);
-        ItemDetailDto itemDetailDto = new ItemDetailDto(item);
+    @GetMapping("{pageId}/itemDetail/{itemId}")
+    public String galleryItemDetail(@PathVariable Long pageId, @PathVariable Long itemId, Model model) {
+        Item findItem = null;
+        List<Item> items = itemService.findThree(itemId);
+        Collections.sort(items, new ObjectSort()); // 오름차순 정렬
+        for(Item item : items) {
+            if(item.getId()==itemId) {
+                findItem = item;
+                items.remove(item);
+//                log.info("findThree() : {}", item.getTitle());
+            }
+        }
+
+        ItemDetailDto itemDetailDto = new ItemDetailDto(findItem);
         model.addAttribute("item", itemDetailDto);
+        model.addAttribute("items", items);
+        model.addAttribute("len", items.size()); // 길이도 함께
+
         return "gallery-item"; // gallery-item.html
+    }
+
+    /**
+     * sql 은 순서 보장을 하지 않아서 따로 sort 했음
+     */
+    static class ObjectSort implements Comparator <Item> {
+        @Override
+        public int compare(Item o1, Item o2) {
+            return Long.compare(o1.getId(), o2.getId()); // == a.x < b.x ? -1 : (a.x==b.x?0:1)
+        }
     }
 
 }

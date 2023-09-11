@@ -25,12 +25,17 @@ public class ItemService {
     /**
      * save, findOne, findAll, update, remove
      * findAllWithPage 추가 + findPageId
+     * findThree()
      */
 
     @Transactional // 쓰기모드 -> DB 저장위함
     public Long save(Item item) { itemRepository.save(item); return item.getId(); }
 
     public Item findOne(Long itemId) { return itemRepository.findOne(itemId); }
+
+    public List<Item> findThree(Long itemId) {
+        return itemRepository.findThree(itemId);
+    }
 
     // page 단위로(key) 캐시 기록 -> 참고 : value 로 꼭 캐시 영역을 지정해줘야 함
     @Cacheable(value = "posts", key = "#pageId") // [캐시 없으면 저장] 조회

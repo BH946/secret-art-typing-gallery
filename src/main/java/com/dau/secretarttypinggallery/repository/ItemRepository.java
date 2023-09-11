@@ -31,6 +31,15 @@ public class ItemRepository {
         return em.find(Item.class, id);
     }
 
+    public List<Item> findThree(Long itemId) {
+        return em.createQuery("select i from Item i " +
+                        "where i.id >= :itemId1 and " +
+                        "i.id <= :itemId2", Item.class)
+                .setParameter("itemId1", itemId-1)
+                .setParameter("itemId2", itemId+1)
+                .getResultList();
+    }
+
     public List<Item> findAll() {
         return em.createQuery("select i from Item i", Item.class)
                 .getResultList();

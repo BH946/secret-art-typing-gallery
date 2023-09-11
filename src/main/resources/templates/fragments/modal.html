@@ -28,7 +28,7 @@
                   <div class="container d-flex flex-column p-0 pe-3">
                     <span class="pb-2" style="font-size: 1.2vw; font-weight: 500;color: white;">작품위치</span>
                     <span style="font-size: 1.2vw; font-weight: 500;color: white;"
-                    th:text="${(item!=null) ? item?.id+'전시실' 
+                    th:text="${(item!=null) ? item?.id+'전시실'
                     : '?전시실'}">?전시실</span>
                   </div>
                   <div class="container d-flex flex-column p-0 ps-3">
@@ -69,7 +69,7 @@
           </div>
 
           <!-- imgSrc 임의로 넣기(생성때만) -->
-          <input id="imgSrc" name="imgSrc" hidden="true" 
+          <input id="imgSrc" name="imgSrc" hidden="true"
           th:value="${(imgSrc!=null) ? (imgSrc) : ''}">
 
 
