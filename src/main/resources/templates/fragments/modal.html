@@ -3,13 +3,14 @@
   <body>
     
     <!-- productModal - 반드시 id가 ??Modal 형식 -->
-    <div class="modal modal-lg" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="ture"
+    <div class="modal modal-lg" id="productModal" tabindex="-1" aria-hidden="ture"
     th:fragment="productModal">
       <div class="modal-dialog modal-dialog-centered" >
         <div class="modal-content p-2" style="background-color: var(--main-1); border-width: 1px; border-color: white; border-style: solid; border-radius: 0px;">
+
         <form action="/studioComplete" 
-        th:action="${(item!=null) ? '/studioComplete/'+item?.id 
-        : '/studioComplete'}" 
+        th:action="${(item?.id!=null) ? '/studioComplete/'+item.id
+        : '/studioComplete'}" th:object="${item}"
         method="post">
           <div class="modal-header pb-0" style="border-width: 0px;">
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="width: 3vw; height: 3vw; font-size: 0px;">
@@ -19,38 +20,33 @@
           </div>
 
           <div class="modal-body" style="padding-left: 5vw; padding-right: 5vw;">
-            
             <div class="container d-flex flex-column">
               <!-- 상단 -->
               <div class="container d-flex flex-column p-0 pb-2" >
                 
                 <div class="container d-flex flex-row p-0 pb-4" >
                   <div class="container d-flex flex-column p-0 pe-3">
-                    <span class="pb-2" style="font-size: 1.2vw; font-weight: 500;color: white;">작품위치</span>
+                    <label class="pb-2" style="font-size: 1.2vw; font-weight: 500;color: white;">작품위치</label>
                     <span style="font-size: 1.2vw; font-weight: 500;color: white;"
-                    th:text="${(item!=null) ? item?.id+'전시실'
-                    : '?전시실'}">?전시실</span>
+                    th:text="${(#object?.id) ?: '??'}+'전시실'">?전시실</span>
                   </div>
                   <div class="container d-flex flex-column p-0 ps-3">
-                    <span class="pb-2" style="font-size: 1.2vw; font-weight: 500;color: white;">작가명</span>
-                    <input type="text" class="" id="nickName" name="nickName" placeholder="미입력 시 '익명'으로 출품됩니다." style="color: var(--text-2); letter-spacing: -0.16px; font-weight: 400; font-size: 1vw; background-color: var(--main-2); stroke-width: 1px; stroke: var(--line); border-width: 0px; padding: 1vw; padding-top: 0.5vw; padding-bottom: 0.5vw;"
-                    th:value="${(item!=null) ? item?.nickName 
-                    : ''}">
+                    <label for="nickName" class="pb-2" style="font-size: 1.2vw; font-weight: 500;color: white;">작가명</label>
+                    <input type="text" class="" th:field="*{nickName}" id="nickName" name="nickName" placeholder="미입력 시 '익명'으로 출품됩니다." style="color: var(--text-2); letter-spacing: -0.16px; font-weight: 400; font-size: 1vw; background-color: var(--main-2); stroke-width: 1px; stroke: var(--line); border-width: 0px; padding: 1vw; padding-top: 0.5vw; padding-bottom: 0.5vw;"
+                    >
                   </div>
                 </div>
 
                 <div class="container d-flex flex-row p-0 pb-2" >
                   <div class="container d-flex flex-column p-0 pe-3">
-                    <span class="pb-2" style="font-size: 1.2vw; font-weight: 500;color: white;">작품명</span>
-                    <input type="text" class="" id="title" name="title" placeholder="미입력 시 ‘무제'로 출품됩니다." style="color: var(--text-2); letter-spacing: -0.16px; font-weight: 400; font-size: 1vw; background-color: var(--main-2); stroke-width: 1px; stroke: var(--line); border-width: 0px; padding: 1vw; padding-top: 0.5vw; padding-bottom: 0.5vw;"
-                    th:value="${(item!=null)? item?.title 
-                    : ''}">
+                    <label class="pb-2" style="font-size: 1.2vw; font-weight: 500;color: white;">작품명</label>
+                    <input type="text" class="" th:field="*{title}" id="title" name="title" placeholder="미입력 시 ‘무제'로 출품됩니다." style="color: var(--text-2); letter-spacing: -0.16px; font-weight: 400; font-size: 1vw; background-color: var(--main-2); stroke-width: 1px; stroke: var(--line); border-width: 0px; padding: 1vw; padding-top: 0.5vw; padding-bottom: 0.5vw;"
+                    >
                   </div>
                   <div class="container d-flex flex-column p-0 ps-3">
                     <span class="pb-2" style="font-size: 1.2vw; font-weight: 500;color: white;">비밀번호</span>
-                    <input type="password" class="no-spin" id="password" name="password" pattern="\d+" required onkeypress='return checkNumber(event)' placeholder="숫자로 입력해주세요." style="color: var(--text-2); letter-spacing: -0.16px; font-weight: 400; font-size: 1vw; background-color: var(--main-2); stroke-width: 1px; stroke: var(--line); border-width: 0px; padding: 1vw; padding-top: 0.5vw; padding-bottom: 0.5vw;"
-                    th:value="${(item!=null)? item?.password
-                    : ''}">
+                    <input type="password" class="no-spin" th:field="*{password}" id="password" name="password" pattern="\d+" required onkeypress='return checkNumber(event)' placeholder="숫자로 입력해주세요." style="color: var(--text-2); letter-spacing: -0.16px; font-weight: 400; font-size: 1vw; background-color: var(--main-2); stroke-width: 1px; stroke: var(--line); border-width: 0px; padding: 1vw; padding-top: 0.5vw; padding-bottom: 0.5vw;"
+                    >
                     <span class="pt-2" style="color: var(--text-2); font-weight: 400; font-size: 0.8vw;">*정보 수정&작품 파기 시 사용됩니다.</span>
                   </div>
                 </div>
@@ -60,18 +56,11 @@
               <!-- 하단 -->
               <div class="container d-flex flex-column p-0">
                 <span class="pb-2" style="font-size: 1.2vw; font-weight: 500;color: white;">작품설명</span>
-                <textarea type="text" class="no-scroll" id="content" name="content" placeholder="미입력 시 공란으로 출품됩니다." style="color: var(--text-2); letter-spacing: -0.16px; font-weight: 400; font-size: 1vw; background-color: var(--main-2); border-width: 0px; padding: 1vw; padding-top: 0.5vw; padding-bottom: 2vw;"
-                th:text="${(item!=null)? item?.content 
-                : ''}"
+                <textarea type="text" class="no-scroll" th:filed="*{content}" id="content" name="content" placeholder="미입력 시 공란으로 출품됩니다." style="color: var(--text-2); letter-spacing: -0.16px; font-weight: 400; font-size: 1vw; background-color: var(--main-2); border-width: 0px; padding: 1vw; padding-top: 0.5vw; padding-bottom: 2vw;"
                 ></textarea>
               </div>
             </div>
           </div>
-
-          <!-- imgSrc 임의로 넣기(생성때만) -->
-          <input id="imgSrc" name="imgSrc" hidden="true"
-          th:value="${(imgSrc!=null) ? (imgSrc) : ''}">
-
 
           <div class="modal-footer pt-4" style="border-width: 0px;">
             <button class="btn btn-light m-0 p-3" type="submit"
@@ -79,6 +68,8 @@
               <span class="fw-bold" style="color: var(--main-1); font-size: 1.5em;">작품 전시하기</span>
             </button>
           </div>
+          <!-- imgSrc 임의로 넣기(생성때만) -->
+          <input th:field="${imgSrc}" id="imgSrc" name="imgSrc" hidden="true">
         </form>
         </div>
       </div>

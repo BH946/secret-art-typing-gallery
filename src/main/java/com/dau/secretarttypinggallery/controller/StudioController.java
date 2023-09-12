@@ -6,14 +6,12 @@ import com.dau.secretarttypinggallery.entity.Item;
 import com.dau.secretarttypinggallery.entity.dto.UpdateItemDto;
 import com.dau.secretarttypinggallery.service.ItemService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -24,6 +22,7 @@ import java.util.UUID;
  * 작 품 전시도 마찬가지로 추가, 수정하는거라서 꼭 캐싱 작업 필수
  */
 
+@Slf4j
 @Controller
 @RequiredArgsConstructor
 public class StudioController {
@@ -31,15 +30,19 @@ public class StudioController {
 
     /**
      * 작품 제작실 화면 -> 일명 "스튜디오"
+     * 이때는 이미지 url이 base64 그대로 -> 나중에 "전시" 할 때 실제 디스크에 저장 및 경로로 url변경
      */
     @GetMapping("studio") // URL 매핑(GET)
     public String studio() {
         return "studio"; // studio.html 반환
     }
-    @PostMapping("studio") // 이미지 제작 후 complete 화면
-    public String studioImg(StudioImgDto item, Model model) {
-//        System.out.println(item.getImgSrc());
-        model.addAttribute("imgSrc", item.getImgSrc());
+    @PostMapping("studio") // 이미지 제작 후 complete 화면이동
+    public String studioImg(@RequestParam String imgSrc, Model model) {
+        log.info("imgSrc : {}", imgSrc);
+        Item item = Item.createItem("","","","", "");
+        StudioItemDto studioItemDto = new StudioItemDto(item);
+        model.addAttribute("imgSrc", imgSrc);
+        model.addAttribute("item", studioItemDto);
         return "studio-complete"; // studio-complete.html 반환
     }
     

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -96,17 +97,19 @@ public class GalleryController {
      */
     @GetMapping("{pageId}/itemDetail/{itemId}")
     public String galleryItemDetail(@PathVariable Long pageId, @PathVariable Long itemId, Model model) {
+        log.info("테스트 : {}, {} ", pageId, itemId);
         Item findItem = null;
         List<Item> items = itemService.findThree(itemId);
         Collections.sort(items, new ObjectSort()); // 오름차순 정렬
 
         for(Item item : items) {
-            if(item.getId()==itemId) {
+            if(Objects.equals(item.getId(), itemId)) {
                 findItem = item;
                 items.remove(item);
 //                log.info("findThree() : {}", item.getTitle());
             }
         }
+
         List<ItemDto> itemsDto = items.stream()
                 .map(o -> new ItemDto(o))
                 .collect(Collectors.toList());
