@@ -30,8 +30,7 @@ server:
 logging.level:
   org.hibernate.SQL: debug
   org.hibernate.type: trace
-#  //            String filePath = "C:/images-spring/"+fileName+".jpeg";
-#  String filePath = "/var/www/images-spring/"+fileName+".jpeg";
+
 my:
   datasource:
     imgPath: C:/images-spring/
@@ -58,3 +57,7 @@ server:
   servlet:
     session:
       timeout: 30m # session timeout 30min
+
+my:
+  datasource:
+    imgPath: /var/www/images-spring/
