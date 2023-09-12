@@ -1,5 +1,6 @@
 package com.dau.secretarttypinggallery.controller;
 
+import com.dau.secretarttypinggallery.config.MyDataSourceConfig;
 import com.dau.secretarttypinggallery.controller.dto.StudioImgDto;
 import com.dau.secretarttypinggallery.controller.dto.StudioItemDto;
 import com.dau.secretarttypinggallery.entity.Item;
@@ -58,8 +59,10 @@ public class StudioController {
      * 처음 전시라 id 없는경우임 -> 전시실 미지정상태
      * 이때 이미지도 저장하게되고 db에는 경로를 기록하게 되는 것
      */
+    private final MyDataSourceConfig source;
     @PostMapping("studioComplete")
     public String studioAdd(UpdateItemDto form) throws IOException {
+        log.info("imgPath = {}", source.getImgPath());
         String imgSrc = form.getImgSrc(); // 경로를 바꾸자.ㅇㅇ
         FileOutputStream fo = null;
         try{
@@ -69,7 +72,8 @@ public class StudioController {
 //            System.out.println(file);
             String fileName = UUID.randomUUID().toString();
 //            String filePath = "C:/images-spring/"+fileName+".jpeg";
-            String filePath = "/var/www/images-spring/"+fileName+".jpeg";
+//            String filePath = "/var/www/images-spring/"+fileName+".jpeg";
+            String filePath = source.getImgPath()+fileName+".jpeg";
             fo = new FileOutputStream(filePath);
             imgSrc = fileName+".jpeg"; // 이름을 기록
             fo.write(file);

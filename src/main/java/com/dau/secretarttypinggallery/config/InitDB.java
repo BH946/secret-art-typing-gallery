@@ -5,6 +5,9 @@ import com.dau.secretarttypinggallery.entity.Item;
 import com.dau.secretarttypinggallery.repository.ItemRepository;
 import com.dau.secretarttypinggallery.service.ItemService;
 import lombok.RequiredArgsConstructor;
+
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,10 +15,12 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor // 생성자 주입
 public class InitDB {
     private final InitService initService;
+
 
     // 해당 클래스 인스턴스 생성(construct)된 후 자동 실행
     @PostConstruct

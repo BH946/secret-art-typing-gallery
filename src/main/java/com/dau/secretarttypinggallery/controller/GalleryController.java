@@ -12,10 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -102,14 +99,19 @@ public class GalleryController {
         List<Item> items = itemService.findThree(itemId);
         Collections.sort(items, new ObjectSort()); // 오름차순 정렬
 
-        for(Item item : items) {
+        // java.util.ConcurrentModificationException: null 에러 해결위해 iterator 사용
+        Iterator<Item> iterator = items.iterator();
+        while(iterator.hasNext()) {
+            Item item = iterator.next();
+            log.info("item : {}", item.getId());
             if(Objects.equals(item.getId(), itemId)) {
                 findItem = item;
-                items.remove(item);
-//                log.info("findThree() : {}", item.getTitle());
+                iterator.remove();;
+                log.info("findThree() : {}", item.getTitle());
             }
         }
 
+        log.info("findItem : {}", findItem.getId());
         List<ItemDto> itemsDto = items.stream()
                 .map(o -> new ItemDto(o))
                 .collect(Collectors.toList());
