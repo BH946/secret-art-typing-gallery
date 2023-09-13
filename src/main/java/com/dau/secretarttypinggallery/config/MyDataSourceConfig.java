@@ -1,30 +1,28 @@
 package com.dau.secretarttypinggallery.config;
 
-
-import jakarta.annotation.PostConstruct;
+import com.dau.secretarttypinggallery.datasource.MyDataSource;
+import com.dau.secretarttypinggallery.datasource.MyDataSourceProperties;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-
 
 /**
- * 외부변수 사용
+ * @EnableConfigurationProperties 로 MyDataSourceProperties 를 사용 및 스프링 빈
+ * @Import 를 통해서 "컴포넌트 스캔 대상!"
  */
 @Slf4j
-@Configuration
+@EnableConfigurationProperties(MyDataSourceProperties.class)
 public class MyDataSourceConfig {
-    @Value("${my.datasource.imgPath}")
-    private String imgPath;
-
-    @Bean
-    public String getImgPath() {
-        return imgPath;
+    private final MyDataSourceProperties properties;
+    public MyDataSourceConfig(MyDataSourceProperties properties) {
+        this.properties = properties;
     }
 
-    // test
-    @PostConstruct
-    public void init() {
-//        log.info("imgPath = {}", imgPath);
+    @Bean
+    public MyDataSource getMyDataSource() {
+        log.info("BeanTest");
+        return new MyDataSource(
+                properties.getImgPath()
+        );
     }
 }

@@ -1,15 +1,14 @@
 package com.dau.secretarttypinggallery.controller;
 
 import com.dau.secretarttypinggallery.config.MyDataSourceConfig;
-import com.dau.secretarttypinggallery.controller.dto.StudioImgDto;
 import com.dau.secretarttypinggallery.controller.dto.StudioItemDto;
+import com.dau.secretarttypinggallery.datasource.MyDataSource;
 import com.dau.secretarttypinggallery.entity.Item;
 import com.dau.secretarttypinggallery.entity.dto.UpdateItemDto;
 import com.dau.secretarttypinggallery.service.ItemService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.tomcat.util.codec.binary.Base64;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -28,6 +27,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class StudioController {
     private final ItemService itemService;
+    private final MyDataSourceConfig source;
 
     /**
      * 작품 제작실 화면 -> 일명 "스튜디오"
@@ -59,10 +59,10 @@ public class StudioController {
      * 처음 전시라 id 없는경우임 -> 전시실 미지정상태
      * 이때 이미지도 저장하게되고 db에는 경로를 기록하게 되는 것
      */
-    private final MyDataSourceConfig source;
     @PostMapping("studioComplete")
     public String studioAdd(UpdateItemDto form) throws IOException {
-        log.info("imgPath = {}", source.getImgPath());
+        MyDataSource myDataSource = source.getMyDataSource();
+        log.info("imgPath = {}", myDataSource.getImgPath());
         String imgSrc = form.getImgSrc(); // 경로를 바꾸자.ㅇㅇ
         FileOutputStream fo = null;
         try{
@@ -73,7 +73,7 @@ public class StudioController {
             String fileName = UUID.randomUUID().toString();
 //            String filePath = "C:/images-spring/"+fileName+".jpeg";
 //            String filePath = "/var/www/images-spring/"+fileName+".jpeg";
-            String filePath = source.getImgPath()+fileName+".jpeg";
+            String filePath = myDataSource.getImgPath()+fileName+".jpeg";
             fo = new FileOutputStream(filePath);
             imgSrc = fileName+".jpeg"; // 이름을 기록
             fo.write(file);
