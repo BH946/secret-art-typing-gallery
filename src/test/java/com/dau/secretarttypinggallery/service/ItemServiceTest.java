@@ -2,23 +2,16 @@ package com.dau.secretarttypinggallery.service;
 
 import com.dau.secretarttypinggallery.entity.Item;
 import com.dau.secretarttypinggallery.entity.dto.UpdateItemDto;
-import org.junit.jupiter.api.AfterEach;
+import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.Assertions;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.PostConstruct;
-import javax.persistence.EntityManager;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
 
-
-@RunWith(SpringRunner.class)
 @SpringBootTest // 스프링과 통합 테스트
 @Transactional
 public class ItemServiceTest {

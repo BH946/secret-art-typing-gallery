@@ -3,17 +3,14 @@ package com.dau.secretarttypinggallery.config;
 
 import com.dau.secretarttypinggallery.entity.Item;
 import com.dau.secretarttypinggallery.repository.ItemRepository;
-import com.dau.secretarttypinggallery.service.ItemService;
+import jakarta.annotation.PostConstruct;
+import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
-
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.PostConstruct;
-import javax.persistence.EntityManager;
 
 @Slf4j
 @Component

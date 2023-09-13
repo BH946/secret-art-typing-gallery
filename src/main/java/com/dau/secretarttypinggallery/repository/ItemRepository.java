@@ -2,12 +2,10 @@ package com.dau.secretarttypinggallery.repository;
 
 
 import com.dau.secretarttypinggallery.entity.Item;
+import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.EntityManager;
 import java.util.List;
 
 @Repository
