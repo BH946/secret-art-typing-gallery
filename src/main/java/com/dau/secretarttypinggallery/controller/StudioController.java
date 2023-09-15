@@ -16,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -32,8 +33,7 @@ public class StudioController {
 
     /**
      * 작품 제작실 화면 -> 일명 "스튜디오"
-     * 이때는 이미지 url이 base64 그대로 -> 나중에 "전시" 할 때 실제 디스크에 저장 및 경로로 url변경
-     * base64 가 너무 길어서 POST 에서 바로 HTML 반환 하겠음
+     * base64 가 너무 길어서 이곳 POST 에서 바로 "이미지만 저장"
      */
     @GetMapping("studio") // URL 매핑(GET)
     public String studio(Model model) {
@@ -41,47 +41,16 @@ public class StudioController {
         model.addAttribute("totalCount", totalCount);
         return "studio"; // studio.html 반환
     }
-    @PostMapping("studio") // 이미지 제작 후 complete 화면이동
+    @PostMapping("studio") // 이미지 제작 후 -> complete 화면이동
     public String studioImg(@RequestParam String imgSrc, Model model, RedirectAttributes redirectAttributes) {
         log.debug("imgSrc : {}", imgSrc);
-        Item item = Item.createItem("","","","", "");
-        StudioItemDto studioItemDto = new StudioItemDto(item);
-        model.addAttribute("imgSrc", imgSrc);
-        model.addAttribute("item", studioItemDto);
-        redirectAttributes.addAttribute("addStatus", false);
-        return "studio-complete"; // studio-complete.html 반환
-//        return "redirect:/studioComplete"; // PRG 패턴 적용
-    }
-    
-    /**
-     * 작품 완성 화면 -> POST로 작품 전시(DB추가)
-     * 이때 생성한 "앨범(사진)" 데이터가 함께 넘어올것임.
-     */
-    @GetMapping("studioComplete") // URL 매핑(GET)
-    public String studioComplete(Model model) {
-        Long totalCount = itemService.findTotalCount();
-        // 기본적으로 th:object 같은 문법 사용시 "빈값"으로 세팅을 해둬야 안전
-        Item item = Item.createItem("","","","", "");
-        StudioItemDto studioItemDto = new StudioItemDto(item);
-        model.addAttribute("item", studioItemDto);
-        model.addAttribute("totalCount", totalCount);
-        return "studio-complete"; // studio-complete.html 반환
-    }
-    /**
-     * 처음 전시라 id 없는경우임 -> 전시실 미지정상태
-     * 이때 이미지도 저장하게되고 db에는 경로를 기록하게 되는 것
-     */
-    @PostMapping("studioComplete")
-    public String studioAdd(UpdateItemDto form) throws IOException {
         MyDataSource myDataSource = source.getMyDataSource();
         log.debug("imgPath = {}", myDataSource.getImgPath());
-        String imgSrc = form.getImgSrc(); // 경로를 바꾸자.ㅇㅇ
         FileOutputStream fo = null;
         try{
             imgSrc = imgSrc.replaceAll("data:image/jpeg;base64,", "");
             byte[] file = Base64.decodeBase64(imgSrc); // 인코드된 Base64를 디코드
             log.debug("try 안으로 들어옴");
-//            System.out.println(file);
             String fileName = UUID.randomUUID().toString();
 //            String filePath = "C:/images-spring/"+fileName+".jpeg";
 //            String filePath = "/var/www/images-spring/"+fileName+".jpeg";
@@ -96,18 +65,54 @@ public class StudioController {
             log.debug("catch로 들어옴 - 이미지 생성 실패");
             e.printStackTrace();
         }
+//        redirectAttributes.addAttribute("status", "addON");
+        redirectAttributes.addAttribute("imgSrc", imgSrc);
+        return "redirect:/studioComplete"; // PRG 패턴 적용
+    }
+    
+    /**
+     * ADD!!
+     * 작품 완성 화면 -> POST로 작품 전시 (DB추가)
+     */
+    @GetMapping("studioComplete") // URL 매핑(GET)
+    public String studioComplete(Model model,
+                                 @RequestParam(defaultValue = "") String imgSrc
+                                 ) {
+        log.debug("imgSrc : {}", imgSrc);
 
+        // 기본적으로 th:object 같은 문법 사용시 "빈값"으로 세팅을 해둬야 안전
+        Item item = Item.createItem("","","","", imgSrc);
+        Long totalCount = itemService.findTotalCount();
+
+        StudioItemDto studioItemDto = new StudioItemDto(item);
+        model.addAttribute("item", studioItemDto);
+        model.addAttribute("totalCount", totalCount);
+        return "studio-complete"; // studio-complete.html 반환
+    }
+    /**
+     * 처음 전시라 id 없는경우임 -> 전시실 미지정 상태
+     */
+    @PostMapping("studioComplete")
+    public String studioAdd(UpdateItemDto form,
+                            RedirectAttributes redirectAttributes) throws IOException {
         Item item = Item.createItem(form.getNickName(),
-                form.getPassword(), form.getTitle(), form.getContent(), imgSrc);
+                form.getPassword(), form.getTitle(), form.getContent(), form.getImgSrc());
+        log.debug("form:{}", form.getImgSrc());
+        log.debug("item:{}", item.getImgSrc());
         itemService.save(item); // 이때 id 할당받음
         int pageId = itemService.findPageId(item.getId()); // 바로 가져올 수 있음
         itemService.updateAllWithPage(pageId); // 캐싱
         itemService.updateTotalCount(); // 캐싱
-        return "redirect:/gallery"; // gallery() 함수로 이동
+        redirectAttributes.addAttribute("status", "addON");
+        redirectAttributes.addAttribute("itemId", item.getId());
+        redirectAttributes.addAttribute("pageId", pageId);
+        return "redirect:/gallery/{pageId}/itemDetail/{itemId}";
+        // PRG 패턴 적용
     }
 
 
     /**
+     * UPDATE!!
      * 이곳은 작품 상세화면에서 "수정" 버튼을 눌러서 넘어온 경우이다.
      * id와 함께 넘어오기 때문에 해당 item 데이터를 다 가져올 수 있다.
      * 작품 업데이트 -> DB 수정(POST로)
@@ -122,16 +127,21 @@ public class StudioController {
         return "studio-complete"; // studio-complete.html 반환
     }
     /**
-     * 전시된것을 수정하는거라 id 있음 -> 전시실 이미 지정상태
+     * 전시된것을 수정하는거라 id 있음 -> 전시실 이미 지정된 상태
      */
     @PostMapping("studioComplete/{itemId}")
-    public String studioIdUpdate(@PathVariable Long itemId, UpdateItemDto form) {
+    public String studioIdUpdate(@PathVariable Long itemId, UpdateItemDto form, RedirectAttributes redirectAttributes) {
         Item item = itemService.findOne(itemId); // 없으면 null
         if(item != null) {
             int pageId = itemService.findPageId(itemId);
             itemService.update(item.getId(), form);
             itemService.updateAllWithPage(pageId);
+            redirectAttributes.addAttribute("status", "updateON");
+            redirectAttributes.addAttribute("itemId", item.getId());
+            redirectAttributes.addAttribute("pageId", pageId);
+            return "redirect:/gallery/{pageId}/itemDetail/{itemId}";
         }
+        // 이부분도 문제 있음 - error
         return "redirect:/gallery"; // gallery() 함수로 이동
     }
 }

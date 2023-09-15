@@ -65,14 +65,14 @@ public class GalleryController {
                 itemService.remove(item);
                 itemService.updateAllWithPage(pageId.intValue());
                 itemService.updateTotalCount();
-                redirectAttributes.addAttribute("deleteStatus", true);
+                redirectAttributes.addAttribute("status", "deleteON");
                 return "redirect:/gallery"; // gallery() 함수로 이동
             }
             else log.debug("비번실패");
         }
         redirectAttributes.addAttribute("pageId", pageId);
         redirectAttributes.addAttribute("itemId", itemId);
-        redirectAttributes.addAttribute("deleteStatus", false);
+        redirectAttributes.addAttribute("status", "deleteOFF");
         return "redirect:/gallery/{pageId}/itemDetail/{itemId}"; // 기존 화면 다시 로딩
         // PRG 패턴 위해 Redirect
     }
@@ -91,14 +91,14 @@ public class GalleryController {
             if(findItem.getPassword().equals(password)) {
                 log.debug("비번통과");
                 redirectAttributes.addAttribute("itemId", itemId);
-                redirectAttributes.addAttribute("updateStatus", true);
+//                redirectAttributes.addAttribute("status", "updateON");
                 return "redirect:/studioComplete/{itemId}"; // 스튜디오 컨트롤러에 있음
             }
             else log.debug("비번실패");
         }
         redirectAttributes.addAttribute("pageId", pageId);
         redirectAttributes.addAttribute("itemId", itemId);
-        redirectAttributes.addAttribute("updateStatus", false);
+        redirectAttributes.addAttribute("status", "updateOFF");
         return "redirect:/gallery/{pageId}/itemDetail/{itemId}"; // 기존 화면 다시 로딩
         // PRG 패턴 위해 Redirect
     }

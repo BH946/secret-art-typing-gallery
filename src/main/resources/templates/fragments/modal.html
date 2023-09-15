@@ -8,10 +8,13 @@
       <div class="modal-dialog modal-dialog-centered" >
         <div class="modal-content p-2" style="background-color: var(--main-1); border-width: 1px; border-color: white; border-style: solid; border-radius: 0px;">
 
-        <form action="/studioComplete" 
-        th:action="${(item?.id!=null) ? '/studioComplete/'+item.id
-        : '/studioComplete'}" th:object="${item}"
-        method="post">
+<!--        <form action="/studioComplete" -->
+<!--        th:action="${(item?.id!=null) ? '/studioComplete/'+item.id-->
+<!--        : '/studioComplete'}" th:object="${item}"-->
+<!--        method="post">-->
+          <form action="/studioComplete"
+                th:action th:object="${item}"
+                method="post">
           <div class="modal-header pb-0" style="border-width: 0px;">
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="width: 3vw; height: 3vw; font-size: 0px;">
               <img class="img-fluid" src="../static/close.svg" 
@@ -72,7 +75,8 @@
           </div>
           <!-- imgSrc 임의로 넣기(생성때만) -->
 <!--          <input th:field="${imgSrc}" id="imgSrc" name="imgSrc" hidden="true">-->
-          <input id="imgSrc" name="imgSrc" hidden="true" th:value="${(imgSrc!=null) ? (imgSrc) : ''}">
+<!--          <input id="imgSrc" name="imgSrc" hidden="true" th:value="${(imgSrc!=null) ? (imgSrc) : ''}">-->
+<!--          <input th:field="*{imgSrc}" id="imgSrc" name="imgSrc" hidden="true">-->
         </form>
         </div>
       </div>

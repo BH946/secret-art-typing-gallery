@@ -26,13 +26,11 @@
       font-size: 1vw;">
         <div class="d-flex" id="output" style=" padding:0px; flex:1; background-color: white; justify-content: center; align-items: center;" >
           <img class="img-fluid" id="outputImg" style="width: 100%;" src=""
-          th:src="${imgSrc}"
-          />
-          <!--          th:src="${(imgSrc!=null) ? (imgSrc) : (item!=null) ? '/image/'+(item.imgSrc) : ''}"-->
-          <!--          />-->
+            th:src="${(item?.imgSrc!=null) ? '/image/'+(item.imgSrc) : ''}"/>
+<!--          th:src="${(imgSrc!=null) ? (imgSrc) : (item!=null) ? '/image/'+(item.imgSrc) : ''}" />-->
+<!--          th:src="${(imgSrc!=null) ? '/image/'+(imgSrc) : (item?.imgSrc!=null) ? '/image/'+(item.imgSrc) : ''}" />-->
         </div>
       </div>
-
     </div>
   </body>
 </html>

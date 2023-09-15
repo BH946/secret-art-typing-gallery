@@ -35,7 +35,7 @@ public class Item {
         Item item = new Item();
         item.nickName = (nickName.equals(""))?"익명":nickName;
         item.password = (password.equals(""))?"":password;
-        item.title = (title.equals(""))?"무제":title;;
+        item.title = (title.equals(""))?"무제":title;
         item.content = (content.equals(""))?"":content;
         item.imgSrc = imgSrc;
         DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("yy.MM.dd.HH:mm");
