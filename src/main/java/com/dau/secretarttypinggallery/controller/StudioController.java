@@ -12,6 +12,7 @@ import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -32,19 +33,24 @@ public class StudioController {
     /**
      * 작품 제작실 화면 -> 일명 "스튜디오"
      * 이때는 이미지 url이 base64 그대로 -> 나중에 "전시" 할 때 실제 디스크에 저장 및 경로로 url변경
+     * base64 가 너무 길어서 POST 에서 바로 HTML 반환 하겠음
      */
     @GetMapping("studio") // URL 매핑(GET)
-    public String studio() {
+    public String studio(Model model) {
+        Long totalCount = itemService.findTotalCount();
+        model.addAttribute("totalCount", totalCount);
         return "studio"; // studio.html 반환
     }
     @PostMapping("studio") // 이미지 제작 후 complete 화면이동
-    public String studioImg(@RequestParam String imgSrc, Model model) {
-        log.info("imgSrc : {}", imgSrc);
+    public String studioImg(@RequestParam String imgSrc, Model model, RedirectAttributes redirectAttributes) {
+        log.debug("imgSrc : {}", imgSrc);
         Item item = Item.createItem("","","","", "");
         StudioItemDto studioItemDto = new StudioItemDto(item);
         model.addAttribute("imgSrc", imgSrc);
         model.addAttribute("item", studioItemDto);
+        redirectAttributes.addAttribute("addStatus", false);
         return "studio-complete"; // studio-complete.html 반환
+//        return "redirect:/studioComplete"; // PRG 패턴 적용
     }
     
     /**
@@ -52,7 +58,13 @@ public class StudioController {
      * 이때 생성한 "앨범(사진)" 데이터가 함께 넘어올것임.
      */
     @GetMapping("studioComplete") // URL 매핑(GET)
-    public String studioComplete() {
+    public String studioComplete(Model model) {
+        Long totalCount = itemService.findTotalCount();
+        // 기본적으로 th:object 같은 문법 사용시 "빈값"으로 세팅을 해둬야 안전
+        Item item = Item.createItem("","","","", "");
+        StudioItemDto studioItemDto = new StudioItemDto(item);
+        model.addAttribute("item", studioItemDto);
+        model.addAttribute("totalCount", totalCount);
         return "studio-complete"; // studio-complete.html 반환
     }
     /**
@@ -62,25 +74,26 @@ public class StudioController {
     @PostMapping("studioComplete")
     public String studioAdd(UpdateItemDto form) throws IOException {
         MyDataSource myDataSource = source.getMyDataSource();
-        log.info("imgPath = {}", myDataSource.getImgPath());
+        log.debug("imgPath = {}", myDataSource.getImgPath());
         String imgSrc = form.getImgSrc(); // 경로를 바꾸자.ㅇㅇ
         FileOutputStream fo = null;
         try{
             imgSrc = imgSrc.replaceAll("data:image/jpeg;base64,", "");
             byte[] file = Base64.decodeBase64(imgSrc); // 인코드된 Base64를 디코드
-            System.out.println("try 안으로 들어옴");
+            log.debug("try 안으로 들어옴");
 //            System.out.println(file);
             String fileName = UUID.randomUUID().toString();
 //            String filePath = "C:/images-spring/"+fileName+".jpeg";
 //            String filePath = "/var/www/images-spring/"+fileName+".jpeg";
             String filePath = myDataSource.getImgPath()+fileName+".jpeg";
+            log.debug("filePath : {}", filePath);
             fo = new FileOutputStream(filePath);
             imgSrc = fileName+".jpeg"; // 이름을 기록
             fo.write(file);
-            System.out.println("image 생성 성공");
+            log.debug("image 생성 성공");
             fo.close();
         }catch(Exception e){
-            System.out.println("catch로 들어옴 - 이미지 생성 실패");
+            log.debug("catch로 들어옴 - 이미지 생성 실패");
             e.printStackTrace();
         }
 
@@ -88,7 +101,8 @@ public class StudioController {
                 form.getPassword(), form.getTitle(), form.getContent(), imgSrc);
         itemService.save(item); // 이때 id 할당받음
         int pageId = itemService.findPageId(item.getId()); // 바로 가져올 수 있음
-        itemService.updateCachePage(pageId); // 캐싱
+        itemService.updateAllWithPage(pageId); // 캐싱
+        itemService.updateTotalCount(); // 캐싱
         return "redirect:/gallery"; // gallery() 함수로 이동
     }
 
@@ -100,9 +114,11 @@ public class StudioController {
      */
     @GetMapping("studioComplete/{itemId}")
     public String studioCompleteId(@PathVariable Long itemId, Model model) {
+        Long totalCount = itemService.findTotalCount();
         Item item = itemService.findOne(itemId);
         StudioItemDto studioItemDto = new StudioItemDto(item);
         model.addAttribute("item", studioItemDto);
+        model.addAttribute("totalCount", totalCount);
         return "studio-complete"; // studio-complete.html 반환
     }
     /**
@@ -114,7 +130,7 @@ public class StudioController {
         if(item != null) {
             int pageId = itemService.findPageId(itemId);
             itemService.update(item.getId(), form);
-            itemService.updateCachePage(pageId);
+            itemService.updateAllWithPage(pageId);
         }
         return "redirect:/gallery"; // gallery() 함수로 이동
     }

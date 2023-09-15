@@ -1,16 +1,15 @@
 package com.dau.secretarttypinggallery.controller;
 
-import com.dau.secretarttypinggallery.controller.dto.PWForm;
 import com.dau.secretarttypinggallery.controller.dto.ItemDetailDto;
 import com.dau.secretarttypinggallery.controller.dto.ItemDto;
 import com.dau.secretarttypinggallery.entity.Item;
-import com.dau.secretarttypinggallery.entity.dto.UpdateItemDto;
 import com.dau.secretarttypinggallery.service.ItemService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -28,61 +27,80 @@ public class GalleryController {
 
     /**
      * 페이지 별로 조회 URL 매핑(GET)
-     * 1page : 10data 로 구현하겠음
-     * 따로 findTotalCount 로 model 에 총 개수도 포함해서 넘기겠음
+     * 1page : 10data 출력
+     * 따로 findTotalCount 로 model 에 총 개수도 포함해서 넘기겠음 - 캐싱 사용
      * => 캐싱은 따로 안했는데 나중에 필요해보이면 하던지 하겠음.
      */
     @GetMapping() // default
     public String gallery() {
-        return "redirect:/gallery/1"; // -> galleryPage() 함수로 토스
+        log.debug("debug 테스트");
+        log.debug("gallery() : 입장");
+        return "forward:/gallery/1"; // -> galleryPage() 함수로 토스 (서버 내에서)
     }
     @GetMapping("/{pageId}")
     public String galleryPage(@PathVariable int pageId, Model model) {
-        log.info("pageId : {}", pageId);
+        log.debug("galleryPage() : 입장");
+        log.debug("pageId : {}", pageId);
         List<Item> items = itemService.findAllWithPage(pageId);
-        log.info("items : {}", items.size());
+        Long totalCount = itemService.findTotalCount();
+        log.debug("items : {}, totalCount : {}", items.size(), totalCount);
         List<ItemDto> itemsDto = items.stream()
                 .map(o -> new ItemDto(o))
                 .collect(Collectors.toList());
         model.addAttribute("items", itemsDto); // gallery.html 에 넘길 데이터
-        model.addAttribute("totalCount", itemService.findTotalCount());
+        model.addAttribute("totalCount", totalCount);
         return "gallery"; // gallery.html 반환
     }
 
     /**
-     * 작품 삭제 -> updateCachePage 도 꼭 같이 사용
+     * 작품 삭제 -> updateAllWithPage, updateTotalCount 도 꼭 같이 사용 - 캐싱
      */
     @PostMapping("{pageId}/delete/{itemId}")
-    public String deleteGalleryItem(@PathVariable Long pageId, @PathVariable Long itemId, PWForm form) { // Model을 적용한것처럼 자동으로 속성:값 매칭해서 파라미터 가져온다.
+    public String deleteGalleryItem(@PathVariable Long pageId, @PathVariable Long itemId, @RequestParam String password, RedirectAttributes redirectAttributes) {
         Item item = itemService.findOne(itemId); // 이미 없으면 null
         if (item != null) {
-            log.info("item 널 아님");
-            if(item.getPassword().equals(form.getPassword())){
-                log.info("비번통과");
+            if(item.getPassword().equals(password)){
+                log.debug("비번통과");
 //                int newPageId = itemService.findPageId(itemId);
                 itemService.remove(item);
-                itemService.updateCachePage(pageId.intValue());
+                itemService.updateAllWithPage(pageId.intValue());
+                itemService.updateTotalCount();
+                redirectAttributes.addAttribute("deleteStatus", true);
                 return "redirect:/gallery"; // gallery() 함수로 이동
             }
-            else log.info("비번실패");
+            else log.debug("비번실패");
         }
-        return "redirect:/gallery/"+pageId+"/itemDetail/"+itemId; // 기존 화면 다시 로딩
+        redirectAttributes.addAttribute("pageId", pageId);
+        redirectAttributes.addAttribute("itemId", itemId);
+        redirectAttributes.addAttribute("deleteStatus", false);
+        return "redirect:/gallery/{pageId}/itemDetail/{itemId}"; // 기존 화면 다시 로딩
+        // PRG 패턴 위해 Redirect
     }
 
     /**
-     * 작품 수정 -> updateCachePage 도 꼭 같이 사용
+     * 작품 수정 -> updateAllWithPage 도 꼭 같이 사용 - 캐싱
+     * StudioController 로 책임전가
      */
     @PostMapping("{pageId}/update/{itemId}")
-    public String updateGalleryItem(@PathVariable Long pageId, @PathVariable Long itemId, PWForm form) {
-        Item item = itemService.findOne(itemId); // 이미 없으면 null
-        if(item != null) {
-            if(item.getPassword().equals(form.getPassword())) {
-                log.info("비번통과");
-                return "redirect:/studioComplete/"+itemId; // studioComplete() 업데이트
+    public String updateGalleryItem(@PathVariable Long pageId,
+                                    @PathVariable Long itemId,
+                                    @RequestParam String password,
+                                    RedirectAttributes redirectAttributes) {
+        Item findItem = itemService.findOne(itemId); // 이미 없으면 null
+        if(findItem != null) {
+            if(findItem.getPassword().equals(password)) {
+                log.debug("비번통과");
+                redirectAttributes.addAttribute("itemId", itemId);
+                redirectAttributes.addAttribute("updateStatus", true);
+                return "redirect:/studioComplete/{itemId}"; // 스튜디오 컨트롤러에 있음
             }
-            else log.info("비번실패");
+            else log.debug("비번실패");
         }
-        return "redirect:/gallery/"+pageId+"/itemDetail/"+itemId; // 기존 화면 다시 로딩
+        redirectAttributes.addAttribute("pageId", pageId);
+        redirectAttributes.addAttribute("itemId", itemId);
+        redirectAttributes.addAttribute("updateStatus", false);
+        return "redirect:/gallery/{pageId}/itemDetail/{itemId}"; // 기존 화면 다시 로딩
+        // PRG 패턴 위해 Redirect
     }
 
 
@@ -94,7 +112,8 @@ public class GalleryController {
      */
     @GetMapping("{pageId}/itemDetail/{itemId}")
     public String galleryItemDetail(@PathVariable Long pageId, @PathVariable Long itemId, Model model) {
-        log.info("테스트 : {}, {} ", pageId, itemId);
+        log.debug("테스트 : {}, {} ", pageId, itemId);
+        Long totalCount = itemService.findTotalCount();
         Item findItem = null;
         List<Item> items = itemService.findThree(itemId);
         Collections.sort(items, new ObjectSort()); // 오름차순 정렬
@@ -103,15 +122,15 @@ public class GalleryController {
         Iterator<Item> iterator = items.iterator();
         while(iterator.hasNext()) {
             Item item = iterator.next();
-            log.info("item : {}", item.getId());
+            log.debug("item : {}", item.getId());
             if(Objects.equals(item.getId(), itemId)) {
                 findItem = item;
                 iterator.remove();;
-                log.info("findThree() : {}", item.getTitle());
+                log.debug("findThree() : {}", item.getTitle());
             }
         }
 
-        log.info("findItem : {}", findItem.getId());
+        log.debug("findItem : {}", findItem.getId());
         List<ItemDto> itemsDto = items.stream()
                 .map(o -> new ItemDto(o))
                 .collect(Collectors.toList());
@@ -120,6 +139,7 @@ public class GalleryController {
         model.addAttribute("item", itemDetailDto);
         model.addAttribute("items", itemsDto);
         model.addAttribute("len", items.size()); // 길이도 함께
+        model.addAttribute("totalCount", totalCount);
 
         return "gallery-item"; // gallery-item.html
     }

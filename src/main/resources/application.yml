@@ -35,13 +35,16 @@ my:
   datasource:
     imgPath: C:/images-spring/
 
+logging:
+  level:
+    com.dau.secretarttypinggallery.controller: debug # 컨트롤러에서만 로그확인
 ---
 # prod 프로필 -> 배포모드로 사용
 spring:
   config:
     activate:
       on-profile: prod
-    # MYSQL DB
+  # MYSQL DB
   datasource:
     url: jdbc:mysql://localhost:3306/secret?useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul
     username: secretUser
@@ -61,3 +64,7 @@ server:
 my:
   datasource:
     imgPath: /var/www/images-spring/
+
+logging:
+  level:
+    com.dau.secretarttypinggallery.controller: info # 배포는 기본값(info) 사용

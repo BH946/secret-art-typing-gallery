@@ -44,7 +44,7 @@ public class ItemService {
     }
     // page 단위로(key) 캐시 기록 -> 참고 : value 로 꼭 캐시 영역을 지정해줘야 함
     @CachePut(value = "posts", key = "#pageId") // [캐시에 데이터 있어도] 저장
-    public List<Item> updateCachePage(int pageId) {
+    public List<Item> updateAllWithPage(int pageId) {
         // pageId 로 간단히 캐시 업데이트용 함수
         return itemRepository.findAllWithPage(pageId); // 반환값을 캐시에 기록하기 때문에 만든 함수
     }
@@ -62,5 +62,10 @@ public class ItemService {
     @Transactional // 쓰기모드 -> DB 삭제위함
     public void remove(Item item) { itemRepository.remove(item); }
 
+    // totalCount 이름으로 캐시 메모리에 기록 [캐시 없으면 저장] 조회
+    @Cacheable(value = "totalCount")
     public Long findTotalCount() { return itemRepository.findTotalCount(); }
+    // [캐시에 데이터 있어도] 저장
+    @CachePut(value = "totalCount")
+    public Long updateTotalCount() { return itemRepository.findTotalCount(); }
 }
