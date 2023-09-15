@@ -20,6 +20,10 @@ spring:
 #        show_sql: true
         format_sql: true
 
+  # 메시지 - thymeleaf 연동
+  messages:
+    basename: messages
+
 server:
   port: 8080
 #  address: 223.39.212.163
@@ -55,8 +59,12 @@ spring:
     hibernate:
       ddl-auto: none # DB 초기화 사용 X
 
+  # 메시지 - thymeleaf 연동
+  messages:
+    basename: messages
+
 server:
-  port: 8080
+  port: 80 # http:80(=기본값) port 로 사용
   servlet:
     session:
       timeout: 30m # session timeout 30min
