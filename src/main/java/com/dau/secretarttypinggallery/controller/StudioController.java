@@ -1,7 +1,6 @@
 package com.dau.secretarttypinggallery.controller;
 
 import com.dau.secretarttypinggallery.config.MyDataSourceConfig;
-import com.dau.secretarttypinggallery.controller.dto.StudioItemDto;
 import com.dau.secretarttypinggallery.datasource.MyDataSource;
 import com.dau.secretarttypinggallery.entity.Item;
 import com.dau.secretarttypinggallery.entity.dto.AddItemDto;
