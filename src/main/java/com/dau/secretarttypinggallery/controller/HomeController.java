@@ -15,4 +15,10 @@ public class HomeController {
     public String home() {
         return "index"; // index.html 반환
     }
+
+
+    @GetMapping("/lobby")
+    public String lobby() {
+        return "lobby"; // lobby.html 반환
+    }
 }
