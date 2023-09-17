@@ -44,7 +44,7 @@ public class ItemServiceTest {
         Long itemId = itemService.save(item);
         System.out.println(item.getContent()); // "내용아무거나"
 
-        UpdateItemDto updateItemDto = new UpdateItemDto("이름변경", "123", "제목변경", "내용수정", "");
+        UpdateItemDto updateItemDto = new UpdateItemDto(itemId, "이름변경", "123", "제목변경", "내용수정", "");
         itemService.update(itemId, updateItemDto);
         // 조회로 item 가져왔고(영속성 컨텍스트) 자동 업데이트로 DB에 update 쿼리 전송됨 - 더티 체킹 (flush 를 해야 감지)
         // 쿼리 로그 확인 -> 로그가 안보이는데(로그찾으려다가 시간낭비 엄청했ㄴ..), getContent() 값은 잘 변경됨을 알 수 있음

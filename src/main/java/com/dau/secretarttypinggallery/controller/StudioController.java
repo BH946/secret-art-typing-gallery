@@ -99,11 +99,12 @@ public class StudioController {
     public String studioAdd(@Validated @ModelAttribute("item") AddItemDto form, BindingResult bindingResult,
                             RedirectAttributes redirectAttributes) throws IOException {
         // FieldError 는 알아서 검증
-        // ObjectError 인 특정 필드가 아닌 복합 룰 검증 - 딱히 할거없음 PASS
+        // ObjectError 인 특정 필드가 아닌 복합 룰 검증 -> 딱히 할거없어서 PASS
 
         if(bindingResult.hasErrors()) {
             log.info("error={}", bindingResult);
             return "studio-complete"; // studio-complete.html 반환 -> forward 로 자원 재활용
+            // 어차피 "검증" 에 걸려서 DB 사용안하기에 PRG 패턴 상관없움
         }
 
         // 성공 로직
@@ -132,17 +133,27 @@ public class StudioController {
     public String studioCompleteId(@PathVariable Long itemId, Model model) {
         Long totalCount = itemService.findTotalCount();
         Item item = itemService.findOne(itemId);
-        StudioItemDto studioItemDto = new StudioItemDto(item);
-        model.addAttribute("item", studioItemDto);
+
+        log.debug("테스트 닉네임 : {}", item.getNickName());
+        model.addAttribute("item", item);
         model.addAttribute("totalCount", totalCount);
         model.addAttribute("itemId", itemId); // add, update 구분하려는 목적
         return "studio-complete"; // studio-complete.html 반환
     }
     /**
      * 전시된것을 수정하는거라 id 있음 -> 전시실 이미 지정된 상태
+     * @ModelAttribute("item") 필수!!
      */
     @PostMapping("studioComplete/{itemId}")
-    public String studioIdUpdate(@PathVariable Long itemId, UpdateItemDto form, RedirectAttributes redirectAttributes) {
+    public String studioIdUpdate(@Validated @ModelAttribute("item") UpdateItemDto form, BindingResult bindingResult,
+                                 @PathVariable Long itemId, RedirectAttributes redirectAttributes) {
+        log.debug("studioComplete/{itemId} POST 테스트");
+        if(bindingResult.hasErrors()) {
+            log.info("error={}", bindingResult);
+            return "studio-complete"; // studio-complete.html 반환 -> forward 로 자원 재활용
+            // 어차피 "검증" 에 걸려서 DB 사용안하기에 PRG 패턴 상관없움
+        }
+
         Item item = itemService.findOne(itemId); // 없으면 null
         if(item != null) {
             int pageId = itemService.findPageId(itemId);
@@ -153,7 +164,9 @@ public class StudioController {
             redirectAttributes.addAttribute("pageId", pageId);
             return "redirect:/gallery/{pageId}/itemDetail/{itemId}";
         }
-        // 이부분도 문제 있음 - error
+        // 이부분도 msg 추가했음 - "작품이 존재하지 않습니다."
+        redirectAttributes.addAttribute("status", "notItem");
         return "redirect:/gallery"; // gallery() 함수로 이동
+        // RPG 패턴 적용
     }
 }

@@ -10,13 +10,13 @@ import lombok.Getter;
 public class AddItemDto {
     @NotNull
     private String nickName;
-    @NotNull @Pattern(regexp = "/^[0-9]+&/", message = "비밀번호는 숫자로 입력 해주세요.")
+    @NotNull @Pattern(regexp = "^[0-9]+", message = "비밀번호는 숫자로 입력 해주세요.")
     private String password;
     @NotNull
     private String title;
     @NotNull
     private String content;
-    @NotBlank(message = "이미지가 없습니다. 다시 생성하세요.")
+    @NotBlank(message = "이미지가 없습니다. 다시 시도하세요.")
     private String imgSrc;
 
     //==생성 편의 메서드==//
