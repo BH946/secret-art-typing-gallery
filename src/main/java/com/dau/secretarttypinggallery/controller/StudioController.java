@@ -4,6 +4,7 @@ import com.dau.secretarttypinggallery.config.MyDataSourceConfig;
 import com.dau.secretarttypinggallery.controller.dto.StudioItemDto;
 import com.dau.secretarttypinggallery.datasource.MyDataSource;
 import com.dau.secretarttypinggallery.entity.Item;
+import com.dau.secretarttypinggallery.entity.dto.AddItemDto;
 import com.dau.secretarttypinggallery.entity.dto.UpdateItemDto;
 import com.dau.secretarttypinggallery.service.ItemService;
 import lombok.RequiredArgsConstructor;
@@ -11,12 +12,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -65,7 +67,7 @@ public class StudioController {
             log.debug("catch로 들어옴 - 이미지 생성 실패");
             e.printStackTrace();
         }
-//        redirectAttributes.addAttribute("status", "addON");
+        redirectAttributes.addAttribute("status", "addON");
         redirectAttributes.addAttribute("imgSrc", imgSrc);
         return "redirect:/studioComplete"; // PRG 패턴 적용
     }
@@ -80,23 +82,32 @@ public class StudioController {
                                  ) {
         log.debug("imgSrc : {}", imgSrc);
 
-        // 기본적으로 th:object 같은 문법 사용시 "빈값"으로 세팅을 해둬야 안전
+        // 기본적으로 th:object 같은 문법 사용시 "빈값"으로 세팅을 해둬야 안전 + forward 로 자원재활용
         Item item = Item.createItem("","","","", imgSrc);
         Long totalCount = itemService.findTotalCount();
 
-        StudioItemDto studioItemDto = new StudioItemDto(item);
-        model.addAttribute("item", studioItemDto);
+        model.addAttribute("item", item);
         model.addAttribute("totalCount", totalCount);
         return "studio-complete"; // studio-complete.html 반환
     }
     /**
      * 처음 전시라 id 없는경우임 -> 전시실 미지정 상태
+     * @ModelAttribute("item") 매우중요!!
+     * => th:object를 item 사용하므로 반드시 Model에 "item"으로 담기게끔!
      */
     @PostMapping("studioComplete")
-    public String studioAdd(UpdateItemDto form,
+    public String studioAdd(@Validated @ModelAttribute("item") AddItemDto form, BindingResult bindingResult,
                             RedirectAttributes redirectAttributes) throws IOException {
-        Item item = Item.createItem(form.getNickName(),
-                form.getPassword(), form.getTitle(), form.getContent(), form.getImgSrc());
+        // FieldError 는 알아서 검증
+        // ObjectError 인 특정 필드가 아닌 복합 룰 검증 - 딱히 할거없음 PASS
+
+        if(bindingResult.hasErrors()) {
+            log.info("error={}", bindingResult);
+            return "studio-complete"; // studio-complete.html 반환 -> forward 로 자원 재활용
+        }
+
+        // 성공 로직
+        Item item = Item.createItem(form);
         log.debug("form:{}", form.getImgSrc());
         log.debug("item:{}", item.getImgSrc());
         itemService.save(item); // 이때 id 할당받음
@@ -124,6 +135,7 @@ public class StudioController {
         StudioItemDto studioItemDto = new StudioItemDto(item);
         model.addAttribute("item", studioItemDto);
         model.addAttribute("totalCount", totalCount);
+        model.addAttribute("itemId", itemId); // add, update 구분하려는 목적
         return "studio-complete"; // studio-complete.html 반환
     }
     /**

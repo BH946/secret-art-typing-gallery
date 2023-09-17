@@ -1,11 +1,13 @@
 package com.dau.secretarttypinggallery.entity;
 
 
+import com.dau.secretarttypinggallery.entity.dto.AddItemDto;
 import com.dau.secretarttypinggallery.entity.dto.UpdateItemDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -38,6 +40,19 @@ public class Item {
         item.title = (title.equals(""))?"무제":title;
         item.content = (content.equals(""))?"":content;
         item.imgSrc = imgSrc;
+        DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("yy.MM.dd.HH:mm");
+        DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("yy년 MM월 dd일 HH시 mm분");
+        item.date1 = LocalDateTime.now().format(formatter1);
+        item.date2 = LocalDateTime.now().format(formatter2);
+        return item;
+    }
+    public static Item createItem(AddItemDto addItemDto) {
+        Item item = new Item();
+        item.nickName = (addItemDto.getNickName().equals(""))?"익명": addItemDto.getNickName();
+        item.password = (addItemDto.getPassword().equals(""))?"":addItemDto.getPassword();
+        item.title = (addItemDto.getTitle().equals(""))?"무제":addItemDto.getTitle();
+        item.content = (addItemDto.getContent().equals(""))?"":addItemDto.getContent();
+        item.imgSrc = addItemDto.getImgSrc();
         DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("yy.MM.dd.HH:mm");
         DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("yy년 MM월 dd일 HH시 mm분");
         item.date1 = LocalDateTime.now().format(formatter1);

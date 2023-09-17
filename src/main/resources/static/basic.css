@@ -25,6 +25,9 @@ body {
   font-family: 'SUITE-Regular', sans-serif;
   margin-top: 140px;
 }
+field-error {
+  color: red; font-weight: 700;
+}
 
 /*
  * Header
