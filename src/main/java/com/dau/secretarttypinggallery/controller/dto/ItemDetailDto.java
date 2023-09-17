@@ -3,13 +3,16 @@ package com.dau.secretarttypinggallery.controller.dto;
 import com.dau.secretarttypinggallery.entity.Item;
 import lombok.Getter;
 
+import java.time.LocalDateTime;
+
 @Getter
 public class ItemDetailDto {
     private Long id;
     private String title;
     private String nickName;
     private String content;
-    private String date2;
+//    private String date2;
+    private LocalDateTime date2;
     private String imgSrc;
     private String password;
 

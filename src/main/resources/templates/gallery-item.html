@@ -63,7 +63,7 @@
           <div class="d-flex flex-column " style="flex:2;">
             <span class="pb-2" style="font-weight: 700; color: var(--text-2); font-size: 1vw;" th:text="#{label.item.product.date}">제작일자</span>
             <span style="letter-spacing: -0.22px; font-weight: 400; color: white; font-size: 1.2vw;"
-            th:text="*{date2}">23년 05월 22일 16시 23분</span>
+            th:filed="*{{date2}}">23년 05월 22일 16시 23분</span>
           </div>
         </div>
         <div class="d-flex pt-2">
@@ -101,7 +101,7 @@
             <span class="text-truncate" style="flex:1; font-weight: 400; color: var(--text-2); font-size: 1vw; letter-spacing: -0.16px; width:45vw;">이후 전시실 입장</span>
             <span class="text-truncate" th:text="*{title}" style="flex:1; font-weight: 500; color: white; font-size: 1.2vw; width:45vw;">어디까지길어지는거예요?어디까지길어지는거예요?어디까지길어지는거예요?어디까지길어지는거예요? 어디까지길어지는거예요?</span>
           </div>
-          <span class="" th:text="*{date1}" style="font-weight: 400; color: var(--text-2); font-size: 1vw; letter-spacing: -0.16px;
+          <span class="" th:field="*{{date1}}" style="font-weight: 400; color: var(--text-2); font-size: 1vw; letter-spacing: -0.16px;
           align-self: center;">23.05.21.16:00</span>
         </button>
 
@@ -115,7 +115,7 @@
             <span class="text-truncate" th:text="${(items[0].id==findItem.id) ? '이전 전시실 입장' : '이후 전시실 입장'}" style="flex:1; font-weight: 400; color: var(--text-2); font-size: 1vw; letter-spacing: -0.16px; width:45vw;">이전 전시실 입장</span>
             <span class="text-truncate" th:text="*{title}" style="flex:1; font-weight: 500; color: white; font-size: 1.2vw; width:45vw;">어디까지길어지는거예요?어디까지길어지는거예요?어디까지길어지는거예요?어디까지길어지는거예요? 어디까지길어지는거예요?</span>
           </div>
-          <span class="" th:text="*{date1}" style="font-weight: 400; color: var(--text-2); font-size: 1vw; letter-spacing: -0.16px;
+          <span class="" th:field="*{{date1}}" style="font-weight: 400; color: var(--text-2); font-size: 1vw; letter-spacing: -0.16px;
         align-self: center;">23.05.21.16:00</span>
         </button>
 
