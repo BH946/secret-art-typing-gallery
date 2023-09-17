@@ -21,7 +21,8 @@
       <div class="container" style="text-align: center;">
         <h4 style="color: white; font-weight: 700;">작품이 완성되었습니다</h4>
         <span style="font-size: 1vw; color: var(--text-2); font-weight: 400;">완성된 작품은 안전하게 이미지화되어 타인이 내용을 파악할 수 없어요.</span>
-        <div class="field-error" th:errors="${item.imgSrc}"></div>
+        <div class="field-error" th:errors="${item.imgSrc}">이미지 오류</div>
+        <div class="field-error" th:errors="${item.password}">비밀번호 오류</div>
       </div>
 
       <!-- 중단 -->

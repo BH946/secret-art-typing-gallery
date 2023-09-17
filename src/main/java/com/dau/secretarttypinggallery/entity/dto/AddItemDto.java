@@ -3,13 +3,14 @@ package com.dau.secretarttypinggallery.entity.dto;
 import com.dau.secretarttypinggallery.entity.Item;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
 
 @Getter
 public class AddItemDto {
     @NotNull
     private String nickName;
-    @NotNull
+    @NotNull @Pattern(regexp = "/^[0-9]+&/", message = "비밀번호는 숫자로 입력 해주세요.")
     private String password;
     @NotNull
     private String title;
