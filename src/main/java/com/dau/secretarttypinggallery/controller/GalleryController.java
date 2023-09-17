@@ -35,7 +35,7 @@ public class GalleryController {
     public String gallery() {
         log.debug("debug 테스트");
         log.debug("gallery() : 입장");
-        return "forward:/gallery/1"; // -> galleryPage() 함수로 토스 (서버 내에서)
+        return "forward:gallery/1"; // -> galleryPage() 함수로 토스 (서버 내에서)
     }
     @GetMapping("/{pageId}")
     public String galleryPage(@PathVariable int pageId, Model model) {
