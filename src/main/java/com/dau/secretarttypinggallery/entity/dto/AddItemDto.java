@@ -1,6 +1,5 @@
 package com.dau.secretarttypinggallery.entity.dto;
 
-import com.dau.secretarttypinggallery.entity.Item;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;

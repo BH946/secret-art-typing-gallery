@@ -2,7 +2,6 @@ package com.dau.secretarttypinggallery.controller.dto;
 
 import com.dau.secretarttypinggallery.entity.Item;
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
 public class ItemDetailDto {
