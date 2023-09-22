@@ -10,7 +10,7 @@ public class ItemDto {
     private Long id;
     private String title;
     private String nickName;
-//    private String date1;
+    private String imgSrc;
     private LocalDateTime date1;
 
     //==생성 편의 메서드==//
@@ -18,6 +18,7 @@ public class ItemDto {
         this.id = item.getId();
         this.title = item.getTitle();
         this.nickName = item.getNickName();
+        this.imgSrc = item.getImgSrc();
         this.date1 = item.getDate1();
     }
 }
