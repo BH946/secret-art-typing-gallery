@@ -19,11 +19,11 @@ th:fragment="item">
         <span class="text-truncate pt-2" style="font-weight: 400; color: var(--text-2); font-size: 1vw; letter-spacing: -0.16px; width:25vw;
         " th:text="*{nickName} ">방문자가작성한닉네임</span>
 
-        <a class="btn btn-light mt-4" type="button"
-        style="border-radius: 0px; background-color: var(--main-1); font-size: 1vw; width: 200px;
+        <a class="btn btn-light mt-4" type="button" id="enterBtn"
+        style="border-radius: 10px; font-size: 1vw; width: 200px;
         align-self: flex-start; width: 12vw;"
         href="#" th:href="@{|/gallery/${pageId}/itemDetail/*{id}|}">
-          <span class="fw-bold" style="color: white; font-size: 1em; white-space: nowrap;" th:text="|*{id}전시실 입장|">15전시실 입장 test용</span>
+          <span class="fw-bold" id="enterBtn1" style="font-size: 1em; white-space: nowrap;" th:text="|*{id}전시실 입장|">15전시실 입장 test용</span>
         </a>
       </div>
       <div class="d-flex flex-column" style="flex:0.43;">

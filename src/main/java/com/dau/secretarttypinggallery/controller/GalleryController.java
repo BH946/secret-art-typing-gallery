@@ -47,6 +47,7 @@ public class GalleryController {
         List<ItemDto> itemsDto = items.stream()
                 .map(o -> new ItemDto(o))
                 .collect(Collectors.toList());
+        log.debug("item Id check : {}",items.get(0).getId());
         model.addAttribute("items", itemsDto); // gallery.html 에 넘길 데이터
         model.addAttribute("totalCount", totalCount);
         return "gallery"; // gallery.html 반환

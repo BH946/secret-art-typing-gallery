@@ -44,7 +44,8 @@ public class ItemRepository {
     }
     
     public List<Item> findAllWithPage(int pageId) {
-        return em.createQuery("select i from Item i", Item.class)
+        return em.createQuery("select i from Item i" +
+                        " order by i.id desc", Item.class)
                 .setFirstResult((pageId-1)*10)
                 .setMaxResults(10) // 개수임!!
                 .getResultList();
@@ -53,7 +54,7 @@ public class ItemRepository {
     public int findPageId(Long itemId) {
         Long count = (Long) em.createQuery(
                         "SELECT COUNT(i) / 10 FROM Item i " +
-                                "WHERE i.id <= :itemId", Long.class) // 반환 타입 지정
+                                "WHERE i.id >= :itemId", Long.class) // 반환 타입 지정
                 .setParameter("itemId", itemId)
                 .getSingleResult();
         int pageId = count.intValue()+1;
