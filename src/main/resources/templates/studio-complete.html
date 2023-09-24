@@ -19,7 +19,7 @@
     <div class="custom-container-default">
       <!-- 상단 -->
       <div class="container" style="text-align: center;">
-        <h4 style="color: white; font-weight: 700;">작품이 완성되었습니다</h4>
+        <h4 style="color: white; font-weight: 700; font-size:1.3vw">작품이 완성되었습니다</h4>
         <span style="font-size: 1vw; color: var(--text-2); font-weight: 400;">완성된 작품은 안전하게 이미지화되어 타인이 내용을 파악할 수 없어요.</span>
         <div class="field-error" th:errors="${item.imgSrc}">이미지 오류</div>
         <div class="field-error" th:errors="${item.password}">비밀번호 오류</div>
@@ -36,25 +36,25 @@
       </div>
 
       <!-- 하단 -->
-      <div class="container d-flex" style="">
+      <div class="d-flex" style="padding-right:1vw; padding-left:1vw;">
         <div style="flex:1;">
           <div class="row m-0" style="height: 100%;">
             <div class="col-4 ps-0">
               <form th:attr="action=@{/gallery}" method="get">
-                <button class="btn btn-light p-3" type="submit"
-                style="width: 100%; height: 100%; border-radius: 0px;background-color: var(--main-1); font-size: 1vw;" >
-                  <span class="fw-bold" style="color: white; font-size: 1.5em;" th:text="#{button.prev}">다른 전시실 둘러보기</span>
+                <button class="btn btn-light" type="submit"
+                style="padding:1vw; width: 100%; height: 100%; border-radius: 0px;background-color: var(--main-1); font-size: 1vw;" >
+                  <span class="fw-bold" style="color: white; font-size: 1.5vw;" th:text="#{button.prev}">다른 전시실 둘러보기</span>
                 </button>
               </form>
             </div>
             <div class="col-8 pe-0">
-              <button th:unless="${itemId}" class="btn btn-light p-3" type="button" data-bs-toggle="modal" data-bs-target="#productModal"
-                      style="width: 100%; height: 100%; border-radius: 0px;font-size: 1vw;">
-                <span class="fw-bold" style="color: var(--main-1); font-size: 1.5em;" th:text="#{button.product}">갤러리에 전시하기</span>
+              <button th:unless="${itemId}" class="btn btn-light" type="button" data-bs-toggle="modal" data-bs-target="#productModal"
+                      style="padding:1vw; width: 100%; height: 100%; border-radius: 0px;font-size: 1vw;">
+                <span class="fw-bold" style="color: var(--main-1); font-size: 1.5vw;" th:text="#{button.product}">갤러리에 전시하기</span>
               </button>
-              <button th:if="${itemId}" class="btn btn-light p-3" type="button" data-bs-toggle="modal" data-bs-target="#updateModal"
-                      style="width: 100%; height: 100%; border-radius: 0px;font-size: 1vw;">
-                <span class="fw-bold" style="color: var(--main-1); font-size: 1.5em;" th:text="#{button.update}">수정하기</span>
+              <button th:if="${itemId}" class="btn btn-light" type="button" data-bs-toggle="modal" data-bs-target="#updateModal"
+                      style="padding:1vw; width: 100%; height: 100%; border-radius: 0px;font-size: 1vw;">
+                <span class="fw-bold" style="color: var(--main-1); font-size: 1.5vw;" th:text="#{button.update}">수정하기</span>
               </button>
             </div>
           </div>

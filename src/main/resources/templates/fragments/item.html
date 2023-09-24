@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
 
-<div class="d-flex flex-column" style="min-height: 80vh; padding-top:3vh;"
+<div class="d-flex flex-column" style="padding-top:3vh;"
 th:fragment="item">
 
   <!-- 렌더링시 제거 block -->
@@ -20,8 +20,8 @@ th:fragment="item">
         " th:text="*{nickName} ">방문자가작성한닉네임</span>
 
         <a class="btn btn-light mt-4" type="button" id="enterBtn"
-        style="border-radius: 10px; font-size: 1vw; width: 200px;
-        align-self: flex-start; width: 12vw;"
+        style="font-size: 1vw;
+        align-self: flex-start; width: 12vw; padding:0.5em;"
         href="#" th:href="@{|/gallery/${pageId}/itemDetail/*{id}|}">
           <span class="fw-bold" id="enterBtn1" style="font-size: 1em; white-space: nowrap;" th:text="|*{id}전시실 입장|">15전시실 입장 test용</span>
         </a>
@@ -29,7 +29,7 @@ th:fragment="item">
       <div class="d-flex flex-column" style="flex:0.43;">
         <img class="img-fluid" src="../static/6.png"
            th:src="@{|/image/*{imgSrc}|}"
-        style="height:144px; border-radius: 100px 100px 0 0;"/>
+        style="height:15vh; border-radius: 10vh 10vh 0 0;"/>
       </div>
     </div>
   </th:block>

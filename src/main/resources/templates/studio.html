@@ -56,8 +56,8 @@
       </div>
 
       <!-- 작품제작 - 하단 -->
-      <div class="container d-flex pt-0">
-        <div style="flex:1;">
+      <div class="d-flex" style="">
+        <div style="flex:1; padding:1vw;">
           <div class="row m-0">
             <!-- 왼쪽 -->
             <div class="col-6 d-flex flex-column ps-0" style="padding-right: 3vw;">
@@ -124,7 +124,7 @@
                 th:attr="action=@{/studio}" method="post">
                   <button id="nextBtn" class="btn btn-light" type="button"
                   style="width: 100%; height: 100%; position: relative; border-radius: 0px;">
-                    <span class="fw-bold" style="color: var(--main-1); font-size: 24px;" th:text="#{button.next}">다음</span>
+                    <span class="fw-bold" style="color: var(--main-1); font-size: 1.2vw;" th:text="#{button.next}">다음</span>
                     <img class="img-fluid pe-3" src="../static/arrow.svg"
                     th:attr="src=@{/arrow.svg},title=#{logo},alt=#{logo}" style="top:50; right:0; position: absolute; height: 50%;"/>
                   </button>

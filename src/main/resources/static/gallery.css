@@ -38,8 +38,3 @@ background-color: var(--main-2);
 color:white;
 }
 
-#enterBtn { background-color: var(--main-1); color: white; }
-#enterBtn:hover{
-background-color: white;
-color: var(--main-1);
-}

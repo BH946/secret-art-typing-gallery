@@ -23,7 +23,7 @@ body {
   background-color: var(--main-1);
   /* SUITE 못 찾으면 sans-serif 사용 */
   font-family: 'SUITE-Regular', sans-serif;
-  margin-top: 140px;
+  margin-top: 15vh;
 }
 .field-error {
   color: red; font-weight: 700; padding:10px;
@@ -88,8 +88,17 @@ nav {
   padding-bottom: 5vh;
   padding-left: 15vw;
   padding-right: 15vw;
-  min-height: 45vh;
 }
+#enterBtn {
+background-color: var(--main-1); color: white;
+border-radius: 0px;
+}
+#enterBtn:hover{
+background-color: white;
+color: var(--main-1);
+border-radius: 10px;
+}
+
 /* 모달에 스타일링 */
 /* 스크롤을 숨기는 스타일 */
 .no-scroll::-webkit-scrollbar {

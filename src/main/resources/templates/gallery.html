@@ -34,7 +34,8 @@
     <!-- 메인 그림 -->
     <div class="container-fluid p-0">
       <img class="img-fluid" src="../static/6.png" 
-        th:attr="src=@{/6.png},title=#{logo},alt=#{logo}" />
+        th:attr="src=@{/6.png},title=#{logo},alt=#{logo}"
+      style="width:100%;"/>
     </div>
 
     <!-- 본문  -->
@@ -47,15 +48,15 @@
           ? 'B'+(pageId)+'F'
           : 'B?F'}">B?F</span>
         </div>
-        <div class="container d-flex justify-content-center" style="width: 100%;">
+        <div class=" d-flex justify-content-center" style="width: 100%;">
           <div class="d-flex justify-content-center " style="flex:0.5;">
             <img class="img-fluid" src="../static/6-1.svg"
             th:attr="src=@{/6-1.svg},title=#{logo},alt=#{logo}"
-            style="max-width: 50%;"/>
+            style="width: 100%;"/>
             <span class="px-3" th:text="#{page.gallery}" style="font-size: 2vw; font-weight: 700; color: white; white-space: nowrap;"></span>
             <img class="img-fluid" src="../static/6-2.svg"
             th:attr="src=@{/6-2.svg},title=#{logo},alt=#{logo}"
-            style="max-width: 50%;"/>
+            style="width: 100%;"/>
           </div>
         </div>
       </div>

@@ -22,9 +22,9 @@
     <div class="custom-container-default" th:object="${item}">
 
       <!-- 작품제목 -->
-      <div class="container d-flex" style="text-align: start; padding-bottom: 16px;">
+      <div class=" d-flex" style="text-align: start; padding-bottom: 16px; padding-left:1vw; padding-right:1vw;">
         <div class="" style="flex:0.8">
-          <h4 style="color: white; font-weight: 700;" th:text="*{title}" >최근에 있었던 대외비</h4>
+          <h4 style="font-size:1.5vw; color: white; font-weight: 700;" th:text="*{title}" >최근에 있었던 대외비</h4>
         </div>
         <div class="d-flex" style="flex:0.2; justify-content: end;">
           <button class="btn btn-light" type="button"
@@ -47,37 +47,37 @@
       </div>
 
       <!-- 작품상세 -->
-      <div class="container d-flex flex-column pt-0" style="padding-bottom: 4vw;">
-        <div class="d-flex pt-2 pb-4">
-          <img class="img-fluid pe-4" src="../static/stroke.svg"
+      <div class=" d-flex flex-column pt-0" style="padding-bottom: 4vw;  padding-left:1vw; padding-right:1vw;">
+        <div class="d-flex" style="padding-top:1vw; padding-bottom:2vw;">
+          <img class="img-fluid " src="../static/stroke.svg"
           th:attr="src=@{/stroke.svg},title=#{logo},alt=#{logo}"
-          style="align-self: flex-start;"/>
+          style="align-self: flex-start; padding-right:1.5vw; height:3vw; "/>
           <div class="d-flex flex-column" style="flex:1;">
             <span class="pb-2" style="font-weight: 700; color: var(--text-2); font-size: 1vw;" th:text="#{label.item.location}">작품위치</span>
             <span style="letter-spacing: -0.22px; font-weight: 400; color: white; font-size: 1.2vw;"
             th:text="*{id} + '전시실'">15전시실</span>
           </div>
-          <img class="img-fluid pe-4" src="../static/stroke.svg"
+          <img class="img-fluid " src="../static/stroke.svg"
           th:attr="src=@{/stroke.svg},title=#{logo},alt=#{logo}"
-          style="align-self: flex-start;"/>
+          style="align-self: flex-start; padding-right:1.5vw;  height:3vw; margin-left:0.5vw;"/>
           <div class="d-flex flex-column " style="flex:2;">
             <span class="pb-2" style="font-weight: 700; color: var(--text-2); font-size: 1vw;" th:text="#{label.item.product.date}">제작일자</span>
             <span style="letter-spacing: -0.22px; font-weight: 400; color: white; font-size: 1.2vw;"
             th:filed="*{{date2}}">23년 05월 22일 16시 23분</span>
           </div>
         </div>
-        <div class="d-flex pt-2">
-          <img class="img-fluid pe-4" src="../static/stroke.svg"
+        <div class="d-flex " style="padding-top:1vw;">
+          <img class="img-fluid " src="../static/stroke.svg"
           th:attr="src=@{/stroke.svg},title=#{logo},alt=#{logo}"
-          style="align-self: flex-start;"/>
+          style="align-self: flex-start; padding-right:1.5vw;  height:3vw;"/>
           <div class="d-flex flex-column" style="flex:1;">
             <span class="pb-2" style="font-weight: 700; color: var(--text-2); font-size: 1vw;" th:text="#{label.item.nickName}">작가명</span>
             <span style="letter-spacing: -0.22px; font-weight: 400; color: white; font-size: 1.2vw;"
             th:text="*{nickName}">김익명</span>
           </div>
-          <img class="img-fluid pe-4" src="../static/stroke.svg"
+          <img class="img-fluid " src="../static/stroke.svg"
           th:attr="src=@{/stroke.svg},title=#{logo},alt=#{logo}"
-          style="align-self: flex-start;"/>
+          style="align-self: flex-start; padding-right:1.5vw;  height:3vw; margin-left:0.5vw;"/>
           <div class="d-flex flex-column" style="flex:2;">
             <span class="pb-2" style="font-weight: 700; color: var(--text-2); font-size: 1vw;" th:text="#{label.item.content}">작품설명</span>
             <span style="letter-spacing: -0.22px; font-weight: 400; color: white; font-size: 1.2vw;"
@@ -87,35 +87,35 @@
       </div>
 
       <!-- 게시물 이동 -->
-      <div class="container d-flex flex-column"
-      style="min-height: 10vw; padding-top:4vw; padding-bottom: 4vw;">
+      <div class=" d-flex flex-column"
+      style="min-height: 10vw; padding-top:4vw; padding-bottom: 4vw;  padding-left:1vw; padding-right:1vw;">
 
         <th:block th:each="findItem : ${items}" th:object="${findItem}">
-        <button th:if="${(len==1)}" class="btn d-flex mb-4 pt-4 pb-4" type="button"
+        <button th:if="${(len==1)}" class="btn d-flex  " type="button"
         style="width: 100%; height: 100%; border-radius: 0px; border-width: 0px; background-color: #242424;
-        font-size: 1vw; padding-left: 24px; padding-right: 24px;"
+        font-size: 1vw; padding-left: 1.3vw; padding-right: 1.3vw; padding-top:1.3vw; padding-bottom:1.3vw; "
                 th:onclick="|location.href='@{/gallery/{pageId}/itemDetail/{id}(id=*{id},pageId=${pageId})}'|">
           <img class="img-fluid" src="../static/arrow-down.svg"
           th:attr="src=@{/arrow-down.svg},title=#{logo},alt=#{logo}" style="height: 2em; flex:0.01; align-self: center;"/>
-          <div class="container m-0 d-flex flex-column" style="flex:1; text-align: start; align-self: center; padding-left: 24px; padding-right: 24px;">
-            <span class="text-truncate" style="flex:1; font-weight: 400; color: var(--text-2); font-size: 1vw; letter-spacing: -0.16px; width:45vw;">이후 전시실 입장</span>
-            <span class="text-truncate" th:text="*{title}" style="flex:1; font-weight: 500; color: white; font-size: 1.2vw; width:45vw;">어디까지길어지는거예요?어디까지길어지는거예요?어디까지길어지는거예요?어디까지길어지는거예요? 어디까지길어지는거예요?</span>
+          <div class="m-0 d-flex flex-column" style="flex:1; text-align: start; align-self: center; padding-left: 1.3vw; padding-right: 1.3vw;">
+            <span class="text-truncate" style="flex:1; font-weight: 400; color: var(--text-2); font-size: 1vw; letter-spacing: -0.16px; width:45vw;">이전 전시실 입장</span>
+            <span class="text-truncate" th:text="*{title}" style="flex:1; font-weight: 500; color: white; font-size: 1.2vw;">어디까지길어지는거예요?어디까지길어지는거예요?어디까지길어지는거예요?어디까지길어지는거예요? 어디까지길어지는거예요?</span>
           </div>
-          <span class="" th:field="*{{date1}}" style="font-weight: 400; color: var(--text-2); font-size: 1vw; letter-spacing: -0.16px;
+          <span class="" th:field="*{{date1}}" style="flex:0.1 font-weight: 400; color: var(--text-2); font-size: 1vw; letter-spacing: -0.16px;
           align-self: center;">23.05.21.16:00</span>
         </button>
 
-        <button th:unless="${(len==1)}" class="btn d-flex mb-4 pt-4 pb-4" type="button"
+        <button th:unless="${(len==1)}" class="btn d-flex " type="button"
                 style="width: 100%; height: 100%; border-radius: 0px; border-width: 0px; background-color: #242424;
-      font-size: 1vw; padding-left: 24px; padding-right: 24px;"
+      font-size: 1vw; padding-left: 1.3vw; padding-right: 1.3vw; padding-top:1.3vw; padding-bottom:1.3vw; margin-top:1.3vw;"
                 th:onclick="|location.href='@{/gallery/{pageId}/itemDetail/{id}(id=*{id},pageId=${pageId})}'|">
           <img class="img-fluid" src="../static/arrow-up.svg" th:src="@{|/arrow-${(items[0].id==findItem.id) ? 'up' : 'down'}.svg|}"
                style="height: 2em; flex:0.01; align-self: center;"/>
-          <div class="container m-0 d-flex flex-column" style="flex:1; text-align: start; align-self: center; padding-left: 24px; padding-right: 24px;">
+          <div class="m-0 d-flex flex-column" style="flex:1; text-align: start; align-self: center; padding-left: 24px; padding-right: 24px;">
             <span class="text-truncate" th:text="${(items[0].id==findItem.id) ? '이전 전시실 입장' : '이후 전시실 입장'}" style="flex:1; font-weight: 400; color: var(--text-2); font-size: 1vw; letter-spacing: -0.16px; width:45vw;">이전 전시실 입장</span>
             <span class="text-truncate" th:text="*{title}" style="flex:1; font-weight: 500; color: white; font-size: 1.2vw; width:45vw;">어디까지길어지는거예요?어디까지길어지는거예요?어디까지길어지는거예요?어디까지길어지는거예요? 어디까지길어지는거예요?</span>
           </div>
-          <span class="" th:field="*{{date1}}" style="font-weight: 400; color: var(--text-2); font-size: 1vw; letter-spacing: -0.16px;
+          <span class="" th:field="*{{date1}}" style="flex:0.1; font-weight: 400; color: var(--text-2); font-size: 1vw; letter-spacing: -0.16px;
         align-self: center;">23.05.21.16:00</span>
         </button>
 
@@ -124,13 +124,13 @@
       </div>
 
       <!-- 탈출버튼 -->
-      <div class="container d-flex" style="">
+      <div class=" d-flex" style=" padding-left:1vw; padding-right:1vw;">
         <div class="" style="flex:0.75"></div>
-        <a class="btn btn-light m-0 p-3" type="button"
+        <a class="btn btn-light m-0" type="button"
         style="border-radius: 0px;
-        height: 100%; flex:0.25;"
+        height: 100%; flex:0.25; padding:1vw;"
         href="gallery.html" th:href="@{|/gallery/${pageId}|}">
-          <span class="fw-bold" style="color: var(--main-1); font-size: 20px;" th:text="#{button.exit}">전시실 나가기</span>
+          <span class="fw-bold" style=" color: var(--main-1); font-size: 1.3vw;" th:text="#{button.exit}">전시실 나가기</span>
         </a>
       </div>
 

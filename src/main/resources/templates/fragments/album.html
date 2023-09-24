@@ -3,7 +3,7 @@
   <body>
     <!-- 사이트에 앨범(작품) 틀 -->
     <!-- 비율 2.4:1 정도로 너비높이 고정(vw기준) -->
-    <div class="container d-flex" th:fragment="album" style="min-height:0vh; height: 35vw; padding-top: 40px; padding-bottom: 40px;
+    <div class="d-flex" th:fragment="album" style="padding-right:1vw; padding-left:1vw; width:100%; height: 35vw; padding-top: 2vw; padding-bottom: 2vw;
     ">
       <style>        
         @font-face {
@@ -22,7 +22,7 @@
         }
       </style>
 
-      <div class="p-2 d-flex" style="max-width:100%; flex:1; background-color: var(--main-2); border-width: 1px; border-color: white; border-style: solid;
+      <div class=" d-flex" style="padding:0.5vw; max-width:100%; flex:1; background-color: var(--main-2); border-width: 1px; border-color: white; border-style: solid;
       font-size: 1vw;">
         <div class="d-flex" id="output" style=" padding:0px; flex:1; background-color: white; justify-content: center; align-items: center;" >
           <img class="img-fluid" id="outputImg" style="width: 100%;" src=""
