@@ -1,1 +1,114 @@
-이동할 수 있는 "로비" 화면
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head('로비')">
+  <title>로비</title>
+</head>
+
+<body>
+  <style>
+        body{
+          margin-top: 0px;
+        }
+        .parent{
+          position: relative;
+        }
+        .absolute{
+          position: absolute;
+        }
+  </style>
+
+
+  <!-- 상단 -->
+  <div style="height: 100%; width:100%;">
+    <img class="img-fluid" src="../static/lobby-header.png"
+         th:src="@{|/lobby-header.png|}"
+         style="width: 100%;"/>
+  </div>
+  <!-- 제목(층수) -->
+  <div class="d-flex flex-column" style="min-height: 0vh; padding-bottom: 5vh; text-align: center;">
+    <div class="container" style="text-align: center;">
+          <span style="font-weight: 500; color: white; font-size: 1.4vw;" >1F</span>
+    </div>
+    <div class=" d-flex justify-content-center" style="width: 100%;">
+      <div class="d-flex justify-content-center " style="flex:0.5;">
+        <img class="img-fluid" src="../static/6-1.svg"
+             th:attr="src=@{/6-1.svg},title=#{logo},alt=#{logo}"
+             style="width: 100%;"/>
+        <span class="px-3" th:text="로비" style="font-size: 2vw; font-weight: 700; color: white; white-space: nowrap;"></span>
+        <img class="img-fluid" src="../static/6-2.svg"
+             th:attr="src=@{/6-2.svg},title=#{logo},alt=#{logo}"
+             style="width: 100%;"/>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 그림나열.. -->
+  <div class="parent" style=" width: 100%; min-height: 200vh; text-align: center;">
+    <span style="padding:1.5vw; padding-bottom:0px; font-size: 3vw; font-weight: 500; color: white;">갤러리 방문을 환영합니다!</span><br>
+    <span style="font-size: 3vw; font-weight: 700; color: white;">안내문을 읽고 입장해주세요</span>
+    <div class="child absolute" style="width: 40vw; top:15%; left:68%; transform: translate(-50%, -50%);">
+      <img class="img-fluid" src="../static/lobby-key.png"
+      th:src="@{|/lobby-key.png|}"
+      style="width: 100%;"/>
+    </div>
+    <div class="child absolute" style="width: 20vw; top:30%; left:20%; transform: translate(-50%, -50%);">
+      <img class="img-fluid" src="../static/lobby-mail.png"
+      th:src="@{|/lobby-mail.png|}"
+      style="width: 100%;"/>
+    </div>
+    <div class="child absolute" style="width: 30vw; top:45%; left:20%; transform: translate(-50%, -50%);">
+      <img class="img-fluid" src="../static/lobby-keyring2.png"
+      th:src="@{|/lobby-keyring2.png|}"
+      style="width: 100%;"/>
+    </div>
+    <div class="child absolute" style="width: 40vw; top:38%; left:45%; transform: translate(-50%, -50%);">
+      <img class="img-fluid" src="../static/lobby-letter.png"
+      th:src="@{|/lobby-letter.png|}"
+      style="width: 100%;"/>
+    </div>
+    <div class="child absolute" style="width: 80vw; top:95%; left:50%; transform: translate(-50%, -50%);">
+      <img class="img-fluid" src="../static/lobby-invite.png"
+      th:src="@{|/lobby-invite.png|}"
+      style="width: 100%;"/>
+    </div>
+    <div class="child absolute" style="width: 40vw; top:55%; left:73%; transform: translate(-50%, -50%);">
+      <img class="img-fluid" src="../static/lobby-keyring1.png"
+      th:src="@{|/lobby-keyring1.png|}"
+      style="width: 100%;"/>
+    </div>
+
+  </div>
+
+  <div style="height: 45vh;"></div>
+
+  <!-- 버튼 -->
+  <div class="custom-container-default" style="margin-top: 5vw; margin-bottom: 5vw; padding-bottom: 0px; padding-top: 0px;">
+    <div class="d-flex flex-column" style="justify-items: center; text-align: center;">
+      <a class="btn btn-light" type="button" id="enterBtn"
+         style="font-size: 1vw; 
+          align-self: center;  width: 30vw; padding:1vw;"
+         href="#" th:href="@{|/studio|}">
+        <span class="fw-bold" id="enterBtn1" style="font-size: 1.3vw; white-space: nowrap;">작품제작실로 이동</span>
+      </a>
+      <div style="padding:1.5vw;">
+        <a href="#" th:href="@{|/|}" style="font-size:1.2vw ;text-decoration: none; color: var(--text-2); ">
+          <span >처음으로</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- footer -->
+  <footer th:replace="fragments/footer :: footer"
+  class="custom-footer">
+    <br><br>
+    <span class="fs-6" style="font-family: 'SUITE-Regular', sans-serif;">Copyright © 2023 YE-BEEN. All Rights Reserved</span>
+  </footer>
+
+
+</body>
+
+
+
+</html>

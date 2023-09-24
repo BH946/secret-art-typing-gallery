@@ -22,7 +22,10 @@
     <link rel="stylesheet" type="text/css" media="all"
           href="../static/gallery.css" th:href="@{/gallery.css}"/>
     <style>
-
+    .page-link{
+      font-size:1.2vw;
+      padding: 1vw;
+    }
     </style>
 
     <!-- header -->
@@ -160,8 +163,8 @@
         endIndex = startIndex + (pageCount%startIndex);
       
       // 동적 스타일링
-      var arrowLeft = "<img class='img-fluid' src='/arrow-left.svg'/>"
-      var arrowRight = "<img class='img-fluid' src='/arrow-right.svg'/>"
+      var arrowLeft = "<img class='img-fluid' src='/arrow-left.svg' style='width:1.2vw;'/>"
+      var arrowRight = "<img class='img-fluid' src='/arrow-right.svg' style='width:1.2vw;'/>"
 
 
 
