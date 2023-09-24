@@ -40,14 +40,14 @@
     <hr style="color:white;"/>
 
     <!-- main 개발 -->
-    <div class="custom-container-default" style="padding-right:10vw;">
+    <div class="custom-container-default" style="">
 
       <!-- 작품그림 - 상단 -->
-      <div class="d-flex">
+      <div class="d-flex" style="">
         <div th:replace = "fragments/album :: album"
         class="container pb-0 d-flex" >
         </div>
-        <div class="" style="align-self: center; justify-content: end; width: 5vw;">
+        <div class="" style="position:absolute; left:85%; align-self: center; justify-content: end; width: 5vw;">
           <a href="#">
           <img class="img-fluid" src="../static/circle.svg"
                th:attr="src=@{/circle.svg},title=#{logo},alt=#{logo}" style="width: 70%;"/>
@@ -134,7 +134,6 @@
             </div>
           </div>
         </div>
-        <div style="width:4.8vw;"></div>
       </div>
     </div>
     

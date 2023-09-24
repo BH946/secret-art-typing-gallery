@@ -12,7 +12,7 @@ th:fragment="item">
       <div class="d-flex flex-column pe-4" style="flex:0.15;">
         <span class="" style="font-weight: 500; color: white; font-size: 1.2vw;" th:text="'No.'+*{id}">No.15</span>
         <span class="pt-2" style="font-weight: 400; color: var(--text-2); font-size: 1vw; letter-spacing: -0.16px;
-        " th:field="*{{date1}}">23.05.22.16:00</span>
+        " th:field="*{{date1}}" th:text="*{{date1}}">23.05.22.16:00k</span>
       </div>
       <div class="d-flex flex-column pe-4" style="flex:0.42;">
         <span class="text-truncate" style="font-weight: 500; color: white; font-size: 1.2vw; width:25vw;" th:text="*{title}">최근에 있엇던 대외비</span>
