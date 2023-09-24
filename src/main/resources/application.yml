@@ -31,6 +31,12 @@ server:
     session:
       timeout: 30m # session timeout 30min
 
+  # gzip 압축
+  compression:
+    enabled: true
+    mime-types: text/html,text/xml,text/plain,text/css,text/javascript,application/javascript
+    min-response-size: 2048
+
 logging.level:
   org.hibernate.SQL: debug
   org.hibernate.type: trace
@@ -75,6 +81,12 @@ server:
   servlet:
     session:
       timeout: 30m # session timeout 30min
+
+  # gzip 압축
+  compression:
+    enabled: true
+    mime-types: text/html,text/xml,text/plain,text/css,text/javascript,application/javascript
+    min-response-size: 2048
 
 my:
   datasource:
