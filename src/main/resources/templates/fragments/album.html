@@ -25,7 +25,7 @@
       <div class=" d-flex" style="padding:0.5vw; max-width:100%; flex:1; background-color: var(--main-2); border-width: 1px; border-color: white; border-style: solid;
       font-size: 1vw;">
         <div class="d-flex" id="output" style="max-width:100%; padding:0px; flex:1; background-color: white; justify-content: center; align-items: center;" >
-          <img class="img-fluid" id="outputImg" style="max-width:100%; width: 100%; height: 100%;" src=""
+          <img th:if="${(item?.imgSrc!=null) ? '/image/'+(item.imgSrc) : false}" class="img-fluid" id="outputImg" style="max-width:100%; width: 100%; height: 100%;" src=""
             th:src="${(item?.imgSrc!=null) ? '/image/'+(item.imgSrc) : ''}"/>
 <!--          th:src="${(imgSrc!=null) ? (imgSrc) : (item!=null) ? '/image/'+(item.imgSrc) : ''}" />-->
 <!--          th:src="${(imgSrc!=null) ? '/image/'+(imgSrc) : (item?.imgSrc!=null) ? '/image/'+(item.imgSrc) : ''}" />-->

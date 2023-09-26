@@ -8,6 +8,7 @@
     <style>
       body{
         margin-top: 0px;
+        overflow: hidden;
       }
       .firstLayout{
         opacity: 50%;
@@ -165,6 +166,9 @@
       $('.firstLayout').css('filter', 'blur(0px)');
       $('.threeLayout').css('display', 'none');
       $('.secondLayout').css('display', 'none');
+
+      $('.firstLayout').css('cursor', 'url(./cursor.svg) 10 60, auto');
+      $('#enterBtn').css('cursor', 'url(./cursor.svg) 10 60, pointer');
     }
   </script>
 
