@@ -8,7 +8,7 @@
   <style>
         body{
           margin-top: 0px;
-          cursor: url(./cursor.svg) 10 60, auto;
+          cursor: url('/cursor.svg') 10 60, auto;
         }
         .parent{
           position: relative;
@@ -17,19 +17,39 @@
           position: absolute;
         }
         #enterBtn {
-          cursor: url(./cursor.svg) 10 60, pointer;
+          cursor: url('/cursor.svg') 10 60, pointer;
+        }
+
+        .speakerA{
+          position: absolute; width: 3vw; top:90%; left:95%; transform: translate(-50%, -50%);
+          border-radius: 50%; border-width: 1px; border-style: solid; border-color: white;
+          padding: 0.5vw;
+          position: fixed;
         }
   </style>
 
 
   <!-- 상단 -->
-  <div style="height: 100%; width:100%;">
+  <div class="parent" style="height: 100%; width:100%; padding-bottom:3vw;">
+    <!-- 자리차지용 -->
     <img class="img-fluid" src="../static/lobby-header.png"
          th:src="@{|/lobby-header.png|}"
-         style="width: 100%;"/>
+         style="width: 100%; visibility: hidden;"/>
+    <!-- 실제내용 -->
+    <img class="img-fluid child absolute" src="../static/lobby-header.png"
+         th:src="@{|/lobby-header.png|}"
+         style="width: 100%; top:0%; left:0%;"/>
+    <a class="child absolute" style="top:30%; left:20%; width:4%; height:15%; cursor:url('/cursor.svg') 10 60, pointer;" onclick="redirectSavedBgm()"
+    th:href="@{|/gallery|}">
+
+    </a>
+    <a class="child absolute" style="top:20%; left:85%; width:8%; height:50%; cursor:url('/cursor.svg') 10 60, pointer;" onclick="redirectSavedBgm()"
+       href="#">
+
+    </a>
   </div>
   <!-- 제목(층수) -->
-  <div class="d-flex flex-column" style="min-height: 0vh; padding-bottom: 5vh; text-align: center;">
+  <div class="d-flex flex-column" style="min-height: 0vh; padding-bottom: 0px; text-align: center;">
     <div class="container" style="text-align: center;">
           <span style="font-weight: 500; color: white; font-size: 1.4vw;" >1F</span>
     </div>
@@ -45,62 +65,64 @@
       </div>
     </div>
   </div>
-  
-  <!-- 그림나열.. -->
-  <div class="parent" style=" width: 100%; min-height: 200vh; text-align: center;">
-    <span style="padding:1.5vw; padding-bottom:0px; font-size: 3vw; font-weight: 500; color: white;">갤러리 방문을 환영합니다!</span><br>
-    <span style="font-size: 3vw; font-weight: 700; color: white;">안내문을 읽고 입장해주세요</span>
-    <div class="child absolute" style="width: 40vw; top:15%; left:68%; transform: translate(-50%, -50%);">
-      <img class="img-fluid" src="../static/lobby-key.png"
-      th:src="@{|/lobby-key.png|}"
-      style="width: 100%;"/>
-    </div>
-    <div class="child absolute" style="width: 20vw; top:30%; left:20%; transform: translate(-50%, -50%);">
-      <img class="img-fluid" src="../static/lobby-mail.png"
-      th:src="@{|/lobby-mail.png|}"
-      style="width: 100%;"/>
-    </div>
-    <div class="child absolute" style="width: 30vw; top:45%; left:20%; transform: translate(-50%, -50%);">
-      <img class="img-fluid" src="../static/lobby-keyring2.png"
-      th:src="@{|/lobby-keyring2.png|}"
-      style="width: 100%;"/>
-    </div>
-    <div class="child absolute" style="width: 40vw; top:38%; left:45%; transform: translate(-50%, -50%);">
-      <img class="img-fluid" src="../static/lobby-letter.png"
-      th:src="@{|/lobby-letter.png|}"
-      style="width: 100%;"/>
-    </div>
-    <div class="child absolute" style="width: 80vw; top:95%; left:50%; transform: translate(-50%, -50%);">
-      <img class="img-fluid" src="../static/lobby-invite.png"
-      th:src="@{|/lobby-invite.png|}"
-      style="width: 100%;"/>
-    </div>
-    <div class="child absolute" style="width: 40vw; top:55%; left:73%; transform: translate(-50%, -50%);">
-      <img class="img-fluid" src="../static/lobby-keyring1.png"
-      th:src="@{|/lobby-keyring1.png|}"
-      style="width: 100%;"/>
-    </div>
 
+
+  <!-- 그림 나열 -->
+  <div class="parent" style="text-align:center;">
+    <!-- 자리차지용 -->
+    <div style="visibility: hidden;">
+      <span style="padding:1.5vw; padding-bottom:0px; font-size: 3.5vw; font-weight: 500; color: white;">갤러리 방문을 환영합니다!</span><br>
+      <span style="font-size: 3.5vw; font-weight: 700; color: white;">안내문을 읽고 입장해주세요</span>
+    </div>
+    <!-- 실제내용 -->
+    <div class="child absolute" style="top:6%; left:50%; transform: translate(-50%); z-index:-1;">
+      <span style="padding:1.5vw; padding-bottom:0px; font-size: 3.5vw; font-weight: 500; color: white;">갤러리 방문을 환영합니다!</span><br>
+      <span style="font-size: 3.5vw; font-weight: 700; color: white;">안내문을 읽고 입장해주세요</span>
+    </div>
+    <img class="img-fluid" src="../static/lobby-group.png"
+         th:src="@{|/lobby-group.png|}"
+         style="width: 100%; "/>
+  </div>
+  <div class="parent" style="text-align:center;">
+    <!-- 자리차지용 -->
+    <img class="img-fluid" src="../static/lobby-invite.png"
+         th:src="@{|/lobby-invite.png|}"
+         style="width: 70%; visibility: hidden;"/>
+    <!-- 실제내용 -->
+    <img class="img-fluid child absolute" src="../static/lobby-invite.png"
+         th:src="@{|/lobby-invite.png|}"
+         style="width: 70%; top:-10%; left:50%; transform: translate(-50%); z-index:-1;"/>
   </div>
 
-  <div style="height: 45vh;"></div>
-
   <!-- 버튼 -->
-  <div class="custom-container-default" style="margin-top: 5vw; margin-bottom: 5vw; padding-bottom: 0px; padding-top: 0px;">
-    <div class="d-flex flex-column" style="justify-items: center; text-align: center;">
-      <a class="btn btn-light" type="button" id="enterBtn"
+  <div class="custom-container-default" style="margin-top: 0px; margin-bottom: 5vw; padding-bottom: 0px; padding-top: 0px;">
+    <div class="d-flex flex-column" style="justify-items: center; text-align: center; ">
+      <a class="btn btn-light" type="button" id="enterBtn" onclick="redirectSavedBgm()"
          style="font-size: 1vw; 
           align-self: center;  width: 30vw; padding:1vw;"
          href="#" th:href="@{|/studio|}">
         <span class="fw-bold" id="enterBtn1" style="font-size: 1.3vw; white-space: nowrap;">작품제작실로 이동</span>
       </a>
       <div style="padding:1.5vw;">
-        <a href="#" th:href="@{|/|}" style="font-size:1.2vw ;text-decoration: none; color: var(--text-2); ">
+        <a href="#" th:href="@{|/|}" onclick="redirectSavedBgm()"
+           style="font-size:1.2vw ;text-decoration: none; color: var(--text-2); ">
           <span >처음으로</span>
         </a>
       </div>
     </div>
   </div>
+
+
+  <!-- speaker -->
+  <a class="speakerA" onclick="speakerClick()" style="cursor:pointer;">
+    <img class="speakerImg img-fluid" th:src="@{|/speaker.svg|}"
+         style="width:100%;"/>
+    <audio id="bgm" autoplay loop>
+<!--      <source th:src="@{|/glossy-168156.mp3|}" type="audio/mpeg">-->
+      <source th:src="@{|/mix_bgm.mp3|}" type="audio/mpeg">
+      브라우저가 오디오 요소를 지원하지 않습니다.
+    </audio>
+  </a>
 
 
   <!-- footer -->
@@ -113,6 +135,10 @@
 
 </body>
 
+<!-- Jquery CDN 로드 : 항상 최신 버전 사용 -->
+<script th:replace="fragments/scripts :: scripts4" src="https://code.jquery.com/jquery-latest.min.js"></script>
 
+<!-- bgm -->
+<script th:replace="fragments/scripts :: scripts6" ></script>
 
 </html>

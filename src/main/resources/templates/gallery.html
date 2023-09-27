@@ -22,16 +22,16 @@
     <link rel="stylesheet" type="text/css" media="all"
           href="../static/gallery.css" th:href="@{/gallery.css}"/>
     <style>
-    .page-link{
-      font-size:1.2vw;
-      padding: 1vw;
-    }
-    body {
-      cursor: url(./cursor.svg) 10 60, auto;
-    }
-    #enterBtn {
-      cursor: url(./cursor.svg) 10 60, pointer;
-    }
+      .page-link{
+        font-size:1.2vw;
+        padding: 1vw;
+      }
+      body {
+        cursor: url('/cursor.svg') 10 60, auto;
+      }
+      #enterBtn {
+        cursor: url('/cursor.svg') 10 60, pointer;
+      }
     </style>
 
     <!-- header -->
@@ -169,23 +169,23 @@
         endIndex = startIndex + (pageCount%startIndex);
       
       // 동적 스타일링
-      var arrowLeft = "<img class='img-fluid' src='/arrow-left.svg' style='width:1.2vw;'/>"
-      var arrowRight = "<img class='img-fluid' src='/arrow-right.svg' style='width:1.2vw;'/>"
+      var arrowLeft = "<img class='img-fluid' src='/arrow-left.svg' style='width:1.2vw;' onclick='redirectSavedBgm()'/>"
+      var arrowRight = "<img class='img-fluid' src='/arrow-right.svg' style='width:1.2vw;' onclick='redirectSavedBgm()'/>"
 
 
 
       // [동적 ul 페이징 처리 실시]
       if(pageCount == 1){ //생성해야할 페이지가 1페이지인 경우
         var insertUl = "<li class='page-item'>"; // 변수 선언
-        insertUl += insertUl + "<a class='page-link active' href='/gallery/1' onclick = 'newPage(1);'>";
+        insertUl += insertUl + "<a class='page-link active' href='/gallery/1' onclick = 'redirectSavedBgm()'>";
         insertUl += "1</a></li>";
         $("#dyn_ul").append(insertUl); //jquery append 사용해 동적으로 추가 실시
       }
       else if(pageCount >= 2){ //생성해야할 페이지가 2페이지 이상인 경우
         // (Previous)이전 페이지 추가 실시
         var insertSTR = "<li class='page-item'>"; // 변수 선언
-        if(activePage===1) insertSTR = insertSTR + "<a class='page-link disabled' style='background-color: var(--main-1); opacity:0.3;' href='/gallery/"+(activePage)+"' onclick = 'newPage("+"-1"+");'>";
-        else insertSTR = insertSTR + "<a class='page-link' href='/gallery/"+(activePage-1)+"' onclick = 'newPage("+"-1"+");'>";
+        if(activePage===1) insertSTR = insertSTR + "<a class='page-link disabled' style='background-color: var(--main-1); opacity:0.3;' href='/gallery/"+(activePage)+"' onclick = 'redirectSavedBgm()'>";
+        else insertSTR = insertSTR + "<a class='page-link' href='/gallery/"+(activePage-1)+"' onclick = 'redirectSavedBgm()'>";
         // insertSTR = insertSTR + "Previous";
         insertSTR = insertSTR + arrowLeft;
         insertSTR = insertSTR + "</a></li>";
@@ -194,7 +194,7 @@
         // ... 페이지 추가 (앞에 페이지 더 있을경우 맨앞 페이지로 이동)
         if((activePage > pageMax)) {
           var insertMID = "<li class='page-item'>"; // 변수 선언
-          insertMID = insertMID + "<a class='page-link' href='/gallery/"+(1)+"' onclick = 'newPage("+"0"+");'>";
+          insertMID = insertMID + "<a class='page-link' href='/gallery/"+(1)+"' onclick = 'redirectSavedBgm()'>";
           insertMID = insertMID + "...";
           insertMID = insertMID + "</a></li>";
           $("#dyn_ul").append(insertMID); //jquery append 사용해 동적으로 추가 실시
@@ -209,8 +209,8 @@
             break; //for 반복문 탈출
           }
           var insertUl = "<li class='page-item'>"; // 변수 선언
-          if(i===activePage) insertUl = insertUl + "<a class='page-link active' href='/gallery/"+i+"' onclick = 'newPage("+i+");'>";
-          else insertUl = insertUl + "<a class='page-link' href='/gallery/"+i+"' onclick = 'newPage("+i+");'>";
+          if(i===activePage) insertUl = insertUl + "<a class='page-link active' href='/gallery/"+i+"' onclick = 'redirectSavedBgm()'>";
+          else insertUl = insertUl + "<a class='page-link' href='/gallery/"+i+"' onclick = 'redirectSavedBgm()'>";
           insertUl = insertUl + String(i);
           insertUl = insertUl + "</a></li>";
           $("#dyn_ul").append(insertUl); //jquery append 사용해 동적으로 추가 실시
@@ -220,7 +220,7 @@
         // ... 페이지 추가 (뒤에 페이지 더 있을경우 끝 페이지로 이동)
         if((activePage < pageCount) && (activePage >= pageMax) && (endIndex < pageCount)) {
           var insertMID = "<li class='page-item'>"; // 변수 선언
-          insertMID = insertMID + "<a class='page-link' href='/gallery/"+(pageCount)+"' onclick = 'newPage("+"0"+");'>";
+          insertMID = insertMID + "<a class='page-link' href='/gallery/"+(pageCount)+"' onclick = 'redirectSavedBgm()'>";
           insertMID = insertMID + "...";
           insertMID = insertMID + "</a></li>";
           $("#dyn_ul").append(insertMID); //jquery append 사용해 동적으로 추가 실시
@@ -228,8 +228,8 @@
 
         // (Next)다음 페이지 추가 실시
         var insertEND = "<li class='page-item'>"; // 변수 선언
-        if(activePage === pageCount)  insertEND = insertEND + "<a class='page-link disabled' style='background-color: var(--main-1); opacity:0.3;' href='/gallery/"+(activePage)+"' onclick = 'newPage("+"0"+");'>";
-        else insertEND = insertEND + "<a class='page-link' href='/gallery/"+(activePage+1)+"' onclick = 'newPage("+"0"+");'>";
+        if(activePage === pageCount)  insertEND = insertEND + "<a class='page-link disabled' style='background-color: var(--main-1); opacity:0.3;' href='/gallery/"+(activePage)+"' onclick = 'redirectSavedBgm()'>";
+        else insertEND = insertEND + "<a class='page-link' href='/gallery/"+(activePage+1)+"' onclick = 'redirectSavedBgm()'>";
         // insertEND = insertEND + "Next";
         insertEND = insertEND + arrowRight;
         insertEND = insertEND + "</a></li>";

@@ -38,6 +38,11 @@
         }
       }
     
+      .speakerA{
+        position: absolute; width: 3vw; top:90%; left:95%; transform: translate(-50%, -50%);
+        border-radius: 50%; border-width: 1px; border-style: solid; border-color: white;
+        padding: 0.5vw;
+      }
 
     </style>
 
@@ -60,7 +65,7 @@
             style="flex:1;"/>
           </div>
           <div class="" style="flex:1; padding: 40px;">
-            <a class="btn btn-light " type="button" id="enterBtn"
+            <a class="btn btn-light " type="button" id="enterBtn" onclick="redirectSavedBgm()"
             style="font-size: 1vw;
             align-self: center; width: 100%; padding:1vw;"
             href="#" th:href="@{|/lobby|}">
@@ -134,12 +139,25 @@
 
     </div>
 
-
+    <!-- speaker -->
+    <a class="speakerA" onclick="speakerClick()" style="cursor:pointer;">
+      <img class="speakerImg img-fluid" th:src="@{|/speakerNo.svg|}"
+      style="width:100%;"/>
+      <audio id="bgm" autoplay loop>
+<!--        <source th:src="@{|/glossy-168156.mp3|}" type="audio/mpeg">-->
+        <source th:src="@{|/mix_bgm.mp3|}" type="audio/mpeg">
+        브라우저가 오디오 요소를 지원하지 않습니다.
+      </audio>
+    </a>
   </body>
 
 
   <!-- Jquery CDN 로드 : 항상 최신 버전 사용 -->
-  <script th:fragment="scripts4" src="https://code.jquery.com/jquery-latest.min.js"></script>
+  <script th:replace="fragments/scripts :: scripts4" src="https://code.jquery.com/jquery-latest.min.js"></script>
+
+  <!-- bgm -->
+  <script th:replace="fragments/scripts :: scripts6" ></script>
+
 
   <script>
     $(document).ready(function () 
@@ -170,6 +188,8 @@
       $('.firstLayout').css('cursor', 'url(./cursor.svg) 10 60, auto');
       $('#enterBtn').css('cursor', 'url(./cursor.svg) 10 60, pointer');
     }
+
+
   </script>
 
 </html>

@@ -7,7 +7,7 @@
       <div class="container-fluid" style="height:100%;
       padding-left:3vw; padding-right:3vw; padding-top:0px; padding-bottom: 0px;">
         <div class="nav-left" style="flex:1;">
-          <a class="navbar-brand" href="#" th:href="@{/}"
+          <a class="navbar-brand" href="#" th:href="@{/}" onclick="redirectSavedBgm()"
           style="height: 100%;">
             <img class="img-fluid" src="../static/secret.svg"
               th:attr="src=@{/secret.svg},title=#{logo},alt=#{logo}" 
@@ -18,33 +18,42 @@
              style="height:100%; flex:6;">
           <ul class="navbar-nav justify-content-center" style="flex:1; height:100%;">
             <li class="nav-item d-flex p-0" id="nav-item-first">
-              <a class="nav-link flex-column d-flex" id="custom-nav-item1" style="flex:1; justify-content: center;" aria-current="page" href="#" th:attr="href=@{/lobby}" onclick="change_nav(event)">
+              <a class="nav-link flex-column d-flex" id="custom-nav-item1" style="flex:1; justify-content: center;" aria-current="page" href="#" th:attr="href=@{/lobby}" onclick="change_nav(event); redirectSavedBgm()">
                 <span th:text="#{page.lobby}"></span>
                 <span class="nav-item-inner">1F</span>
               </a>
             </li>
             <li class="nav-item d-flex p-0">
-              <a class="nav-link flex-column d-flex" id="custom-nav-item2" style="flex:1; justify-content: center;" aria-current="page" href="gallery.html" th:attr="href=@{/gallery}" onclick="change_nav(event)">
+              <a class="nav-link flex-column d-flex" id="custom-nav-item2" style="flex:1; justify-content: center;" aria-current="page" href="gallery.html" th:attr="href=@{/gallery}" onclick="change_nav(event); redirectSavedBgm()">
                 <span th:text="#{page.gallery}"></span>
                 <span class="nav-item-inner" th:text="|B1 ~ B${(totalCount!=null) ? (totalCount/10+1) : '??'}F|"></span>
               </a>
             </li>
             <li class="nav-item d-flex p-0">
-              <a class="nav-link flex-column d-flex" id="custom-nav-item3" style="flex:1; justify-content: center;" aria-current="page" href="studio_product.html" th:attr="href=@{/studio}" onclick="change_nav(event)">
+              <a class="nav-link flex-column d-flex" id="custom-nav-item3" style="flex:1; justify-content: center;" aria-current="page" href="studio_product.html" th:attr="href=@{/studio}" onclick="change_nav(event); redirectSavedBgm()">
                 <span th:text="#{page.studio}"></span>
                 <span class="nav-item-inner">??F</span>
               </a>
             </li>
           </ul>
         </div>
-        <div class="nav-right" style="flex:1;">
-          <a class="nav-link" href="#" style="text-align: end;">
-            <img class="img-fluid" src="../static/speaker.svg"
+        <div class="nav-right d-flex" style="flex:1; justify-content: end;">
+          <a class="nav-link"  onclick="speakerClick()" style="width:30%; cursor:pointer;">
+            <img class="speakerImg img-fluid" src="../static/speaker.svg"
                  th:attr="src=@{/speaker.svg},title=#{logo},alt=#{logo}"
-                 style="width: 30%;"/>
+                 style="width: 100%;"/>
+            <audio id="bgm" loop>
+<!--              <source th:src="@{|/glossy-168156.mp3|}" type="audio/mpeg">-->
+<!--              <source th:src="@{|/main_bgm_1.mp3|}" type="audio/mpeg">-->
+              <source th:src="@{|/mix_bgm.mp3|}" type="audio/mpeg">
+              브라우저가 오디오 요소를 지원하지 않습니다.
+            </audio>
           </a>
         </div>
       </div>
+
+      <!-- bgm -->
+      <script th:replace="fragments/scripts :: scripts6" ></script>
     </nav>
 
   </body>

@@ -27,12 +27,12 @@
           <h4 style="font-size:1.5vw; color: white; font-weight: 700;" th:text="*{title}" >최근에 있었던 대외비</h4>
         </div>
         <div class="d-flex" style="flex:0.2; justify-content: end;">
-          <button class="btn btn-light" type="button"
+          <button class="btn btn-light" type="button" onclick="redirectSavedBgm()"
           data-bs-toggle="modal" data-bs-target="#updateModal"
           style="flex:1; border-radius: 0px; font-size: 1vw; border-width: 1px; background-color: var(--main-1);">
             <span class="" style="color: white; font-size: 1em; font-weight: 500; letter-spacing: -0.16px;">수정</span>
           </button>
-          <button class="btn btn-light ms-2" type="button"
+          <button class="btn btn-light ms-2" type="button" onclick="redirectSavedBgm()"
           data-bs-toggle="modal" data-bs-target="#deleteModal"
           style="flex:1; border-radius: 0px; font-size: 1vw; border-width: 1px; background-color: var(--main-1);">
             <span class="" style="color: #FD6363; font-size: 1em; font-weight: 500; letter-spacing: -0.16px;">삭제</span>
@@ -91,10 +91,10 @@
       style="min-height: 10vw; padding-top:4vw; padding-bottom: 4vw;  padding-left:1vw; padding-right:1vw;">
 
         <th:block th:each="findItem : ${items}" th:object="${findItem}">
-        <button th:if="${(len==1)}" class="btn d-flex  " type="button"
+        <a th:if="${(len==1)}" class="btn d-flex  " type="button"
         style="width: 100%; height: 100%; border-radius: 0px; border-width: 0px; background-color: #242424;
         font-size: 1vw; padding-left: 1.3vw; padding-right: 1.3vw; padding-top:1.3vw; padding-bottom:1.3vw; "
-                th:onclick="|location.href='@{/gallery/{pageId}/itemDetail/{id}(id=*{id},pageId=${pageId})}'|">
+                th:href="|@{/gallery/{pageId}/itemDetail/{id}(id=*{id},pageId=${pageId})}|" th:onclick="redirectSavedBgm();">
           <img class="img-fluid" src="../static/arrow-down.svg"
           th:attr="src=@{/arrow-down.svg},title=#{logo},alt=#{logo}" style="height: 2em; flex:0.01; align-self: center;"/>
           <div class="m-0 d-flex flex-column" style="flex:1; text-align: start; align-self: center; padding-left: 1.3vw; padding-right: 1.3vw;">
@@ -103,12 +103,12 @@
           </div>
           <span class="" th:text="*{{date1}}" th:field="*{{date1}}" style="flex:0.1 font-weight: 400; color: var(--text-2); font-size: 1vw; letter-spacing: -0.16px;
           align-self: center;">23.05.21.16:00k</span>
-        </button>
+        </a>
 
-        <button th:unless="${(len==1)}" class="btn d-flex " type="button"
+        <a th:unless="${(len==1)}" class="btn d-flex " type="button"
                 style="width: 100%; height: 100%; border-radius: 0px; border-width: 0px; background-color: #242424;
       font-size: 1vw; padding-left: 1.3vw; padding-right: 1.3vw; padding-top:1.3vw; padding-bottom:1.3vw; margin-top:1.3vw;"
-                th:onclick="|location.href='@{/gallery/{pageId}/itemDetail/{id}(id=*{id},pageId=${pageId})}'|">
+                th:href="|@{/gallery/{pageId}/itemDetail/{id}(id=*{id},pageId=${pageId})}|" th:onclick="redirectSavedBgm();">
           <img class="img-fluid" src="../static/arrow-up.svg" th:src="@{|/arrow-${(items[0].id==findItem.id) ? 'up' : 'down'}.svg|}"
                style="height: 2em; flex:0.01; align-self: center;"/>
           <div class="m-0 d-flex flex-column" style="flex:1; text-align: start; align-self: center; padding-left: 24px; padding-right: 24px;">
@@ -117,7 +117,7 @@
           </div>
           <span class="" th:text="*{{date1}}" th:field="*{{date1}}" style="flex:0.1; font-weight: 400; color: var(--text-2); font-size: 1vw; letter-spacing: -0.16px;
         align-self: center;">23.05.21.16:00</span>
-        </button>
+        </a>
 
         </th:block>
 
@@ -126,7 +126,7 @@
       <!-- 탈출버튼 -->
       <div class=" d-flex" style=" padding-left:1vw; padding-right:1vw;">
         <div class="" style="flex:0.75"></div>
-        <a class="btn btn-light m-0" type="button"
+        <a class="btn btn-light m-0" type="button" onclick="redirectSavedBgm()"
         style="border-radius: 0px;
         height: 100%; flex:0.25; padding:1vw;"
         href="gallery.html" th:href="@{|/gallery/${pageId}|}">

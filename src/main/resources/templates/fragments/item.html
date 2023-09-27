@@ -19,7 +19,7 @@ th:fragment="item">
         <span class="text-truncate pt-2" style="font-weight: 400; color: var(--text-2); font-size: 1vw; letter-spacing: -0.16px; width:25vw;
         " th:text="*{nickName} ">방문자가작성한닉네임</span>
 
-        <a class="btn btn-light mt-4" type="button" id="enterBtn"
+        <a class="btn btn-light mt-4" type="button" id="enterBtn" onclick="redirectSavedBgm()"
         style="font-size: 1vw;
         align-self: flex-start; width: 12vw; padding:0.5em;"
         href="#" th:href="@{|/gallery/${pageId}/itemDetail/*{id}|}">
