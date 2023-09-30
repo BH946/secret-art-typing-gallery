@@ -5,8 +5,8 @@
     <!-- productModal - 반드시 id를 선언해야 적용이 됨(Button에서 id를 타깃으로 하기 때문) -->
     <div class="modal modal-lg" id="productModal" tabindex="-1" aria-hidden="ture"
     th:fragment="productModal">
-      <div class="modal-dialog modal-dialog-centered" style="">
-        <div class="modal-content p-2" style="width:100vw; background-color: var(--main-1); border-width: 1px; border-color: white; border-style: solid; border-radius: 0px;">
+      <div class="modal-dialog modal-dialog-centered" style="margin-left:50%;">
+        <div class="modal-content p-2" style="transform: translate(-50%); width:100vw; background-color: var(--main-1); border-width: 1px; border-color: white; border-style: solid; border-radius: 0px;">
 
 <!--        <form action="/studioComplete" -->
 <!--        th:action="${(item?.id!=null) ? '/studioComplete/'+item.id-->
@@ -64,7 +64,7 @@
             </div>
           </div>
 
-          <div class="modal-body" style="padding-bottom:1vw; padding-top:1vw; padding-left: 5vw; padding-right: 5vw; border-width: 0px;">
+          <div class="modal-body" style="padding-bottom:5vw; padding-top:1vw; padding-left: 5vw; padding-right: 5vw; border-width: 0px;">
             <div class="container">
             <button class="btn btn-light m-0" type="submit" onclick="redirectSavedBgm()"
             style="width: 100%; height: 100%; border-radius: 0px;font-size: 1vw; padding:1vw;">
@@ -81,8 +81,8 @@
     <!-- updateModal -->
     <div class="modal modal-lg" id="updateModal" tabindex="-1" aria-hidden="ture"
          th:fragment="updateModal">
-      <div class="modal-dialog modal-dialog-centered" >
-        <div class="modal-content p-2" style="width:100vw; background-color: var(--main-1); border-width: 1px; border-color: white; border-style: solid; border-radius: 0px;">
+      <div class="modal-dialog modal-dialog-centered" style="margin-left:50%;">
+        <div class="modal-content p-2" style="transform: translate(-50%); width:100vw; background-color: var(--main-1); border-width: 1px; border-color: white; border-style: solid; border-radius: 0px;">
 
           <form th:action th:object="${item}"
                 method="post">
@@ -130,13 +130,13 @@
                 <!-- 하단 -->
                 <div class="container d-flex flex-column p-0">
                   <label class="pb-2" style="font-size: 1.2vw; font-weight: 500;color: white;" th:text="#{label.item.content}">작품설명</label>
-                  <textarea type="text" class="no-scroll" th:filed="*{content}" id="content" name="content" placeholder="미입력 시 공란으로 출품됩니다." style="color: var(--text-2); letter-spacing: -0.16px; font-weight: 400; font-size: 1vw; background-color: var(--main-2); border-width: 0px; padding: 1vw; padding-top: 0.5vw; padding-bottom: 2vw;"
+                  <textarea type="text" class="no-scroll" th:text="*{content}" th:filed="*{content}" id="content" name="content" placeholder="미입력 시 공란으로 출품됩니다." style="color: var(--text-2); letter-spacing: -0.16px; font-weight: 400; font-size: 1vw; background-color: var(--main-2); border-width: 0px; padding: 1vw; padding-top: 0.5vw; padding-bottom: 2vw;"
                   ></textarea>
                 </div>
               </div>
             </div>
 
-            <div class="modal-body " style="padding-top:1vw; padding-bottom:1vw; padding-left: 5vw; padding-right: 5vw; border-width: 0px;">
+            <div class="modal-body " style="padding-top:1vw; padding-bottom:5vw; padding-left: 5vw; padding-right: 5vw; border-width: 0px;">
               <div class="container">
                 <button class="btn btn-light m-0" type="submit" onclick="redirectSavedBgm()"
                         style="width: 100%; height: 100%; border-radius: 0px;font-size: 1vw; padding:1vw;">
@@ -160,8 +160,8 @@
     <!-- updateNDeleteModal  -->
     <div th:fragment="updateNDeleteModal(operate)">
     <div class="modal modal-lg" th:id="|${operate}Modal|" tabindex="-1" aria-hidden="ture">
-      <div class="modal-dialog modal-dialog-centered" >
-        <div class="modal-content" style="width:100vw; background-color: var(--main-1); border-width: 1px; border-color: white; border-style: solid; border-radius: 0px; padding-left: 3vw; padding-right: 3vw; padding-top: 2vw; padding-bottom: 3vw">
+      <div class="modal-dialog modal-dialog-centered" style="margin-left:50%;  ">
+        <div class="modal-content" style="transform: translate(-50%); width:100vw; background-color: var(--main-1); border-width: 1px; border-color: white; border-style: solid; border-radius: 0px; padding-left: 3vw; padding-right: 3vw; padding-top: 2vw; padding-bottom: 3vw">
           <form th:action="@{|/gallery/${pageId}/${operate}/${item?.id}|}" th:object="${item}" method="post">
             <div class="modal-header pb-0" style="border-width: 0px;">
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="width: 3vw; height: 3vw; font-size: 0px;">

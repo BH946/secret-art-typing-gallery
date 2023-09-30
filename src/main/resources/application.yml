@@ -69,8 +69,8 @@ spring:
 
   jpa:
     hibernate:
-#      ddl-auto: none # DB 초기화 사용 X
-      ddl-auto: create # DB 초기화 사용
+      ddl-auto: none # DB 초기화 사용 X
+#      ddl-auto: create # DB 초기화 사용
 
   # 메시지 - thymeleaf 연동
   messages:
