@@ -108,12 +108,17 @@ public class StudioController {
         }
 
         // 성공 로직
+        itemService.initCachePosts(); // 캐시 초기화(페이지들 새로 No 업데이트 하기 때문)
         Item item = Item.createItem(form);
         log.debug("form:{}", form.getImgSrc());
         log.debug("item:{}", item.getImgSrc());
         itemService.save(item); // 이때 id 할당받음
         int pageId = itemService.findPageId(item.getId()); // 바로 가져올 수 있음
-        List<Item> items = itemService.findAllWithNoPage(pageId); // 캐싱
+//        List<Item> items = itemService.findAllWithNoPage(pageId); // 캐싱
+        List<Item> items = itemService.updateAllNo();
+        log.debug("제작완료 입장");
+        for(Item it : items)
+            log.debug("itemId : {}, itemNo : {}", it.getId(), it.getNo());
         itemService.updateTotalCount(); // 캐싱
         redirectAttributes.addAttribute("status", "addON");
         redirectAttributes.addAttribute("itemId", item.getId());
@@ -143,6 +148,7 @@ public class StudioController {
     /**
      * 전시된것을 수정하는거라 id 있음 -> 전시실 이미 지정된 상태
      * @ModelAttribute("item") 필수!!
+     * 여기가 실제 아이템 "업데이트" 하는 부분
      */
     @PostMapping("studioComplete/{itemId}")
     public String studioIdUpdate(@Validated @ModelAttribute("item") UpdateItemDto form, BindingResult bindingResult,
@@ -158,7 +164,7 @@ public class StudioController {
         if(item != null) {
             int pageId = itemService.findPageId(itemId);
             itemService.update(item.getId(), form);
-            itemService.updateAllWithPage(pageId);
+            itemService.updateAllWithPage(pageId); // 캐싱
             redirectAttributes.addAttribute("status", "updateON");
             redirectAttributes.addAttribute("itemId", item.getId());
             redirectAttributes.addAttribute("pageId", pageId);

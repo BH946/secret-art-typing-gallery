@@ -65,8 +65,10 @@ public class GalleryController {
         if (item != null) {
             if(item.getPassword().equals(password)){
                 log.debug("비번통과");
+                itemService.initCachePosts(); // 캐시 초기화(페이지들 새로 No 업데이트 하기 때문)
                 itemService.remove(item);
-                List<Item> items = itemService.findAllWithNoPage(pageId.intValue()); // 캐싱
+//                List<Item> items = itemService.findAllWithNoPage(pageId.intValue()); // 캐싱
+                List<Item> items = itemService.updateAllNo();
                 itemService.updateTotalCount(); // 캐싱
                 redirectAttributes.addAttribute("status", "deleteON");
                 return "redirect:/gallery"; // gallery() 함수로 이동

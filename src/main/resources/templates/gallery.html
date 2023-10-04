@@ -161,8 +161,11 @@
     </script>
 
     <!-- 페이징 -->
+    <!--    var pageCount = /*[[${(totalCount/10)+1}]]*/ null; // 총 페이지 크기 -> 통신으로 받음-->
     <script th:inline="javascript">
-      var pageCount = /*[[${(totalCount/10)+1}]]*/ null; // 총 페이지 크기 -> 통신으로 받음
+      var totalCount = /*[[${totalCount}]]*/ null;
+      if(totalCount % 10 == 0) {var pageCount = totalCount/10;}
+      else {var pageCount = totalCount/10 +1;} // 총 페이지 크기 -> 통신으로 받은값으로 계산
       var pageMax = 10; // 보여줄 페이지 수
       var activePage = /*[[${pageId}]]*/ null; // 현재 페이지 -> 통신으로 받음(active)
       // 보여줄 시작 페이지(계산 여기서 하겠음)

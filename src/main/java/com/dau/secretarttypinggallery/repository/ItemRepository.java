@@ -17,8 +17,9 @@ public class ItemRepository {
 
     /**
      * save, findOne, findAll, update(entity 에서 해결), remove
-     * findAllWithPage 추가 + findPageId
-     * 총 게시물 수 구하는 함수도 추가
+     * findAllWithPage 추가 + findPageId + findThree(이전, 이후 전시실 버튼 생성용)
+     * 총 게시물 수 구하는 함수(findTotalCount)도 추가
+     * add, delete에 사용될 No 필드 업데이트 함수 추가
      */
     public void save(Item item) {
         // null 인 경우 db에 없다는 의미(db에 insert 할 때 id 생성하기 때문)
@@ -67,41 +68,64 @@ public class ItemRepository {
         return pageId;
     }
 
+    public Long findTotalCount() {
+        return em.createQuery("select count(i) from Item i", Long.class)
+                .getSingleResult();
+    }
+
+    public void remove(Item item) {
+        em.remove(item);
+    }
+
+
     /*
-    ALTER TABLE `tb_board_item` AUTO_INCREMENT=1; SET @COUNT = 0; UPDATE `tb_board_item` SET board_item_key = @COUNT:=@COUNT+1;
-    em.createNativeQuery("alter table Item AUTO_INCREMENT=1").executeUpdate();
-    em.createNativeQuery("set @COUNT = 0").executeUpdate();
-    em.createNativeQuery("update Item set item_id = @COUNT:=@COUNT+1").executeUpdate();
-     */
-    public List<Item> findAllWithNoPage(int pageId) {
+ALTER TABLE `tb_board_item` AUTO_INCREMENT=1; SET @COUNT = 0; UPDATE `tb_board_item` SET board_item_key = @COUNT:=@COUNT+1;
+em.createNativeQuery("alter table Item AUTO_INCREMENT=1").executeUpdate();
+em.createNativeQuery("set @COUNT = 0").executeUpdate();
+em.createNativeQuery("update Item set item_id = @COUNT:=@COUNT+1").executeUpdate();
+ */
+    public List<Item> updateAllNo() {
+        List<Item> items = em.createQuery("select i from Item i" +
+                        " order by i.id desc", Item.class)
+                .getResultList();
+
+        long totalCount = items.size();
+        for(Item item : items) {
+            if(item.getNo()!=null && item.getNo() == totalCount) {
+                totalCount--;
+                continue;
+            }
+            else {
+                item.setNo(totalCount);
+                totalCount--;
+            }
+        }
+        return items;
+    }
+    /*
+    public List<Item> findAllWithNoPage2(int pageId) {
         List<Item> items = em.createQuery("select i from Item i" +
                         " order by i.id desc", Item.class)
                 .setFirstResult((pageId-1)*10)
                 .setMaxResults(10) // 개수임!!
                 .getResultList();
 
-        int start = (pageId-1)*10;
-        int end = start + items.size();
+        Long totalCount = em.createQuery("select count(i) from Item i", Long.class)
+                .getSingleResult();
+
+        // 도출 공식 : No.? = totalCount-(10*(pageId-1))
+        long noNum = totalCount-(10*(pageId-1));
         for(Item item : items) {
-            if(item.getNo()!=null && item.getNo() == end) {
-                end--;
+            if(item.getNo()!=null && item.getNo() == noNum) {
+                noNum--;
                 continue;
             }
             else {
-                item.setNo((long)end);
-                end--;
+                item.setNo(noNum);
+                noNum--;
             }
         }
         return items;
     }
-
-
-    public void remove(Item item) {
-        em.remove(item);
-    }
-
-    public Long findTotalCount() {
-        return em.createQuery("select count(i) from Item i", Long.class)
-                .getSingleResult();
-    }
+    */
 }

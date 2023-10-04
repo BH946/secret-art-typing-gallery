@@ -15,21 +15,21 @@ import java.util.List;
 
 
 @Slf4j
-@Component
+//@Component
 @RequiredArgsConstructor // 생성자 주입
 public class InitDB {
     private final InitService initService;
 
 
     // 해당 클래스 인스턴스 생성(construct)된 후 자동 실행
-    @PostConstruct
+//    @PostConstruct
     public void init() {
         initService.initItem();
     }
 
-    @Service
+//    @Service
     @RequiredArgsConstructor
-    @Transactional // 쓰기모드 -> 바로 DB 저장
+//    @Transactional // 쓰기모드 -> 바로 DB 저장
     public static class InitService {
         private final EntityManager em;
         private final ItemRepository itemRepository;
@@ -41,7 +41,7 @@ public class InitDB {
             itemRepository.save(item1);
             itemRepository.save(item2);
             itemRepository.save(item3);
-            List<Item> items = itemRepository.findAllWithNoPage(1);
+            List<Item> items = itemRepository.updateAllNo();
 //            for(int i= 0 ; i<150; i++) {
 //                String name = "test"+i;
 //                Item item = Item.createItem(name, "12345", "테스트", "테스트123123", "");

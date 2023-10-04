@@ -6,6 +6,7 @@ import com.dau.secretarttypinggallery.entity.dto.UpdateItemDto;
 import com.dau.secretarttypinggallery.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,7 @@ public class ItemService {
     /**
      * save, findOne, findAll, update, remove
      * findAllWithPage 추가 + findPageId
-     * findThree()
+     * findThree() + updateAllNo
      */
 
     @Transactional // 쓰기모드 -> DB 저장위함
@@ -33,6 +34,10 @@ public class ItemService {
 
     public List<Item> findThree(Long itemId) {
         return itemRepository.findThree(itemId);
+    }
+
+    public int findPageId(Long itemId) { // 현제 페이징 찾는 함수
+        return itemRepository.findPageId(itemId);
     }
 
     // page 단위로(key) 캐시 기록 -> 참고 : value 로 꼭 캐시 영역을 지정해줘야 함
@@ -46,24 +51,20 @@ public class ItemService {
         // pageId 로 간단히 캐시 업데이트용 함수
         return itemRepository.findAllWithPage(pageId); // 반환값을 캐시에 기록하기 때문에 만든 함수
     }
+    // 캐시에 저장된 값 제거
+    @CacheEvict(value="posts", allEntries = true)
+    public void initCachePosts(){}
+
     @Transactional // 쓰기모드 -> DB 업데이트 (더티체킹 위해)
-    @CachePut(value = "posts", key = "#pageId") // [캐시에 데이터 있어도] 저장
-    public List<Item> findAllWithNoPage(int pageId) {
-        return itemRepository.findAllWithNoPage(pageId);
+    public List<Item> updateAllNo() {
+        return itemRepository.updateAllNo(); // No 필드 일괄 업데이트
     }
-
-    public int findPageId(Long itemId) { // 현제 페이징 찾는 함수
-        return itemRepository.findPageId(itemId);
-    }
-
     @Transactional // 쓰기모드 -> DB 저장위함
     public void update(Long itemId, UpdateItemDto updateItemDto) {
         // dirty checking
         Item item = itemRepository.findOne(itemId); // 영속성
         item.updateItem(updateItemDto); // 준영속(updateItemDto) -> 영속성
     }
-
-
     @Transactional // 쓰기모드 -> DB 삭제위함
     public void remove(Item item) { itemRepository.remove(item); }
 
