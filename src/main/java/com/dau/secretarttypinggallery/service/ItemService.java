@@ -46,6 +46,12 @@ public class ItemService {
         // pageId 로 간단히 캐시 업데이트용 함수
         return itemRepository.findAllWithPage(pageId); // 반환값을 캐시에 기록하기 때문에 만든 함수
     }
+    @Transactional // 쓰기모드 -> DB 업데이트 (더티체킹 위해)
+    @CachePut(value = "posts", key = "#pageId") // [캐시에 데이터 있어도] 저장
+    public List<Item> findAllWithNoPage(int pageId) {
+        return itemRepository.findAllWithNoPage(pageId);
+    }
+
     public int findPageId(Long itemId) { // 현제 페이징 찾는 함수
         return itemRepository.findPageId(itemId);
     }
@@ -56,6 +62,7 @@ public class ItemService {
         Item item = itemRepository.findOne(itemId); // 영속성
         item.updateItem(updateItemDto); // 준영속(updateItemDto) -> 영속성
     }
+
 
     @Transactional // 쓰기모드 -> DB 삭제위함
     public void remove(Item item) { itemRepository.remove(item); }

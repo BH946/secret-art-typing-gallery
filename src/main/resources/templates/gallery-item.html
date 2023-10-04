@@ -55,7 +55,7 @@
           <div class="d-flex flex-column" style="flex:1;">
             <span class="pb-2" style="font-weight: 700; color: var(--text-2); font-size: 1vw;" th:text="#{label.item.location}">작품위치</span>
             <span style="letter-spacing: -0.22px; font-weight: 400; color: white; font-size: 1.2vw;"
-            th:text="*{id} + '전시실'">15전시실</span>
+            th:text="*{No} + '전시실'">15전시실</span>
           </div>
           <img class="img-fluid " src="../static/stroke.svg"
           th:attr="src=@{/stroke.svg},title=#{logo},alt=#{logo}"

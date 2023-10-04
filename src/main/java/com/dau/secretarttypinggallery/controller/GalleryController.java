@@ -47,9 +47,12 @@ public class GalleryController {
         List<ItemDto> itemsDto = items.stream()
                 .map(o -> new ItemDto(o))
                 .collect(Collectors.toList());
-        log.debug("item Id check : {}",items.get(0).getId());
+//        log.debug("item Id check : {}",items.get(0).getId());
         model.addAttribute("items", itemsDto); // gallery.html 에 넘길 데이터
         model.addAttribute("totalCount", totalCount);
+
+        for(Item it : items)
+            log.debug("itemId : {}, itemNo : {}", it.getId(), it.getNo());
         return "gallery"; // gallery.html 반환
     }
 
@@ -62,10 +65,9 @@ public class GalleryController {
         if (item != null) {
             if(item.getPassword().equals(password)){
                 log.debug("비번통과");
-//                int newPageId = itemService.findPageId(itemId);
                 itemService.remove(item);
-                itemService.updateAllWithPage(pageId.intValue());
-                itemService.updateTotalCount();
+                List<Item> items = itemService.findAllWithNoPage(pageId.intValue()); // 캐싱
+                itemService.updateTotalCount(); // 캐싱
                 redirectAttributes.addAttribute("status", "deleteON");
                 return "redirect:/gallery"; // gallery() 함수로 이동
             }

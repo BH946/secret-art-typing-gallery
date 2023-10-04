@@ -26,11 +26,16 @@
         font-size:1.2vw;
         padding: 1vw;
       }
-      body {
-        cursor: url('/cursor.svg') 10 60, auto;
+
+      @media all and (min-width: 1921px) and (max-width: 4096px) {
+          body, #enterBtn {
+              cursor: url('/cursor.svg') 10 60, auto;
+          }
       }
-      #enterBtn {
-        cursor: url('/cursor.svg') 10 60, pointer;
+      @media all and (max-width: 1920px) {
+          body, #enterBtn {
+              cursor: url('/cursor_1920.svg') 10 60, auto;
+          }
       }
     </style>
 

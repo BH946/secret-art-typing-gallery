@@ -7,7 +7,8 @@ spring:
 
   # H2 DB
   datasource:
-    url: jdbc:h2:tcp://localhost/~/secret-art-typing-gallery/secret
+#    url: jdbc:h2:tcp://localhost/~/secret-art-typing-gallery/secret
+    url: jdbc:h2:tcp://localhost/~/secret-art-typing-gallery/secret;MODE=MySQL;
     username: sa
     password:
       driver-class-name: org.h2.Driver
@@ -15,6 +16,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create # DB 초기화 사용
+#      ddl-auto: none # DB 초기화 사용 X
     properties:
       hibernate:
 #        show_sql: true
@@ -69,8 +71,8 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: none # DB 초기화 사용 X
-#      ddl-auto: create # DB 초기화 사용
+#      ddl-auto: none # DB 초기화 사용 X
+      ddl-auto: create # DB 초기화 사용
 
   # 메시지 - thymeleaf 연동
   messages:

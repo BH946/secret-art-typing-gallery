@@ -3,25 +3,25 @@ package com.dau.secretarttypinggallery.entity;
 
 import com.dau.secretarttypinggallery.entity.dto.AddItemDto;
 import com.dau.secretarttypinggallery.entity.dto.UpdateItemDto;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 @Entity
-@Getter
+@Getter @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Item {
     @Id @GeneratedValue
     @Column(name = "item_id")
     private Long id; // No.로도 사용하겠음.
+
+    private Long No;
 
     private String nickName;
     private String password;

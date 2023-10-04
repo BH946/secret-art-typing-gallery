@@ -8,7 +8,6 @@
   <style>
         body{
           margin-top: 0px;
-          cursor: url('/cursor.svg') 10 60, auto;
         }
         .parent{
           position: relative;
@@ -16,15 +15,26 @@
         .absolute{
           position: absolute;
         }
-        #enterBtn {
-          cursor: url('/cursor.svg') 10 60, pointer;
-        }
 
         .speakerA{
           position: absolute; width: 3vw; top:90%; left:95%; transform: translate(-50%, -50%);
           border-radius: 50%; border-width: 1px; border-style: solid; border-color: white;
           padding: 0.5vw;
           position: fixed;
+        }
+
+        @media all and (min-width: 1921px) and (max-width: 4096px) {
+            body {
+                cursor: url('/cursor.svg') 10 60, auto;
+            }
+            #enterBtn {
+                cursor: url('/cursor.svg') 10 60, auto;
+            }
+        }
+        @media all and (max-width: 1920px) {
+            body, #enterBtn {
+                cursor: url('/cursor_1920.svg') 10 60, auto;
+            }
         }
   </style>
 

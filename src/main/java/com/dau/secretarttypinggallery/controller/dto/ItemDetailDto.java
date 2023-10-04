@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 @Getter
 public class ItemDetailDto {
     private Long id;
+    private Long No;
     private String title;
     private String nickName;
     private String content;
@@ -22,6 +23,7 @@ public class ItemDetailDto {
     //==생성 편의 메서드==//
     public ItemDetailDto(Item item) {
         this.id = item.getId();
+        this.No = item.getNo();
         this.content = item.getContent();
         this.title = item.getTitle();
         this.date2 = item.getDate2();

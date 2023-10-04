@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 @Getter
 public class ItemDto {
     private Long id;
+    private Long No;
     private String title;
     private String nickName;
     private String imgSrc;
@@ -20,6 +21,7 @@ public class ItemDto {
     //==생성 편의 메서드==//
     public ItemDto(Item item) {
         this.id = item.getId();
+        this.No = item.getNo();
         this.title = item.getTitle();
         this.nickName = item.getNickName();
         this.imgSrc = item.getImgSrc();

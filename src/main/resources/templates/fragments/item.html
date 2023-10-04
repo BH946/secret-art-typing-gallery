@@ -10,7 +10,7 @@ th:fragment="item">
     <div th:class="${item.id==items[0].id}? 'gallery-item-first' : 'gallery-item-many'"
     style="flex:1; padding-top: 30px;">
       <div class="d-flex flex-column pe-4" style="flex:0.15;">
-        <span class="" style="font-weight: 500; color: white; font-size: 1.2vw;" th:text="'No.'+*{id}">No.15</span>
+        <span class="" style="font-weight: 500; color: white; font-size: 1.2vw;" th:text="'No.'+*{No}">No.15</span>
         <span class="pt-2" style="font-weight: 400; color: var(--text-2); font-size: 1vw; letter-spacing: -0.16px;
         " th:field="*{{date1}}" th:text="*{{date1}}">23.05.22.16:00k</span>
       </div>
@@ -23,7 +23,7 @@ th:fragment="item">
         style="font-size: 1vw;
         align-self: flex-start; width: 12vw; padding:0.5em;"
         href="#" th:href="@{|/gallery/${pageId}/itemDetail/*{id}|}">
-          <span class="fw-bold" id="enterBtn1" style="font-size: 1em; white-space: nowrap;" th:text="|*{id}전시실 입장|">15전시실 입장 test용</span>
+          <span class="fw-bold" id="enterBtn1" style="font-size: 1em; white-space: nowrap;" th:text="|*{No}전시실 입장|">15전시실 입장 test용</span>
         </a>
       </div>
       <div class="d-flex flex-column" style="flex:0.43;">

@@ -18,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -112,7 +113,7 @@ public class StudioController {
         log.debug("item:{}", item.getImgSrc());
         itemService.save(item); // 이때 id 할당받음
         int pageId = itemService.findPageId(item.getId()); // 바로 가져올 수 있음
-        itemService.updateAllWithPage(pageId); // 캐싱
+        List<Item> items = itemService.findAllWithNoPage(pageId); // 캐싱
         itemService.updateTotalCount(); // 캐싱
         redirectAttributes.addAttribute("status", "addON");
         redirectAttributes.addAttribute("itemId", item.getId());

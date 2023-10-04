@@ -44,6 +44,20 @@
         padding: 0.5vw;
       }
 
+      @media all and (min-width: 1921px) and (max-width: 4096px) {
+          .firstLayout {
+              cursor: url('/cursor.svg') 10 60, auto;
+          }
+          #enterBtn {
+              cursor: url('/cursor.svg') 10 60, auto;
+          }
+      }
+      @media all and (max-width: 1920px) {
+          .firstLayout, #enterBtn {
+              cursor: url('/cursor_1920.svg') 10 60, auto;
+          }
+      }
+
     </style>
 
     <!-- main 개발 -->
@@ -185,8 +199,8 @@
       $('.threeLayout').css('display', 'none');
       $('.secondLayout').css('display', 'none');
 
-      $('.firstLayout').css('cursor', 'url(./cursor.svg) 10 60, auto');
-      $('#enterBtn').css('cursor', 'url(./cursor.svg) 10 60, pointer');
+      //$('.firstLayout').css('cursor', 'url(./cursor.svg) 10 60, auto');
+      //$('#enterBtn').css('cursor', 'url(./cursor.svg) 10 60, pointer');
     }
 
 
