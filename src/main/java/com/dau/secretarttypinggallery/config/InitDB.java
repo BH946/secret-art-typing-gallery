@@ -13,23 +13,27 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-
+/**
+ * 개발 모드에서 간편하게 시작과 동시에 데이터 생성 미리 넣어두려는 목적
+ * 안 사용할 거면 스프링 빈 등록 안되게끔(스캔X) @Component 주석 ㄱㄱ + @PostConstruct 주석도 마찬가지
+ * 실행흐름: InitService 라는 서비스를 inner class 로 간단히 추가 및 빈 등록하고, @PostConstruct 로 바로 실행
+ */
 @Slf4j
-//@Component
+@Component
 @RequiredArgsConstructor // 생성자 주입
 public class InitDB {
     private final InitService initService;
 
 
     // 해당 클래스 인스턴스 생성(construct)된 후 자동 실행
-//    @PostConstruct
+    @PostConstruct
     public void init() {
         initService.initItem();
     }
 
-//    @Service
+    @Service
     @RequiredArgsConstructor
-//    @Transactional // 쓰기모드 -> 바로 DB 저장
+    @Transactional // 쓰기모드 -> 바로 DB 저장
     public static class InitService {
         private final EntityManager em;
         private final ItemRepository itemRepository;

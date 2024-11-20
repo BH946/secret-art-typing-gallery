@@ -29,8 +29,8 @@ dependencies {
 
 	runtimeOnly 'com.h2database:h2' // H2
 	// https://docs.spring.io/spring-boot/docs/current/reference/html/dependency-versions.html#appendix.dependency-versions.coordinates
-	implementation group: 'com.mysql', name: 'mysql-connector-j', version: '8.0.33' // MYSQL
 
+	implementation group: 'com.mysql', name: 'mysql-connector-j', version: '8.0.33' // MYSQL
 	//test lombok 사용
 	testCompileOnly 'org.projectlombok:lombok'
 	testAnnotationProcessor 'org.projectlombok:lombok'

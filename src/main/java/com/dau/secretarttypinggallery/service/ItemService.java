@@ -32,11 +32,13 @@ public class ItemService {
 
     public Item findOne(Long itemId) { return itemRepository.findOne(itemId); }
 
+    // 이전 이후 버튼 위해서라도 이게 필요
     public List<Item> findThree(Long itemId) {
         return itemRepository.findThree(itemId);
     }
 
-    public int findPageId(Long itemId) { // 현제 페이징 찾는 함수
+    // 현제 페이징 찾는 함수 (메모리 캐시 업뎃 위해서라도 이게 필요)
+    public int findPageId(Long itemId) { 
         return itemRepository.findPageId(itemId);
     }
 
@@ -51,7 +53,7 @@ public class ItemService {
         // pageId 로 간단히 캐시 업데이트용 함수
         return itemRepository.findAllWithPage(pageId); // 반환값을 캐시에 기록하기 때문에 만든 함수
     }
-    // 캐시에 저장된 값 제거
+    // 캐시에 저장된 값 제거 -> 게시물 삭제 시 전체 캐시를 초기화 할 수 밖에..
     @CacheEvict(value="posts", allEntries = true)
     public void initCachePosts(){}
 

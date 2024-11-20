@@ -3,20 +3,21 @@ spring:
   # thymeleaf 캐시 사용 X로 실시간 reload
   thymeleaf:
     cache: false
+#    prefix: classpath:/templates/ # 리눅스용
     prefix: file:src/main/resources/templates/
 
-  # H2 DB
-  datasource:
-#    url: jdbc:h2:tcp://localhost/~/secret-art-typing-gallery/secret
-    url: jdbc:h2:tcp://localhost/~/secret-art-typing-gallery/secret;MODE=MySQL;
-    username: sa
-    password:
-      driver-class-name: org.h2.Driver
+  # H2 DB -> 메모리 DB 사용위해 임시로 주석
+#  datasource:
+##    url: jdbc:h2:tcp://localhost/~/secret-art-typing-gallery/secret
+#    url: jdbc:h2:tcp://localhost/~/secret-art-typing-gallery/secret;MODE=MySQL;
+#    username: sa
+#    password:
+#      driver-class-name: org.h2.Driver
 
   jpa:
     hibernate:
-#      ddl-auto: create # DB 초기화 사용
-      ddl-auto: none # DB 초기화 사용 X
+      ddl-auto: create # DB 초기화 사용 -> 메모리 DB 사용할 거면 당근 초기화는 필수지 (테이블 생성 때매)
+#      ddl-auto: none # DB 초기화 사용 X
     properties:
       hibernate:
 #        show_sql: true
@@ -85,7 +86,7 @@ server:
       timeout: 30m # session timeout 30min
 
   # gzip 압축
-  compression:
+  compress`ion:
     enabled: true
     mime-types: text/html,text/xml,text/plain,text/css,text/javascript,application/javascript
     min-response-size: 2048
